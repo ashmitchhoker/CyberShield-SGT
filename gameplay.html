@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CYBER SHIELD - Toxic Rain</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#0d112a", "surface-dim": "#0d112a", "surface-bright": "#343752",
+                        "surface-container": "#1a1e37", "surface-container-low": "#161a33",
+                        "surface-container-high": "#242842", "surface-container-highest": "#2f334e",
+                        "surface-container-lowest": "#080c25",
+                        "on-surface": "#dee0ff", "on-surface-variant": "#bbc9cf",
+                        "primary": "#a8e8ff", "primary-container": "#00d4ff", "primary-fixed-dim": "#3cd7ff",
+                        "on-primary": "#003642", "on-primary-container": "#00586b",
+                        "secondary": "#f5fff3", "secondary-container": "#34ff8d", "secondary-fixed": "#60ff99",
+                        "on-secondary": "#003919",
+                        "tertiary": "#ffd5d8", "tertiary-container": "#ffadb6",
+                        "error": "#ffb4ab", "error-container": "#93000a",
+                        "on-error": "#690005", "on-error-container": "#ffdad6",
+                        "outline": "#859398", "outline-variant": "#3c494e",
+                        "background": "#0d112a", "on-background": "#dee0ff",
+                        "inverse-primary": "#00677e", "inverse-surface": "#dee0ff", "inverse-on-surface": "#2b2f49",
+                    },
+                    fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block; line-height: 1; text-transform: none;
+            letter-spacing: normal; word-wrap: normal; white-space: nowrap; direction: ltr;
+        }
+        .digital-rain-container { mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent); }
+        .rain-column {
+            position: absolute; top: -20%; width: 1px;
+            background: linear-gradient(180deg, transparent, #00d4ff, transparent);
+            height: 200px; filter: blur(1px);
+        }
+        @keyframes rain { 0% { transform: translateY(-100vh); } 100% { transform: translateY(100vh); } }
+        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+        @keyframes pulse-glow { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        .animate-rain { animation: rain linear infinite; }
+        .animate-scanline { animation: scanline 10s linear infinite; }
+
+        .capsule-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+        .neon-border-cyan {
+            border: 1.5px solid #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4), inset 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+        .neon-border-error {
+            border: 1.5px solid #ffb4ab;
+            box-shadow: 0 0 15px rgba(255, 180, 171, 0.4), inset 0 0 10px rgba(255, 180, 171, 0.2);
+        }
+        .neon-border-safe {
+            border: 1.5px solid #34ff8d;
+            box-shadow: 0 0 15px rgba(52, 255, 141, 0.4), inset 0 0 10px rgba(52, 255, 141, 0.2);
+        }
+
+        .word-capsule {
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.1s;
+            user-select: none;
+            -webkit-user-select: none;
+            z-index: 20;
+        }
+        .word-capsule:active { transform: scale(0.9); }
+
+        @keyframes zap-explode {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.6); opacity: 0.6; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .zap-effect { animation: zap-explode 0.4s ease-out forwards; }
+
+        @keyframes score-popup {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-40px) scale(1.3); opacity: 0; }
+        }
+        .score-popup { animation: score-popup 0.6s ease-out forwards; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .shake { animation: shake 0.3s ease-in-out; }
+
+        @keyframes shield-flash {
+            0% { box-shadow: 0 0 25px rgba(0,212,255,1); }
+            50% { box-shadow: 0 0 60px rgba(255,100,100,1); }
+            100% { box-shadow: 0 0 25px rgba(0,212,255,1); }
+        }
+        .shield-hit { animation: shield-flash 0.4s ease-out; }
+    </style>
+</head>
+<body class="bg-surface-dim font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container overflow-hidden h-screen w-screen">
+    <script src="game-data.js"></script>
+
+    <!-- Background Layer -->
+    <div class="fixed inset-0 bg-[#080c1f] z-0 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0a0e27] via-[#0d112a] to-[#120a2e]"></div>
+        <div class="absolute inset-0 digital-rain-container opacity-20">
+            <div class="rain-column left-[5%] animate-rain" style="animation-duration:4s; animation-delay:0.5s;"></div>
+            <div class="rain-column left-[15%] animate-rain" style="animation-duration:6s; animation-delay:1.2s;"></div>
+            <div class="rain-column left-[28%] animate-rain" style="animation-duration:3.5s; animation-delay:2.1s;"></div>
+            <div class="rain-column left-[42%] animate-rain" style="animation-duration:5s; animation-delay:0.8s;"></div>
+            <div class="rain-column left-[60%] animate-rain" style="animation-duration:4.5s; animation-delay:1.5s;"></div>
+            <div class="rain-column left-[75%] animate-rain" style="animation-duration:7s; animation-delay:0.2s;"></div>
+            <div class="rain-column left-[88%] animate-rain" style="animation-duration:3s; animation-delay:2.5s;"></div>
+            <div class="rain-column left-[96%] animate-rain" style="animation-duration:5.5s; animation-delay:1.8s;"></div>
+        </div>
+        <div class="absolute inset-0 w-full h-[2px] bg-primary/10 blur-[1px] animate-scanline z-10"></div>
+    </div>
+
+    <!-- HUD (Top) -->
+    <header id="hud" class="fixed top-0 w-full z-50 px-4 pt-4 pb-6 bg-gradient-to-b from-surface-dim via-surface-dim/80 to-transparent">
+        <div class="max-w-xl mx-auto flex justify-between items-start">
+            <!-- Shield Hearts -->
+            <div class="flex flex-col gap-1">
+                <div id="lives-display" class="flex items-center gap-1.5">
+                    <!-- JS fills shield icons -->
+                </div>
+                <div id="shield-status" class="text-[10px] font-headline font-bold text-primary/60 tracking-widest uppercase">Shield Status: Optimized</div>
+            </div>
+            <!-- Level Info -->
+            <div class="flex flex-col items-center">
+                <h1 class="font-headline font-black text-2xl tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-b from-white to-primary drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] leading-none">CYBER SHIELD</h1>
+                <div class="mt-1 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed animate-pulse"></span>
+                    <span id="level-label" class="text-secondary-fixed text-[10px] font-headline font-bold uppercase tracking-[0.3em]">Sector 01 // Active</span>
+                </div>
+            </div>
+            <!-- Timer & Pause -->
+            <div class="flex items-center gap-2">
+                <div class="capsule-glass px-3 py-1 rounded-lg border border-primary/30 flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-primary text-base animate-pulse">timer</span>
+                    <span id="timer-display" class="font-headline font-bold text-on-surface text-base tabular-nums">0:45</span>
+                </div>
+                <button id="pause-btn" class="w-9 h-9 rounded-lg capsule-glass border border-primary/20 flex items-center justify-center active:scale-90 transition-transform">
+                    <span class="material-symbols-outlined text-primary text-lg">pause</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Gameplay Area -->
+    <main class="relative z-10 w-full h-full flex flex-col pt-24">
+        <!-- Score Display -->
+        <div class="absolute top-24 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-30">
+            <div id="score-display" class="text-white text-4xl font-headline font-black tracking-tighter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">0</div>
+            <div id="combo-display" class="mt-1 px-4 py-0.5 bg-gradient-to-r from-amber-500/20 to-yellow-400/20 border border-amber-500/40 rounded-full backdrop-blur-md hidden">
+                <span class="text-[11px] font-headline font-black text-amber-400 uppercase tracking-widest italic">Multi x2 Active</span>
+            </div>
+        </div>
+
+        <!-- Word Playground (where capsules fall) -->
+        <div id="playground" class="flex-1 w-full relative overflow-hidden">
+            <!-- JS spawns word capsules here -->
+        </div>
+
+        <!-- Shield Barrier -->
+        <div id="shield-barrier" class="w-full relative h-20 flex items-end justify-center px-6">
+            <div class="absolute bottom-14 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_25px_rgba(0,212,255,1)] opacity-80"></div>
+            <div class="absolute bottom-14 inset-x-0 h-16 bg-gradient-to-t from-primary/20 via-primary/5 to-transparent blur-xl"></div>
+            <div class="absolute bottom-14 w-1/3 h-[4px] bg-white blur-sm rounded-full" style="animation: pulse-glow 1.5s infinite;"></div>
+        </div>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-5 pt-2 bg-surface-container-lowest/90 backdrop-blur-2xl border-t border-white/5 shadow-[0_-10px_40px_rgba(0,0,0,0.8)]">
+        <a class="relative flex flex-col items-center justify-center group" href="gameplay.html?level=1">
+            <div class="absolute -inset-3 bg-primary/10 rounded-xl blur-md opacity-100"></div>
+            <span class="material-symbols-outlined text-primary text-2xl relative z-10" style="font-variation-settings: 'FILL' 1;">videogame_asset</span>
+            <div class="w-1 h-1 bg-primary rounded-full mt-0.5"></div>
+        </a>
+        <a class="flex flex-col items-center justify-center text-outline/40 hover:text-secondary-fixed transition-colors duration-300" href="levelcomplete.html">
+            <span class="material-symbols-outlined text-2xl">military_tech</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-outline/40 hover:text-secondary-fixed transition-colors duration-300" href="highscores.html">
+            <span class="material-symbols-outlined text-2xl">leaderboard</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-outline/40 hover:text-secondary-fixed transition-colors duration-300" href="settings.html">
+            <span class="material-symbols-outlined text-2xl">settings</span>
+        </a>
+    </nav>
+
+    <!-- Vignette -->
+    <div class="fixed inset-0 pointer-events-none z-[60] bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.5)_100%)]"></div>
+
+    <!-- ==================== GAME ENGINE ==================== -->
+    <script>
+    (() => {
+        // --- DOM refs ---
+        const playground = document.getElementById('playground');
+        const scoreDisplay = document.getElementById('score-display');
+        const comboDisplay = document.getElementById('combo-display');
+        const timerDisplay = document.getElementById('timer-display');
+        const livesDisplay = document.getElementById('lives-display');
+        const shieldStatus = document.getElementById('shield-status');
+        const levelLabel = document.getElementById('level-label');
+        const pauseBtn = document.getElementById('pause-btn');
+        const shieldBarrier = document.getElementById('shield-barrier');
+
+        // --- Parse level from URL ---
+        const params = new URLSearchParams(window.location.search);
+        const levelNum = parseInt(params.get('level')) || 1;
+        const config = GameData.getLevelConfig(levelNum);
+
+        // --- Game State ---
+        let score = 0;
+        let lives = 5;
+        let maxLives = 5;
+        let combo = 0;
+        let timeLeft = config.duration;
+        let wordsZapped = 0;
+        let totalToxicSpawned = 0;
+        let totalWordsSpawned = 0;
+        let correctZaps = 0;
+        let wrongZaps = 0;
+        let isPaused = false;
+        let isGameOver = false;
+        let activeWords = [];
+        let spawnTimer = null;
+        let gameLoop = null;
+        let countdownTimer = null;
+        let wordIdCounter = 0;
+
+        // --- Init ---
+        levelLabel.textContent = `${config.name} // Active`;
+        updateLivesDisplay();
+        updateScore();
+        updateTimer();
+
+        // --- Lives Display ---
+        function updateLivesDisplay() {
+            livesDisplay.innerHTML = '';
+            for (let i = 0; i < maxLives; i++) {
+                const span = document.createElement('span');
+                span.className = 'material-symbols-outlined text-xl';
+                if (i < lives) {
+                    span.className += ' text-primary drop-shadow-[0_0_10px_rgba(168,232,255,0.8)]';
+                    span.style.fontVariationSettings = "'FILL' 1";
+                } else {
+                    span.className += ' text-outline/20';
+                }
+                span.textContent = 'shield';
+                livesDisplay.appendChild(span);
+            }
+            if (lives <= 1) {
+                shieldStatus.textContent = 'Shield Status: CRITICAL';
+                shieldStatus.className = 'text-[10px] font-headline font-bold text-error/80 tracking-widest uppercase';
+            } else if (lives <= 2) {
+                shieldStatus.textContent = 'Shield Status: Damaged';
+                shieldStatus.className = 'text-[10px] font-headline font-bold text-amber-400/80 tracking-widest uppercase';
+            } else {
+                shieldStatus.textContent = 'Shield Status: Optimized';
+                shieldStatus.className = 'text-[10px] font-headline font-bold text-primary/60 tracking-widest uppercase';
+            }
+        }
+
+        // --- Score ---
+        function updateScore() {
+            scoreDisplay.textContent = score.toLocaleString();
+        }
+
+        function updateCombo() {
+            if (combo >= 2) {
+                comboDisplay.classList.remove('hidden');
+                comboDisplay.querySelector('span').textContent = `Multi x${combo} Active`;
+            } else {
+                comboDisplay.classList.add('hidden');
+            }
+        }
+
+        // --- Timer ---
+        function updateTimer() {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            timerDisplay.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // --- Spawn Word ---
+        function spawnWord() {
+            if (isPaused || isGameOver) return;
+
+            const isToxic = Math.random() < config.toxicRatio;
+            const word = GameData.getRandomWord(isToxic);
+            if (isToxic) totalToxicSpawned++;
+            totalWordsSpawned++;
+
+            const id = wordIdCounter++;
+            const xPos = 5 + Math.random() * 80; // 5% to 85% from left
+
+            const capsule = document.createElement('div');
+            capsule.className = 'word-capsule';
+            capsule.dataset.id = id;
+            capsule.dataset.toxic = isToxic;
+            capsule.style.left = xPos + '%';
+            capsule.style.top = '-60px';
+
+            const borderClass = isToxic ? 'neon-border-error' : 'neon-border-safe';
+            capsule.innerHTML = `
+                <div class="capsule-glass ${borderClass} px-6 py-2 rounded-full whitespace-nowrap">
+                    <span class="font-headline font-bold text-on-surface uppercase tracking-[0.15em] text-sm">${word}</span>
+                </div>
+                <div class="w-[2px] h-16 bg-gradient-to-b from-${isToxic ? 'error' : 'secondary-container'}/30 to-transparent blur-[1px] mx-auto"></div>
+            `;
+
+            capsule.addEventListener('click', () => handleTap(id));
+            capsule.addEventListener('touchstart', (e) => { e.preventDefault(); handleTap(id); }, { passive: false });
+
+            playground.appendChild(capsule);
+            activeWords.push({ id, element: capsule, isToxic, y: -60, speed: config.fallSpeed + Math.random() * 0.5 });
+        }
+
+        // --- Handle Tap ---
+        function handleTap(wordId) {
+            if (isPaused || isGameOver) return;
+            const idx = activeWords.findIndex(w => w.id === wordId);
+            if (idx === -1) return;
+
+            const wordObj = activeWords[idx];
+            const el = wordObj.element;
+
+            if (wordObj.isToxic) {
+                // Correct zap!
+                correctZaps++;
+                combo++;
+                const multiplier = Math.min(combo, 5);
+                const points = 10 * multiplier;
+                score += points;
+                wordsZapped++;
+
+                // Show score popup
+                showScorePopup(el, `+${points}`, '#ffb4ab');
+
+                // Zap animation
+                el.querySelector('.capsule-glass').classList.add('zap-effect');
+                el.style.pointerEvents = 'none';
+                setTimeout(() => { el.remove(); }, 400);
+            } else {
+                // Wrong! Tapped a safe word
+                wrongZaps++;
+                combo = 0;
+                lives--;
+                updateLivesDisplay();
+
+                showScorePopup(el, '-1 ❤️', '#ff6666');
+
+                // Shake effect
+                el.querySelector('.capsule-glass').style.border = '2px solid #ff4444';
+                playground.classList.add('shake');
+                setTimeout(() => playground.classList.remove('shake'), 300);
+
+                el.style.pointerEvents = 'none';
+                setTimeout(() => { el.remove(); }, 300);
+
+                if (lives <= 0) {
+                    gameOver();
+                    return;
+                }
+            }
+
+            activeWords.splice(idx, 1);
+            updateScore();
+            updateCombo();
+
+            // Check level complete
+            if (wordsZapped >= config.wordsToComplete) {
+                levelComplete();
+            }
+        }
+
+        // --- Score Popup ---
+        function showScorePopup(el, text, color) {
+            const popup = document.createElement('div');
+            popup.className = 'score-popup pointer-events-none';
+            popup.style.cssText = `
+                position: absolute; left: ${el.style.left}; top: ${parseInt(el.style.top) - 20}px;
+                font-family: 'Space Grotesk'; font-weight: 900; font-size: 1.2rem;
+                color: ${color}; z-index: 100; text-shadow: 0 0 10px ${color};
+            `;
+            popup.textContent = text;
+            playground.appendChild(popup);
+            setTimeout(() => popup.remove(), 600);
+        }
+
+        // --- Game Loop (move words down) ---
+        function tick() {
+            if (isPaused || isGameOver) return;
+
+            const playgroundHeight = playground.offsetHeight;
+            const shieldY = playgroundHeight - 60; // shield barrier position
+
+            for (let i = activeWords.length - 1; i >= 0; i--) {
+                const w = activeWords[i];
+                w.y += w.speed;
+                w.element.style.top = w.y + 'px';
+
+                // Word reached shield barrier
+                if (w.y >= shieldY) {
+                    if (w.isToxic) {
+                        // Toxic word got through — lose a life
+                        lives--;
+                        updateLivesDisplay();
+                        combo = 0;
+                        updateCombo();
+
+                        shieldBarrier.classList.add('shield-hit');
+                        setTimeout(() => shieldBarrier.classList.remove('shield-hit'), 400);
+
+                        if (lives <= 0) {
+                            w.element.remove();
+                            activeWords.splice(i, 1);
+                            gameOver();
+                            return;
+                        }
+                    }
+                    // Remove the word (safe words pass through harmlessly)
+                    w.element.remove();
+                    activeWords.splice(i, 1);
+                }
+            }
+        }
+
+        // --- Countdown ---
+        function startCountdown() {
+            countdownTimer = setInterval(() => {
+                if (isPaused || isGameOver) return;
+                timeLeft--;
+                updateTimer();
+                if (timeLeft <= 0) {
+                    // Time's up — if enough words zapped, level complete, else game over
+                    if (wordsZapped >= config.wordsToComplete) {
+                        levelComplete();
+                    } else {
+                        gameOver();
+                    }
+                }
+            }, 1000);
+        }
+
+        // --- Pause ---
+        pauseBtn.addEventListener('click', () => {
+            isPaused = true;
+            // Save state and go to pause menu
+            GameData.setGameState({
+                level: levelNum,
+                score, lives, timeLeft, wordsZapped,
+                totalToxicSpawned, correctZaps, wrongZaps, combo
+            });
+            window.location.href = 'pausemenu.html';
+        });
+
+        // --- Resume from pause ---
+        function tryResume() {
+            const state = GameData.getGameState();
+            if (state && state.level === levelNum && params.get('resume') === '1') {
+                score = state.score || 0;
+                lives = state.lives || 5;
+                timeLeft = state.timeLeft || config.duration;
+                wordsZapped = state.wordsZapped || 0;
+                totalToxicSpawned = state.totalToxicSpawned || 0;
+                correctZaps = state.correctZaps || 0;
+                wrongZaps = state.wrongZaps || 0;
+                combo = state.combo || 0;
+                updateLivesDisplay();
+                updateScore();
+                updateCombo();
+                updateTimer();
+                GameData.clearGameState();
+            }
+        }
+
+        // --- Level Complete ---
+        function levelComplete() {
+            isGameOver = true;
+            clearInterval(countdownTimer);
+            clearInterval(spawnTimer);
+            cancelAnimationFrame(gameLoop);
+
+            const totalAttempts = correctZaps + wrongZaps;
+            const accuracy = totalAttempts > 0 ? Math.round((correctZaps / totalAttempts) * 100) : 0;
+            const stars = GameData.calculateStars(accuracy);
+            const timePlayed = config.duration - timeLeft;
+
+            GameData.setGameState({
+                level: levelNum, score, wordsZapped, totalToxicSpawned,
+                accuracy, stars, combo, timePlayed
+            });
+
+            GameData.saveHighScore({
+                score, level: levelNum, stars, accuracy,
+                date: new Date().toISOString().slice(0, 10),
+                timePlayed
+            });
+
+            setTimeout(() => { window.location.href = 'levelcomplete.html'; }, 500);
+        }
+
+        // --- Game Over ---
+        function gameOver() {
+            isGameOver = true;
+            clearInterval(countdownTimer);
+            clearInterval(spawnTimer);
+            cancelAnimationFrame(gameLoop);
+
+            const totalAttempts = correctZaps + wrongZaps;
+            const accuracy = totalAttempts > 0 ? Math.round((correctZaps / totalAttempts) * 100) : 0;
+            const timePlayed = config.duration - timeLeft;
+
+            GameData.setGameState({
+                level: levelNum, score, wordsZapped, totalToxicSpawned,
+                accuracy, timePlayed
+            });
+
+            GameData.saveHighScore({
+                score, level: levelNum, stars: GameData.calculateStars(accuracy), accuracy,
+                date: new Date().toISOString().slice(0, 10),
+                timePlayed
+            });
+
+            setTimeout(() => { window.location.href = 'gameover.html'; }, 800);
+        }
+
+        // --- Animation Frame Loop ---
+        function animationLoop() {
+            if (!isGameOver) {
+                tick();
+                gameLoop = requestAnimationFrame(animationLoop);
+            }
+        }
+
+        // --- Start Game ---
+        function startGame() {
+            tryResume();
+            spawnTimer = setInterval(spawnWord, config.spawnInterval);
+            startCountdown();
+            animationLoop();
+            // Spawn first word immediately
+            setTimeout(spawnWord, 300);
+        }
+
+        startGame();
+    })();
+    </script>
+</body>
+</html>
