@@ -7,28 +7,10 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <script>
-        tailwind.config = { darkMode: "class", theme: { extend: {
-            colors: {
-                "surface": "#0d112a", "surface-dim": "#0d112a",
-                "surface-container": "#1a1e37", "surface-container-low": "#161a33",
-                "surface-container-high": "#242842", "surface-container-highest": "#2f334e",
-                "surface-container-lowest": "#080c25",
-                "on-surface": "#dee0ff", "on-surface-variant": "#bbc9cf",
-                "primary": "#a8e8ff", "primary-container": "#00d4ff",
-                "on-primary": "#003642", "on-primary-container": "#00586b",
-                "secondary-container": "#34ff8d",
-                "error": "#ffb4ab", "error-container": "#93000a",
-                "on-error": "#690005",
-                "outline": "#859398", "outline-variant": "#3c494e",
-                "background": "#0d112a", "on-background": "#dee0ff",
-            },
-            fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"] },
-        }}}
-    </script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/global.css"/>
+    <script src="js/components.js"></script>
     <style>
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        body { min-height: 100dvh; }
         .toggle-on { background-color: #1a1e37; }
         .toggle-on .toggle-dot { transform: translateX(1.25rem); background-color: #00d4ff; box-shadow: 0 0 8px rgba(0,212,255,0.6); }
         .toggle-off { background-color: #2f334e; }
@@ -117,12 +99,7 @@
     </div>
 </main>
 
-<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-[#0d112a]/90 backdrop-blur-lg border-t border-white/5 rounded-t-2xl">
-    <a class="text-slate-500 p-3 hover:text-white" href="index.html"><span class="material-symbols-outlined">home</span></a>
-    <a class="text-slate-500 p-3 hover:text-white" href="gameplay.html?level=1"><span class="material-symbols-outlined">videogame_asset</span></a>
-    <a class="text-slate-500 p-3 hover:text-white" href="highscores.html"><span class="material-symbols-outlined">leaderboard</span></a>
-    <a class="bg-[#00d4ff]/10 text-[#00d4ff] rounded-xl p-3" href="settings.html"><span class="material-symbols-outlined">settings</span></a>
-</nav>
+<cyber-nav></cyber-nav>
 
 <script>
 (() => {

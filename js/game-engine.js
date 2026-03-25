@@ -1,0 +1,353 @@
+(() => {
+    // --- DOM refs ---
+    const playground = document.getElementById('playground');
+    const scoreDisplay = document.getElementById('score-display');
+    const comboDisplay = document.getElementById('combo-display');
+    const timerDisplay = document.getElementById('timer-display');
+    const livesDisplay = document.getElementById('lives-display');
+    const shieldStatus = document.getElementById('shield-status');
+    const levelLabel = document.getElementById('level-label');
+    const pauseBtn = document.getElementById('pause-btn');
+    const shieldBarrier = document.getElementById('shield-barrier');
+
+    // --- Parse level from URL ---
+    const params = new URLSearchParams(window.location.search);
+    const levelNum = parseInt(params.get('level')) || 1;
+    const config = GameData.getLevelConfig(levelNum);
+
+    // --- Game State ---
+    let score = 0;
+    let lives = 5;
+    let maxLives = 5;
+    let combo = 0;
+    let timeLeft = config.duration;
+    let wordsZapped = 0;
+    let totalToxicSpawned = 0;
+    let totalWordsSpawned = 0;
+    let correctZaps = 0;
+    let wrongZaps = 0;
+    let isPaused = false;
+    let isGameOver = false;
+    let activeWords = [];
+    let spawnTimer = null;
+    let gameLoop = null;
+    let countdownTimer = null;
+    let wordIdCounter = 0;
+
+    // --- Init ---
+    levelLabel.textContent = `${config.name} // Active`;
+    updateLivesDisplay();
+    updateScore();
+    updateTimer();
+
+    // --- Lives Display ---
+    function updateLivesDisplay() {
+        livesDisplay.innerHTML = '';
+        for (let i = 0; i < maxLives; i++) {
+            const span = document.createElement('span');
+            span.className = 'material-symbols-outlined text-xl';
+            if (i < lives) {
+                span.className += ' text-primary drop-shadow-[0_0_10px_rgba(168,232,255,0.8)]';
+                span.style.fontVariationSettings = "'FILL' 1";
+            } else {
+                span.className += ' text-outline/20';
+            }
+            span.textContent = 'shield';
+            livesDisplay.appendChild(span);
+        }
+        if (lives <= 1) {
+            shieldStatus.textContent = 'Shield Status: CRITICAL';
+            shieldStatus.className = 'text-[10px] font-headline font-bold text-error/80 tracking-widest uppercase';
+        } else if (lives <= 2) {
+            shieldStatus.textContent = 'Shield Status: Damaged';
+            shieldStatus.className = 'text-[10px] font-headline font-bold text-amber-400/80 tracking-widest uppercase';
+        } else {
+            shieldStatus.textContent = 'Shield Status: Optimized';
+            shieldStatus.className = 'text-[10px] font-headline font-bold text-primary/60 tracking-widest uppercase';
+        }
+    }
+
+    // --- Score ---
+    function updateScore() {
+        scoreDisplay.textContent = score.toLocaleString();
+    }
+
+    function updateCombo() {
+        if (combo >= 2) {
+            comboDisplay.classList.remove('hidden');
+            comboDisplay.querySelector('span').textContent = `Multi x${combo} Active`;
+        } else {
+            comboDisplay.classList.add('hidden');
+        }
+    }
+
+    // --- Timer ---
+    function updateTimer() {
+        const mins = Math.floor(timeLeft / 60);
+        const secs = timeLeft % 60;
+        timerDisplay.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    // --- Spawn Word ---
+    function spawnWord() {
+        if (isPaused || isGameOver) return;
+
+        const isToxic = Math.random() < config.toxicRatio;
+        const word = GameData.getRandomWord(isToxic, levelNum);
+        if (isToxic) totalToxicSpawned++;
+        totalWordsSpawned++;
+
+        const id = wordIdCounter++;
+        const xPos = 5 + Math.random() * 80; // 5% to 85% from left
+
+        const capsule = document.createElement('div');
+        capsule.className = 'word-capsule';
+        capsule.dataset.id = id;
+        capsule.dataset.toxic = isToxic;
+        capsule.style.left = xPos + '%';
+        capsule.style.top = '-60px';
+
+        const borderClass = 'neon-border-cyan';
+        capsule.innerHTML = `
+            <div class="capsule-glass ${borderClass} w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center shadow-2xl backdrop-blur-md transition-all">
+                <span class="font-headline font-bold text-on-surface uppercase tracking-wide text-xs md:text-sm drop-shadow-lg text-center max-w-full hover:scale-105 transition-transform cursor-pointer">${word}</span>
+            </div>
+        `;
+
+        capsule.addEventListener('click', () => handleTap(id));
+        capsule.addEventListener('touchstart', (e) => { e.preventDefault(); handleTap(id); }, { passive: false });
+
+        playground.appendChild(capsule);
+        activeWords.push({ id, element: capsule, isToxic, y: -60, speed: config.fallSpeed + Math.random() * 0.5 });
+    }
+
+    // --- Handle Tap ---
+    function handleTap(wordId) {
+        if (isPaused || isGameOver) return;
+        const idx = activeWords.findIndex(w => w.id === wordId);
+        if (idx === -1) return;
+
+        const wordObj = activeWords[idx];
+        const el = wordObj.element;
+
+        if (wordObj.isToxic) {
+            // Correct zap!
+            correctZaps++;
+            combo++;
+            const multiplier = Math.min(combo, 5);
+            const points = 10 * multiplier;
+            score += points;
+            wordsZapped++;
+
+            // Show score popup
+            showScorePopup(el, `BULLY WORD!<br><span style="font-size: 0.9rem">+${points}</span>`, '#3cd7ff');
+
+            // Zap animation
+            el.querySelector('.capsule-glass').classList.add('zap-effect');
+            el.style.pointerEvents = 'none';
+            setTimeout(() => { el.remove(); }, 400);
+        } else {
+            // Wrong! Tapped a safe word
+            wrongZaps++;
+            combo = 0;
+            lives--;
+            updateLivesDisplay();
+
+            showScorePopup(el, `SAFE WORD!<br><span style="font-size: 0.9rem">-1 ❤️</span>`, '#ffb4ab');
+
+            // Shake effect
+            el.querySelector('.capsule-glass').style.border = '2px solid #ff4444';
+            playground.classList.add('shake');
+            setTimeout(() => playground.classList.remove('shake'), 300);
+
+            el.style.pointerEvents = 'none';
+            setTimeout(() => { el.remove(); }, 300);
+
+            if (lives <= 0) {
+                gameOver();
+                return;
+            }
+        }
+
+        activeWords.splice(idx, 1);
+        updateScore();
+        updateCombo();
+
+        // Check level complete
+        if (wordsZapped >= config.wordsToComplete) {
+            levelComplete();
+        }
+    }
+
+    // --- Score Popup ---
+    function showScorePopup(el, text, color) {
+        const popup = document.createElement('div');
+        popup.className = 'score-popup pointer-events-none text-center';
+        popup.style.cssText = `
+            position: absolute; left: ${el.style.left}; top: ${parseInt(el.style.top) - 30}px;
+            font-family: 'Space Grotesk'; font-weight: 900; font-size: 1.2rem; line-height: 1.1;
+            color: ${color}; z-index: 100; text-shadow: 0 0 10px ${color};
+        `;
+        popup.innerHTML = text;
+        playground.appendChild(popup);
+        setTimeout(() => popup.remove(), 600);
+    }
+
+    // --- Game Loop (move words down) ---
+    function tick() {
+        if (isPaused || isGameOver) return;
+
+        const playgroundHeight = playground.offsetHeight;
+        const shieldY = playgroundHeight - 60; // shield barrier position
+
+        for (let i = activeWords.length - 1; i >= 0; i--) {
+            const w = activeWords[i];
+            w.y += w.speed;
+            w.element.style.top = w.y + 'px';
+
+            // Word reached shield barrier
+            if (w.y >= shieldY) {
+                if (w.isToxic) {
+                    // Toxic word got through — lose a life
+                    lives--;
+                    updateLivesDisplay();
+                    combo = 0;
+                    updateCombo();
+
+                    shieldBarrier.classList.add('shield-hit');
+                    setTimeout(() => shieldBarrier.classList.remove('shield-hit'), 400);
+
+                    if (lives <= 0) {
+                        w.element.remove();
+                        activeWords.splice(i, 1);
+                        gameOver();
+                        return;
+                    }
+                }
+                // Remove the word (safe words pass through harmlessly)
+                w.element.remove();
+                activeWords.splice(i, 1);
+            }
+        }
+    }
+
+    // --- Countdown ---
+    function startCountdown() {
+        countdownTimer = setInterval(() => {
+            if (isPaused || isGameOver) return;
+            timeLeft--;
+            updateTimer();
+            if (timeLeft <= 0) {
+                // Time's up — if enough words zapped, level complete, else game over
+                if (wordsZapped >= config.wordsToComplete) {
+                    levelComplete();
+                } else {
+                    gameOver();
+                }
+            }
+        }, 1000);
+    }
+
+    // --- Pause ---
+    pauseBtn.addEventListener('click', () => {
+        isPaused = true;
+        // Save state and go to pause menu
+        GameData.setGameState({
+            level: levelNum,
+            score, lives, timeLeft, wordsZapped,
+            totalToxicSpawned, correctZaps, wrongZaps, combo
+        });
+        window.location.href = 'pausemenu.html';
+    });
+
+    // --- Resume from pause ---
+    function tryResume() {
+        const state = GameData.getGameState();
+        if (state && state.level === levelNum && params.get('resume') === '1') {
+            score = state.score || 0;
+            lives = state.lives || 5;
+            timeLeft = state.timeLeft || config.duration;
+            wordsZapped = state.wordsZapped || 0;
+            totalToxicSpawned = state.totalToxicSpawned || 0;
+            correctZaps = state.correctZaps || 0;
+            wrongZaps = state.wrongZaps || 0;
+            combo = state.combo || 0;
+            updateLivesDisplay();
+            updateScore();
+            updateCombo();
+            updateTimer();
+            GameData.clearGameState();
+        }
+    }
+
+    // --- Level Complete ---
+    function levelComplete() {
+        isGameOver = true;
+        clearInterval(countdownTimer);
+        clearInterval(spawnTimer);
+        cancelAnimationFrame(gameLoop);
+
+        const totalAttempts = correctZaps + wrongZaps;
+        const accuracy = totalAttempts > 0 ? Math.round((correctZaps / totalAttempts) * 100) : 0;
+        const stars = GameData.calculateStars(accuracy);
+        const timePlayed = config.duration - timeLeft;
+
+        GameData.setGameState({
+            level: levelNum, score, wordsZapped, totalToxicSpawned,
+            accuracy, stars, combo, timePlayed
+        });
+
+        GameData.saveHighScore({
+            score, level: levelNum, stars, accuracy,
+            date: new Date().toISOString().slice(0, 10),
+            timePlayed
+        });
+
+        setTimeout(() => { window.location.href = 'levelcomplete.html'; }, 500);
+    }
+
+    // --- Game Over ---
+    function gameOver() {
+        isGameOver = true;
+        clearInterval(countdownTimer);
+        clearInterval(spawnTimer);
+        cancelAnimationFrame(gameLoop);
+
+        const totalAttempts = correctZaps + wrongZaps;
+        const accuracy = totalAttempts > 0 ? Math.round((correctZaps / totalAttempts) * 100) : 0;
+        const timePlayed = config.duration - timeLeft;
+
+        GameData.setGameState({
+            level: levelNum, score, wordsZapped, totalToxicSpawned,
+            accuracy, timePlayed
+        });
+
+        GameData.saveHighScore({
+            score, level: levelNum, stars: GameData.calculateStars(accuracy), accuracy,
+            date: new Date().toISOString().slice(0, 10),
+            timePlayed
+        });
+
+        setTimeout(() => { window.location.href = 'gameover.html'; }, 800);
+    }
+
+    // --- Animation Frame Loop ---
+    function animationLoop() {
+        if (!isGameOver) {
+            tick();
+            gameLoop = requestAnimationFrame(animationLoop);
+        }
+    }
+
+    // --- Start Game ---
+    function startGame() {
+        tryResume();
+        spawnTimer = setInterval(spawnWord, config.spawnInterval);
+        startCountdown();
+        animationLoop();
+        // Spawn first word immediately
+        setTimeout(spawnWord, 300);
+    }
+
+    startGame();
+})();

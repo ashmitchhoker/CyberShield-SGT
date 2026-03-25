@@ -5,19 +5,31 @@
 const GameData = (() => {
   // --- Word Banks ---
   const TOXIC_WORDS = [
-    'UGLY', 'STUPID', 'TRASH', 'LOSER', 'WORTHLESS', 'IDIOT',
-    'HATE', 'DUMB', 'FREAK', 'PATHETIC', 'KILL', 'NOBODY',
-    'LAME', 'CREEP', 'GROSS', 'TOXIC', 'WEAK', 'USELESS',
-    'BULLY', 'MORON', 'SHAME', 'DISGUST', 'REJECT', 'FAILURE',
-    'TROLL', 'HARASS', 'ABUSE', 'THREAT', 'MOCK', 'INSULT'
+    // Easy
+    'UGLY', 'HATE', 'DUMB', 'KILL', 'LAME', 'WEAK', 'MOCK', 'BAD', 'MEAN', 'RUDE', 'SCUM', 'LIAR', 'FAKE', 'POOR', 'SLOW', 'MAD', 'FOOL', 'CRUEL', 'BRAT', 'PEST', 'SNOB', 'MUTT', 'RAT', 'SOB', 'CRY', 'SHUT UP', 'GO AWAY', 'UR UGLY',
+    // Medium
+    'STUPID', 'TRASH', 'LOSER', 'IDIOT', 'FREAK', 'CREEP', 'GROSS', 'TOXIC', 'BULLY', 'MORON', 'SHAME', 'TROLL', 'ABUSE', 'COWARD', 'CRAZY', 'NASTY', 'SICK', 'SLIME', 'JERK', 'PIG', 'AWFUL', 'DIRTY', 'GARBAGE', 'PITIFUL', 'MORBID', 'WEIRDO', 'SNAKE', 'WIMP', 'BOGUS', 'CHUMP', 'BULL', 'PUNK', 'SNOOTY', 'CHEAP', 'DUMMY', 'FLOP', 'CLOWN', 'SPAM', 'HACK', 'SPITE', 'GRUB', 'BRUTE', 'FIEND', 'SNOOP', 'YOU SUCK', 'EAT SHIT', 'GET LOST', 'DIE NOW', 'SO DUMB', 'LOSER FR', 'FAT ASS', 'U TRASH',
+    // Hard
+    'WORTHLESS', 'PATHETIC', 'USELESS', 'DISGUST', 'REJECT', 'FAILURE', 'HARASS', 'THREAT', 'INSULT', 'ISOLATE', 'TORMENT', 'INTIMIDATE', 'BLACKMAIL', 'MOCKERY', 'DESPAIR', 'RUIN', 'HUMILIATE', 'DEGRADE', 'EXPOSE', 'CANCEL', 'SABOTAGE', 'MANIPULATE', 'GASLIGHT', 'OSTRACIZE', 'BELITTLE', 'TERRORIZE', 'DOX', 'DEFAME', 'VICIOUS', 'MALICIOUS', 'HOSTILE', 'ABUSIVE', 'VENOMOUS', 'FUCK YOU', 'FUCK OFF', 'NO CARES', 'KILL URSELF'
   ];
 
   const SAFE_WORDS = [
-    'KIND', 'HELP', 'LOVE', 'BRAVE', 'FRIEND', 'RESPECT',
-    'STRONG', 'SUPPORT', 'CARE', 'SMILE', 'HOPE', 'PEACE',
-    'TRUST', 'SAFE', 'GENTLE', 'SHARE', 'LISTEN', 'HERO',
-    'EMPATHY', 'UPLIFT', 'ALLY', 'INCLUDE', 'UNITY', 'COURAGE',
-    'PROTECT', 'KINDNESS', 'INSPIRE', 'SHINE', 'WELCOME', 'CHEER'
+    // Easy
+    'KIND', 'HELP', 'LOVE', 'CARE', 'HOPE', 'SAFE', 'HERO', 'GOOD', 'NICE', 'HUG', 'WARN', 'CHEER', 'OKAY', 'CALM', 'NEAT', 'TEAM', 'PAL', 'GIFT', 'WISE', 'WARM', 'FAIR', 'REAL', 'PALS', 'JOY', 'FUN', 'YOU ROCK', 'HUG U', 'SO KIND',
+    // Medium
+    'SMILE', 'PEACE', 'TRUST', 'SHARE', 'ALLY', 'UNITY', 'BRAVE', 'FRIEND', 'STRONG', 'LISTEN', 'SHINE', 'HEART', 'LAUGH', 'PRAISE', 'EQUAL', 'TRUTH', 'VALUE', 'PROUD', 'HONEST', 'GENTLE', 'SECURE', 'CANDID', 'LOVING', 'TENDER', 'GRACE', 'DECENT', 'BELIEF', 'SHELTER', 'MORAL', 'PROPER', 'WORTHY', 'NOBLE', 'MILD', 'FOND', 'BRIGHT', 'GUIDE', 'DEFEND', 'MEND', 'LOVE YOU', 'GOOD JOB', 'WELL DONE', 'I CARE', 'BE BRAVE', 'KEEP GOING', 'SHINE ON',
+    // Hard
+    'RESPECT', 'SUPPORT', 'EMPATHY', 'UPLIFT', 'INCLUDE', 'COURAGE', 'PROTECT', 'KINDNESS', 'INSPIRE', 'WELCOME', 'ENCOURAGE', 'COMPASSION', 'GENEROUS', 'HARMONY', 'POSITIVE', 'VALIDATE', 'ACCEPT', 'SYMPATHY', 'REASSURE', 'TOLERANCE', 'AFFECTION', 'SOLIDARITY', 'NURTURE', 'GRATITUDE', 'RESILIENCE', 'APPRECIATE', 'ATTENTIVE', 'THOUGHTFUL', 'FORGIVENESS', 'INTEGRITY', 'ADVOCATE', 'CHAMPION', 'EMPOWER', 'FORTITUDE', 'COURTEOUS', 'STAY SAFE', 'U MATTER', 'STAY STRONG', 'YOU BELONG', 'WE CARE'
+  ];
+
+  const CYBER_TIPS = [
+    { title: "Block & Report", text: "If someone sends you hateful messages online, don't reply. <span class='text-on-surface font-semibold text-primary'>Block and report them</span> to keep your digital space secure." },
+    { title: "IT Act Section 67", text: "Under <strong>Section 67 of the Indian IT Act</strong>, publishing or transmitting obscene material in electronic form is a punishable offense." },
+    { title: "Save Evidence", text: "Take screenshots of abusive messages or comments before blocking the user. It serves as strong evidence when reporting cyberbullying." },
+    { title: "Report Cyber Crime", text: "You can report cyberstalking and online harassment anonymously to the National Cyber Crime Reporting Portal at <span class='text-on-surface font-semibold text-primary'>cybercrime.gov.in</span>." },
+    { title: "Protect Your Peace", text: "You have the right to be safe online. <strong>Section 354D of the Indian Penal Code</strong> makes cyberstalking a criminal offense." },
+    { title: "Think Before You Share", text: "Once something is posted online, it's hard to take back. Be mindful of sharing personal information that could be used for harassment." },
+    { title: "Stand Up for Others", text: "If you see someone being cyberbullied, don't join in. Offer them support and encourage them to report the abuse." }
   ];
 
   // --- Level Configurations ---
@@ -91,9 +103,16 @@ const GameData = (() => {
   }
 
   // --- Utility ---
-  function getRandomWord(isToxic) {
+  function getRandomWord(isToxic, levelNum = 1) {
     const list = isToxic ? TOXIC_WORDS : SAFE_WORDS;
-    return list[Math.floor(Math.random() * list.length)];
+    let windowSize = 12;
+    let startIndex = (levelNum - 1) * 8;
+    if (startIndex + windowSize > list.length) {
+        startIndex = list.length - windowSize;
+    }
+    if (startIndex < 0) startIndex = 0;
+    const pool = list.slice(startIndex, startIndex + windowSize);
+    return pool[Math.floor(Math.random() * pool.length)];
   }
 
   function getLevelConfig(levelNum) {
@@ -107,11 +126,15 @@ const GameData = (() => {
     return 1;
   }
 
+  function getRandomTip() {
+    return CYBER_TIPS[Math.floor(Math.random() * CYBER_TIPS.length)];
+  }
+
   return {
-    TOXIC_WORDS, SAFE_WORDS, LEVELS, DEFAULT_SETTINGS,
+    TOXIC_WORDS, SAFE_WORDS, LEVELS, DEFAULT_SETTINGS, CYBER_TIPS,
     getSettings, saveSettings,
     getHighScores, saveHighScore, clearAllData,
     setGameState, getGameState, clearGameState,
-    getRandomWord, getLevelConfig, calculateStars
+    getRandomWord, getLevelConfig, calculateStars, getRandomTip
   };
 })();
