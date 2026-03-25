@@ -198,7 +198,7 @@
         if (isPaused || isGameOver) return;
 
         const playgroundHeight = playground.offsetHeight;
-        const shieldY = playgroundHeight - 60; // shield barrier position
+        const shieldY = playgroundHeight - 10; // shield barrier visual hit mark
 
         for (let i = activeWords.length - 1; i >= 0; i--) {
             const w = activeWords[i];
