@@ -149,7 +149,7 @@
         capsule.addEventListener('touchstart', (e) => { e.preventDefault(); handleTap(id); }, { passive: false });
 
         playground.appendChild(capsule);
-        activeWords.push({ id, element: capsule, isToxic, y: -60, speed: config.fallSpeed + Math.random() * 0.5 });
+        activeWords.push({ id, element: capsule, isToxic, y: -60, speed: config.fallSpeed });
     }
 
     // --- Handle Tap ---
