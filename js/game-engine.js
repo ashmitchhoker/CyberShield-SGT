@@ -35,7 +35,7 @@
     let wordIdCounter = 0;
 
     // --- Init ---
-    levelLabel.textContent = `${config.name} // Active`;
+    levelLabel.textContent = `${config.name} / 0${GameData.LEVELS.length}`;
     updateLivesDisplay();
     updateTimer();
 

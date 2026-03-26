@@ -163,20 +163,20 @@ const GameData = (() => {
 
   const CYBER_TIPS = [
     { title: "Block & Report", text: "If someone sends you hateful messages online, don't reply. <span class='text-on-surface font-semibold text-primary'>Block and report them</span> to keep your digital space secure." },
-    { title: "IT Act Section 67", text: "Under <strong>Section 67 of the Indian IT Act</strong>, publishing or transmitting obscene material in electronic form is a punishable offense." },
+    { title: "Defamation (BNS 356)", text: "Under <strong>Section 356 of Bharatiya Nyaya Sanhita (BNS)</strong>, making or publishing false statements to harm someone's reputation is a criminal offense." },
     { title: "Save Evidence", text: "Take screenshots of abusive messages or comments before blocking the user. It serves as strong evidence when reporting cyberbullying." },
-    { title: "Report Cyber Crime", text: "You can report cyberstalking and online harassment anonymously to the National Cyber Crime Reporting Portal at <span class='text-on-surface font-semibold text-primary'>cybercrime.gov.in</span>." },
-    { title: "Protect Your Peace", text: "You have the right to be safe online. <strong>Section 354D of the Indian Penal Code</strong> makes cyberstalking a criminal offense." },
+    { title: "Report Cyber Crime", text: "You can report cyberbullying and online harassment anonymously to the National Cyber Crime Reporting Portal at <span class='text-on-surface font-semibold text-primary'>cybercrime.gov.in</span>." },
+    { title: "Criminal Intimidation", text: "<strong>Section 351 of BNS</strong> covers criminal intimidation, including threats sent over the internet to cause alarm or harm." },
     { title: "Think Before You Share", text: "Once something is posted online, it's hard to take back. Be mindful of sharing personal information that could be used for harassment." },
     { title: "Stand Up for Others", text: "If you see someone being cyberbullied, don't join in. Offer them support and encourage them to report the abuse." }
   ];
 
   // --- Level Configurations (4 levels) ---
   const LEVELS = [
-    { level: 1, name: 'Sector 01', duration: 55,  spawnInterval: 1800, fallSpeed: 1.4, toxicRatio: 0.6,  wordsToComplete: 14 },
-    { level: 2, name: 'Sector 02', duration: 60,  spawnInterval: 1400, fallSpeed: 1.8, toxicRatio: 0.55, wordsToComplete: 18 },
-    { level: 3, name: 'Sector 03', duration: 65,  spawnInterval: 1100, fallSpeed: 2.4, toxicRatio: 0.5,  wordsToComplete: 24 },
-    { level: 4, name: 'Sector 04', duration: 70,  spawnInterval: 850,  fallSpeed: 3.0, toxicRatio: 0.45, wordsToComplete: 30 },
+    { level: 1, name: 'Level 01', duration: 55,  spawnInterval: 1800, fallSpeed: 1.4, toxicRatio: 0.6,  wordsToComplete: 14 },
+    { level: 2, name: 'Level 02', duration: 60,  spawnInterval: 1400, fallSpeed: 1.8, toxicRatio: 0.55, wordsToComplete: 18 },
+    { level: 3, name: 'Level 03', duration: 65,  spawnInterval: 1100, fallSpeed: 2.4, toxicRatio: 0.5,  wordsToComplete: 24 },
+    { level: 4, name: 'Level 04', duration: 70,  spawnInterval: 850,  fallSpeed: 3.0, toxicRatio: 0.45, wordsToComplete: 30 },
   ];
 
   // --- Settings defaults ---
