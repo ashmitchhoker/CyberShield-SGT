@@ -63,11 +63,11 @@
 
     <!-- Main Gameplay Area -->
     <main class="relative z-10 w-full h-full flex flex-col pt-24 pb-4">
-        <!-- Score Display -->
-        <div class="absolute top-24 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-30">
-            <div id="score-display" class="text-white text-4xl font-headline font-black tracking-tighter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">0</div>
-            <div id="combo-display" class="mt-1 px-4 py-0.5 bg-gradient-to-r from-amber-500/20 to-yellow-400/20 border border-amber-500/40 rounded-full backdrop-blur-md hidden">
-                <span class="text-[11px] font-headline font-black text-amber-400 uppercase tracking-widest italic">Multi x2 Active</span>
+        <!-- Cyberbullying Awareness Bar -->
+        <div id="cyber-alert-bar" class="absolute top-[88px] left-1/2 -translate-x-1/2 w-[92%] max-w-xl pointer-events-none z-30 transition-all duration-500" style="filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.3));">
+            <div class="px-5 py-2.5 rounded-2xl flex items-center justify-center"
+                 style="background: linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(120,0,255,0.06) 50%, rgba(0,212,255,0.1) 100%); border: 1.5px solid rgba(0,212,255,0.4); box-shadow: 0 0 20px rgba(0,212,255,0.15), inset 0 0 20px rgba(0,212,255,0.05);">
+                <span id="cyber-alert-text" class="text-sm md:text-base font-headline font-black uppercase tracking-[0.2em]" style="color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.6), 0 0 30px rgba(0,212,255,0.2);">⚡ SAY NO TO CYBERBULLYING ⚡</span>
             </div>
         </div>
 

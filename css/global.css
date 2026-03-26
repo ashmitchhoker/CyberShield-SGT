@@ -29,6 +29,20 @@
     50% { box-shadow: 0 0 60px rgba(255,100,100,1); }
     100% { box-shadow: 0 0 25px rgba(0,212,255,1); }
 }
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+@keyframes cyber-alert-flash {
+    0% { transform: translateX(-50%) scale(1); }
+    15% { transform: translateX(-50%) scale(1.04); }
+    30% { transform: translateX(-50%) scale(1); }
+    45% { transform: translateX(-50%) scale(1.02); }
+    60% { transform: translateX(-50%) scale(1); }
+}
+.cyber-flash {
+    animation: cyber-alert-flash 0.6s ease-out;
+}
 
 .animate-rain { animation: rain linear infinite; }
 .animate-scanline { animation: scanline 10s linear infinite; }

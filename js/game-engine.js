@@ -1,8 +1,8 @@
 (() => {
     // --- DOM refs ---
     const playground = document.getElementById('playground');
-    const scoreDisplay = document.getElementById('score-display');
-    const comboDisplay = document.getElementById('combo-display');
+    const cyberAlertBar = document.getElementById('cyber-alert-bar');
+    const cyberAlertText = document.getElementById('cyber-alert-text');
     const timerDisplay = document.getElementById('timer-display');
     const livesDisplay = document.getElementById('lives-display');
     const shieldStatus = document.getElementById('shield-status');
@@ -37,7 +37,6 @@
     // --- Init ---
     levelLabel.textContent = `${config.name} // Active`;
     updateLivesDisplay();
-    updateScore();
     updateTimer();
 
     // --- Lives Display ---
@@ -67,18 +66,50 @@
         }
     }
 
-    // --- Score ---
-    function updateScore() {
-        scoreDisplay.textContent = score.toLocaleString();
-    }
+    // --- Score (internal only, no display) ---
+    function updateScore() { /* score tracked internally for results screen */ }
 
-    function updateCombo() {
-        if (combo >= 2) {
-            comboDisplay.classList.remove('hidden');
-            comboDisplay.querySelector('span').textContent = `Multi x${combo} Active`;
-        } else {
-            comboDisplay.classList.add('hidden');
-        }
+    // --- Cyberbullying Alert Flash ---
+    const CYBER_MESSAGES = [
+        '🚨 CYBERBULLYING DETECTED 🚨',
+        '⛔ REPORT ONLINE HATE ⛔',
+        '🔴 STAND AGAINST BULLYING 🔴',
+        '⚠️ HATE SPEECH = CRIME ⚠️',
+        '🚫 BLOCK & REPORT ABUSE 🚫',
+        '💔 WORDS CAN HURT 💔',
+        '🛑 SAY NO TO TOXICITY 🛑',
+        '📢 SPEAK UP AGAINST HATE 📢',
+    ];
+    let alertTimeout = null;
+
+    function flashCyberAlert() {
+        const msg = CYBER_MESSAGES[Math.floor(Math.random() * CYBER_MESSAGES.length)];
+        cyberAlertText.textContent = msg;
+
+        // Flash red glow with scale animation
+        const bar = cyberAlertBar.querySelector('div');
+        bar.style.borderColor = 'rgba(255, 50, 50, 0.9)';
+        bar.style.boxShadow = '0 0 35px rgba(255, 50, 50, 0.7), 0 0 60px rgba(255, 50, 50, 0.3), inset 0 0 20px rgba(255, 50, 50, 0.15)';
+        bar.style.background = 'linear-gradient(135deg, rgba(255,50,50,0.15) 0%, rgba(200,0,0,0.1) 50%, rgba(255,50,50,0.15) 100%)';
+        cyberAlertBar.style.filter = 'drop-shadow(0 0 20px rgba(255, 50, 50, 0.5))';
+        cyberAlertText.style.color = '#ff3333';
+        cyberAlertText.style.textShadow = '0 0 12px rgba(255,50,50,0.8), 0 0 35px rgba(255,50,50,0.4)';
+
+        // CSS scale bounce
+        cyberAlertBar.classList.remove('cyber-flash');
+        void cyberAlertBar.offsetWidth;
+        cyberAlertBar.classList.add('cyber-flash');
+
+        if (alertTimeout) clearTimeout(alertTimeout);
+        alertTimeout = setTimeout(() => {
+            bar.style.borderColor = 'rgba(0,212,255,0.4)';
+            bar.style.boxShadow = '0 0 20px rgba(0,212,255,0.15), inset 0 0 20px rgba(0,212,255,0.05)';
+            bar.style.background = 'linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(120,0,255,0.06) 50%, rgba(0,212,255,0.1) 100%)';
+            cyberAlertBar.style.filter = 'drop-shadow(0 0 12px rgba(0, 212, 255, 0.3))';
+            cyberAlertText.textContent = '\u26a1 SAY NO TO CYBERBULLYING \u26a1';
+            cyberAlertText.style.color = '#00d4ff';
+            cyberAlertText.style.textShadow = '0 0 10px rgba(0,212,255,0.6), 0 0 30px rgba(0,212,255,0.2)';
+        }, 1800);
     }
 
     // --- Timer ---
@@ -139,8 +170,9 @@
             score += points;
             wordsZapped++;
 
-            // Show score popup
-            showScorePopup(el, `BULLY WORD!<br><span style="font-size: 0.9rem">+${points}</span>`, '#3cd7ff');
+            // Show popup & flash cyberbullying bar
+            showScorePopup(el, `BULLY WORD!`, '#3cd7ff');
+            flashCyberAlert();
 
             // Zap animation
             el.querySelector('.capsule-glass').classList.add('zap-effect');
@@ -171,7 +203,6 @@
 
         activeWords.splice(idx, 1);
         updateScore();
-        updateCombo();
 
         // Check level complete
         if (wordsZapped >= config.wordsToComplete) {
@@ -212,7 +243,6 @@
                     lives--;
                     updateLivesDisplay();
                     combo = 0;
-                    updateCombo();
 
                     shieldBarrier.classList.add('shield-hit');
                     setTimeout(() => shieldBarrier.classList.remove('shield-hit'), 400);
@@ -274,7 +304,6 @@
             combo = state.combo || 0;
             updateLivesDisplay();
             updateScore();
-            updateCombo();
             updateTimer();
             GameData.clearGameState();
         }
