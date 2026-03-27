@@ -159,10 +159,10 @@ const GameData = (() => {
 
   // --- Level Configurations (4 levels) ---
   const LEVELS = [
-    { level: 1, name: 'Level 01', duration: 30,  spawnInterval: 1800, fallSpeed: 1.4, toxicRatio: 0.6,  wordsToComplete: 14 },
-    { level: 2, name: 'Level 02', duration: 60,  spawnInterval: 1400, fallSpeed: 1.8, toxicRatio: 0.55, wordsToComplete: 18 },
-    { level: 3, name: 'Level 03', duration: 65,  spawnInterval: 1100, fallSpeed: 2.4, toxicRatio: 0.5,  wordsToComplete: 24 },
-    { level: 4, name: 'Level 04', duration: 70,  spawnInterval: 850,  fallSpeed: 3.0, toxicRatio: 0.45, wordsToComplete: 30 },
+    { level: 1, name: 'Level 01', duration: 45,  spawnInterval: 2200, fallSpeed: 1.0, toxicRatio: 0.65, wordsToComplete: 8  },
+    { level: 2, name: 'Level 02', duration: 50,  spawnInterval: 1800, fallSpeed: 1.3, toxicRatio: 0.6,  wordsToComplete: 12 },
+    { level: 3, name: 'Level 03', duration: 55,  spawnInterval: 1500, fallSpeed: 1.6, toxicRatio: 0.55, wordsToComplete: 16 },
+    { level: 4, name: 'Level 04', duration: 60,  spawnInterval: 1200, fallSpeed: 2.0, toxicRatio: 0.5,  wordsToComplete: 20 },
   ];
 
   // --- Settings defaults ---
