@@ -9,6 +9,10 @@
     const levelLabel = document.getElementById('level-label');
     const pauseBtn = document.getElementById('pause-btn');
     const shieldBarrier = document.getElementById('shield-barrier');
+    const progressCounter = document.getElementById('progress-counter');
+    const introOverlay = document.getElementById('intro-overlay');
+    const startGameBtn = document.getElementById('start-game-btn');
+    const hud = document.getElementById('hud');
 
     // --- Parse level from URL ---
     const params = new URLSearchParams(window.location.search);
@@ -38,6 +42,11 @@
     levelLabel.textContent = `${config.name} / 0${GameData.LEVELS.length}`;
     updateLivesDisplay();
     updateTimer();
+    updateProgress();
+
+    // Set intro target count
+    const introTarget = document.getElementById('intro-target');
+    if (introTarget) introTarget.textContent = config.wordsToComplete;
 
     // --- Lives Display ---
     function updateLivesDisplay() {
@@ -66,8 +75,12 @@
         }
     }
 
-    // --- Score (internal only, no display) ---
+    // --- Score & Progress ---
     function updateScore() { /* score tracked internally for results screen */ }
+    function updateProgress() {
+        const left = Math.max(0, config.wordsToComplete - wordsZapped);
+        progressCounter.textContent = `${wordsZapped} / ${config.wordsToComplete} ZAPPED`;
+    }
 
     // --- Cyberbullying Alert Flash ---
     const CYBER_MESSAGES = [
@@ -169,6 +182,7 @@
             const points = 10 * multiplier;
             score += points;
             wordsZapped++;
+            updateProgress();
 
             // Show popup & flash cyberbullying bar
             showScorePopup(el, `BULLY WORD!`, '#3cd7ff');
@@ -203,6 +217,7 @@
 
         activeWords.splice(idx, 1);
         updateScore();
+        updateProgress();
 
         // Check level complete
         if (wordsZapped >= config.wordsToComplete) {
@@ -371,6 +386,7 @@
     // --- Start Game ---
     function startGame() {
         tryResume();
+        updateProgress();
         spawnTimer = setInterval(spawnWord, config.spawnInterval);
         startCountdown();
         animationLoop();
@@ -378,5 +394,18 @@
         setTimeout(spawnWord, 300);
     }
 
-    startGame();
+    // --- Intro Logic ---
+    const isResuming = params.get('resume') === '1';
+    if (isResuming) {
+        // Skip intro on resume
+        introOverlay.style.display = 'none';
+        hud.style.display = '';
+        startGame();
+    } else {
+        startGameBtn.addEventListener('click', () => {
+            introOverlay.style.display = 'none';
+            hud.style.display = '';
+            startGame();
+        });
+    }
 })();
