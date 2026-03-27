@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/global.css"/>
     <script src="js/components.js"></script>
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-x-hidden flex flex-col">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-[100dvh] overflow-x-hidden flex flex-col">
     <script src="game-data.js"></script>
 
     <!-- TopAppBar -->
@@ -88,6 +88,15 @@
                 <button id="replay-btn" class="px-10 py-4 bg-transparent border border-outline-variant hover:border-primary-container hover:bg-primary-container/10 text-on-surface font-headline font-bold tracking-widest uppercase rounded-lg active:scale-95 transition-all">
                     REPLAY
                 </button>
+            </div>
+
+            <!-- Report Link -->
+            <div class="mt-12 flex flex-col items-center gap-2">
+                <a href="https://cybercrime.gov.in" target="_blank" 
+                   class="text-sm font-headline font-bold text-primary hover:text-white transition-all flex items-center gap-2 no-underline tracking-wider uppercase py-3 px-6 rounded-xl border border-primary/30 hover:border-primary/60 bg-primary/10 hover:bg-primary/20 shadow-[0_0_15px_rgba(0,212,255,0.2)]">
+                    <span class="material-symbols-outlined text-lg">security</span>
+                    Report Cybercrime Portal
+                </a>
             </div>
         </div>
     </main>

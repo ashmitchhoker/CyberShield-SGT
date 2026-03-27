@@ -11,7 +11,7 @@ const GameData = (() => {
     'JERK✊', 'PIG🐷', 'AWFUL🤮', 'DIRTY💩', 'GARBAGE🚮', 'PITIFUL😢', 'MORBID💀', 'WEIRDO🛸', 'SNAKE🐍',
     'WIMP🐛', 'BOGUS🚫', 'CHUMP🪵', 'BULL🐂', 'PUNK🎸', 'SNOOTY🤨', 'CHEAP💸', 'DUMMY🧵', 'FLOP👎',
     'CLOWN🤡', 'SPAM📧', 'HACK💻', 'SPITE💢', 'GRUB🪱', 'BRUTE🦍', 'FIEND🧛', 'SNOOP🔍',
-    'YOU SUCK🤮', 'EAT SHIT💩', 'GET LOST🗺️', 'DIE NOW⚰️', 'SO DUMB😵', 'FAT ASS🍑', 'U TRASH🚮',
+    'YOU SUCK🤮', 'STAY AWAY🚫', 'GET LOST🗺️', 'DIE NOW⚰️', 'SO DUMB😵', 'U FAILED📉', 'U TRASH🚮',
     'SCUMBAG🪳', 'PSYCHO🔪', 'SICKO🤮', 'DEVIANT🧬', 'HATER🤬', 'LEECH🦟', 'VERMIN🐀', 'PLAGUE🦠',
     'GREEDY💰', 'PETTY🤏', 'BITTER🍋', 'SHADY🕶️', 'PHONY📵', 'SLEAZY🐍', 'SMUG🤨', 'SAVAGE🦁',
     // --- Block 2 ---
@@ -31,8 +31,8 @@ const GameData = (() => {
     'THREAT🚨', 'INSULT🤐', 'ISOLATE⛓️', 'TORMENT🧨', 'INTIMIDATE👺', 'BLACKMAIL📧', 'MOCKERY🎭',
     'DESPAIR🌑', 'RUIN🏚️', 'HUMILIATE🫵', 'DEGRADE📉', 'EXPOSE📸', 'CANCEL🚫', 'SABOTAGE🧨',
     'MANIPULATE🧵', 'GASLIGHT🕯️', 'OSTRACIZE🧊', 'BELITTLE🤏', 'TERRORIZE😱', 'DOX📋', 'DEFAME📰',
-    'VICIOUS🐺', 'MALICIOUS🦂', 'ABUSIVE⚠️', 'VENOMOUS🐍', 'FUCK YOU🖕', 'FUCK OFF🖕',
-    'NO CARES🤷', 'KILL URSELF💀', 'PREDATOR🦈', 'STALKER👁️', 'OPPRESSOR⛓️', 'DESTROYER☄️',
+    'VICIOUS🐺', 'MALICIOUS🦂', 'ABUSIVE⚠️', 'VENOMOUS🐍', 'NO CARES🤷', 'KILL URSELF💀',
+    'PREDATOR🦈', 'STALKER👁️', 'OPPRESSOR⛓️', 'DESTROYER☄️',
     'EXPLOITER💰', 'DECEIVER👺', 'BETRAYER🗡️', 'COERCION🤝🚫', 'EXTORTION💰', 'SLANDER🗣️',
     'PERSECUTE🏹', 'VICTIMIZE🎯', 'DEHUMANIZE🤖', 'OBJECTIFY🏺', 'DISRESPECT😤', 'DEVASTATE💥',
     'ANNIHILATE☄️', 'DEMOLISH🔨', 'OBLITERATE🧨', 'CORRUPT💵', 'DISGRACE🤦', 'BRUTALIZE👊',
@@ -165,7 +165,7 @@ const GameData = (() => {
     { title: "Block & Report", text: "If someone sends you hateful messages online, don't reply. <span class='text-on-surface font-semibold text-primary'>Block and report them</span> to keep your digital space secure." },
     { title: "Defamation (BNS 356)", text: "Under <strong>Section 356 of Bharatiya Nyaya Sanhita (BNS)</strong>, making or publishing false statements to harm someone's reputation is a criminal offense." },
     { title: "Save Evidence", text: "Take screenshots of abusive messages or comments before blocking the user. It serves as strong evidence when reporting cyberbullying." },
-    { title: "Report Cyber Crime", text: "You can report cyberbullying and online harassment anonymously to the National Cyber Crime Reporting Portal at <span class='text-on-surface font-semibold text-primary'>cybercrime.gov.in</span>." },
+    { title: "Report Cyber Crime", text: "You can report cyberbullying and online harassment anonymously to the National Cyber Crime Reporting Portal at <a href='https://cybercrime.gov.in' target='_blank' class='text-primary underline hover:text-white transition-colors font-bold'>cybercrime.gov.in</a>." },
     { title: "Criminal Intimidation", text: "<strong>Section 351 of BNS</strong> covers criminal intimidation, including threats sent over the internet to cause alarm or harm." },
     { title: "Think Before You Share", text: "Once something is posted online, it's hard to take back. Be mindful of sharing personal information that could be used for harassment." },
     { title: "Stand Up for Others", text: "If you see someone being cyberbullied, don't join in. Offer them support and encourage them to report the abuse." }

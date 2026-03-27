@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/global.css"/>
     <script src="js/components.js"></script>
 </head>
-<body class="bg-surface text-on-surface font-body overflow-hidden">
+<body class="bg-surface text-on-surface font-body min-h-[100dvh] overflow-x-hidden flex flex-col items-center">
     <script src="game-data.js"></script>
 
     <!-- Frozen Background -->
@@ -84,9 +84,16 @@
             </div>
         </div>
 
-        <p class="mt-12 font-headline text-[10px] tracking-[0.3em] text-outline-variant/40 uppercase">
-            v2.4.5 // Neural Interface: SECURE
-        </p>
+        <div class="mt-8 flex flex-col items-center gap-2">
+            <a href="https://cybercrime.gov.in" target="_blank" 
+               class="text-sm font-headline font-bold text-primary hover:text-white transition-all flex items-center gap-2 no-underline tracking-wider uppercase py-3 px-6 rounded-xl border border-primary/30 hover:border-primary/60 bg-primary/10 hover:bg-primary/20 shadow-[0_0_15px_rgba(0,212,255,0.2)]">
+                <span class="material-symbols-outlined text-lg">security</span>
+                Report Cybercrime Portal
+            </a>
+            <p class="font-headline text-[10px] tracking-[0.3em] text-outline-variant/40 uppercase">
+                v2.4.5 // Neural Interface: SECURE
+            </p>
+        </div>
     </main>
 
     <script>
