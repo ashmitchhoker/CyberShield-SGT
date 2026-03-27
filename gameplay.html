@@ -1,128 +1,289 @@
-<!DOCTYPE html>
+<!doctype html>
 <html class="dark" lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>CYBER SHIELD - Toxic Rain</title>
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+      as="style"
+    />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
     <script src="js/tailwind-config.js"></script>
-    <link rel="stylesheet" href="css/global.css"/>
+    <link rel="stylesheet" href="css/global.css" />
     <script src="js/components.js"></script>
-</head>
-<body class="bg-surface-dim font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container overflow-hidden h-[100dvh] w-screen">
+  </head>
+  <body
+    class="bg-surface-dim font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container overflow-hidden h-[100dvh] w-screen"
+  >
     <script src="game-data.js"></script>
 
     <!-- Background Layer -->
     <div class="fixed inset-0 bg-[#080c1f] z-0 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#0a0e27] via-[#0d112a] to-[#120a2e]"></div>
-        <div class="absolute inset-0 digital-rain-container opacity-20">
-            <div class="rain-column left-[5%] animate-rain" style="animation-duration:4s; animation-delay:0.5s;"></div>
-            <div class="rain-column left-[15%] animate-rain" style="animation-duration:6s; animation-delay:1.2s;"></div>
-            <div class="rain-column left-[28%] animate-rain" style="animation-duration:3.5s; animation-delay:2.1s;"></div>
-            <div class="rain-column left-[42%] animate-rain" style="animation-duration:5s; animation-delay:0.8s;"></div>
-            <div class="rain-column left-[60%] animate-rain" style="animation-duration:4.5s; animation-delay:1.5s;"></div>
-            <div class="rain-column left-[75%] animate-rain" style="animation-duration:7s; animation-delay:0.2s;"></div>
-            <div class="rain-column left-[88%] animate-rain" style="animation-duration:3s; animation-delay:2.5s;"></div>
-            <div class="rain-column left-[96%] animate-rain" style="animation-duration:5.5s; animation-delay:1.8s;"></div>
-        </div>
-        <div class="absolute inset-0 w-full h-[2px] bg-primary/10 blur-[1px] animate-scanline z-10"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-[#0a0e27] via-[#0d112a] to-[#120a2e]"
+      ></div>
+      <div class="absolute inset-0 digital-rain-container opacity-20">
+        <div
+          class="rain-column left-[5%] animate-rain"
+          style="animation-duration: 4s; animation-delay: 0.5s"
+        ></div>
+        <div
+          class="rain-column left-[15%] animate-rain"
+          style="animation-duration: 6s; animation-delay: 1.2s"
+        ></div>
+        <div
+          class="rain-column left-[28%] animate-rain"
+          style="animation-duration: 3.5s; animation-delay: 2.1s"
+        ></div>
+        <div
+          class="rain-column left-[42%] animate-rain"
+          style="animation-duration: 5s; animation-delay: 0.8s"
+        ></div>
+        <div
+          class="rain-column left-[60%] animate-rain"
+          style="animation-duration: 4.5s; animation-delay: 1.5s"
+        ></div>
+        <div
+          class="rain-column left-[75%] animate-rain"
+          style="animation-duration: 7s; animation-delay: 0.2s"
+        ></div>
+        <div
+          class="rain-column left-[88%] animate-rain"
+          style="animation-duration: 3s; animation-delay: 2.5s"
+        ></div>
+        <div
+          class="rain-column left-[96%] animate-rain"
+          style="animation-duration: 5.5s; animation-delay: 1.8s"
+        ></div>
+      </div>
+      <div
+        class="absolute inset-0 w-full h-[2px] bg-primary/10 blur-[1px] animate-scanline z-10"
+      ></div>
     </div>
 
     <!-- HUD (Top) -->
-    <header id="hud" class="fixed top-0 w-full z-50 px-4 pt-4 pb-6 bg-gradient-to-b from-surface-dim via-surface-dim/80 to-transparent" style="display:none;">
-        <div class="max-w-xl mx-auto flex justify-between items-start">
-            <!-- Shield Hearts -->
-            <div class="flex flex-col gap-1">
-                <div id="lives-display" class="flex items-center gap-1.5">
-                    <!-- JS fills shield icons -->
-                </div>
-                <div id="shield-status" class="text-xs font-headline font-bold text-primary/60 tracking-widest uppercase">Shield Status: Optimized</div>
-            </div>
-            <!-- Level Info -->
-            <div class="flex flex-col items-center">
-                <h1 class="font-headline font-black text-2xl tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-b from-white to-primary drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] leading-none">CYBER SHIELD</h1>
-                <div class="mt-1 flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed animate-pulse"></span>
-                    <span id="level-label" class="text-secondary-fixed text-xs font-headline font-bold uppercase tracking-[0.3em]">Level 01 / 04</span>
-                </div>
-                <!-- Progress Counter -->
-                <div class="mt-1 flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-secondary-container text-xs" style="font-variation-settings:'FILL' 1;">target</span>
-                    <span id="progress-counter" class="text-secondary-container text-[10px] font-headline font-bold uppercase tracking-widest">0 / 8 ZAPPED</span>
-                </div>
-            </div>
-            <!-- Timer & Pause -->
-            <div class="flex items-center gap-2">
-                <div class="capsule-glass px-3 py-1 rounded-lg border border-primary/30 flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-primary text-base animate-pulse">timer</span>
-                    <span id="timer-display" class="font-headline font-bold text-on-surface text-base tabular-nums">0:45</span>
-                </div>
-                <button id="pause-btn" class="w-9 h-9 rounded-lg capsule-glass border border-primary/20 flex items-center justify-center active:scale-90 transition-transform">
-                    <span class="material-symbols-outlined text-primary text-lg">pause</span>
-                </button>
-            </div>
+    <header
+      id="hud"
+      class="fixed top-0 w-full z-50 px-4 pt-4 pb-6 bg-gradient-to-b from-surface-dim via-surface-dim/80 to-transparent"
+      style="display: none"
+    >
+      <div class="max-w-xl mx-auto flex justify-between items-start">
+        <!-- Shield Hearts -->
+        <div class="flex flex-col gap-1">
+          <div id="lives-display" class="flex items-center gap-1.5">
+            <!-- JS fills shield icons -->
+          </div>
+          <div
+            id="shield-status"
+            class="text-xs font-headline font-bold text-primary/60 tracking-widest uppercase"
+          >
+            Shield Status: Optimized
+          </div>
         </div>
+        <!-- Level Info -->
+        <div class="flex flex-col items-center">
+          <h1
+            class="font-headline font-black text-2xl tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-b from-white to-primary drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] leading-none"
+          >
+            CYBER SHIELD
+          </h1>
+          <div class="mt-1 flex items-center gap-2">
+            <span
+              class="w-1.5 h-1.5 rounded-full bg-secondary-fixed animate-pulse"
+            ></span>
+            <span
+              id="level-label"
+              class="text-secondary-fixed text-xs font-headline font-bold uppercase tracking-[0.3em]"
+              >Level 01 / 04</span
+            >
+          </div>
+          <!-- Progress Counter -->
+          <div class="mt-1 flex items-center gap-1.5">
+            <span
+              class="material-symbols-outlined text-secondary-container text-xs"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >target</span
+            >
+            <span
+              id="progress-counter"
+              class="text-secondary-container text-[10px] font-headline font-bold uppercase tracking-widest"
+              >0 / 8 ZAPPED</span
+            >
+          </div>
+        </div>
+        <!-- Timer & Pause -->
+        <div class="flex items-center gap-2">
+          <div
+            class="capsule-glass px-3 py-1 rounded-lg border border-primary/30 flex items-center gap-1.5"
+          >
+            <span
+              class="material-symbols-outlined text-primary text-base animate-pulse"
+              >timer</span
+            >
+            <span
+              id="timer-display"
+              class="font-headline font-bold text-on-surface text-base tabular-nums"
+              >0:45</span
+            >
+          </div>
+          <button
+            id="pause-btn"
+            class="w-9 h-9 rounded-lg capsule-glass border border-primary/20 flex items-center justify-center active:scale-90 transition-transform"
+          >
+            <span class="material-symbols-outlined text-primary text-lg"
+              >pause</span
+            >
+          </button>
+        </div>
+      </div>
     </header>
 
     <!-- Intro Tutorial Overlay -->
-    <div id="intro-overlay" class="fixed inset-0 z-[70] flex items-center justify-center px-6" style="background: rgba(10,14,39,0.95); backdrop-filter: blur(8px);">
-        <div class="max-w-md w-full text-center">
-            <div class="mb-6">
-                <span class="material-symbols-outlined text-primary-container text-[72px] drop-shadow-[0_0_20px_rgba(0,212,255,0.5)]" style="font-variation-settings: 'FILL' 1;">shield</span>
-            </div>
-            <h2 class="font-headline font-black text-3xl md:text-4xl tracking-tight text-on-surface mb-4">HOW TO PLAY</h2>
-            <div class="space-y-4 text-left bg-surface-container/80 rounded-xl p-6 border border-white/10 mb-8">
-                <div class="flex items-start gap-3">
-                    <span class="material-symbols-outlined text-error text-xl mt-0.5">cancel</span>
-                    <p class="text-on-surface text-sm"><span class="font-bold text-error">TAP toxic/bully words</span> to zap them before they reach the shield barrier.</p>
-                </div>
-                <div class="flex items-start gap-3">
-                    <span class="material-symbols-outlined text-secondary-container text-xl mt-0.5">check_circle</span>
-                    <p class="text-on-surface text-sm"><span class="font-bold text-secondary-container">DON'T tap safe/kind words</span> — let them pass through safely.</p>
-                </div>
-                <div class="flex items-start gap-3">
-                    <span class="material-symbols-outlined text-primary text-xl mt-0.5" style="font-variation-settings:'FILL' 1;">shield</span>
-                    <p class="text-on-surface text-sm">You have <span class="font-bold text-primary">5 shield lives</span>. You lose one if you tap a safe word or a toxic word reaches the barrier.</p>
-                </div>
-                <div class="flex items-start gap-3">
-                    <span class="material-symbols-outlined text-[#ffdb58] text-xl mt-0.5" style="font-variation-settings:'FILL' 1;">target</span>
-                    <p class="text-on-surface text-sm">Zap <span id="intro-target" class="font-bold text-[#ffdb58]">8</span> toxic words before time runs out to win!</p>
-                </div>
-            </div>
-            <button id="start-game-btn" class="w-full py-4 px-8 bg-gradient-to-r from-primary to-primary-container rounded-xl font-headline font-bold text-on-primary-container text-xl shadow-[0_0_25px_rgba(0,212,255,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3">
-                <span class="material-symbols-outlined text-2xl">play_arrow</span>
-                START GAME
-            </button>
+    <div
+      id="intro-overlay"
+      class="fixed inset-0 z-[70] flex items-center justify-center px-6"
+      style="background: rgba(10, 14, 39, 0.95); backdrop-filter: blur(8px)"
+    >
+      <div class="max-w-md w-full text-center">
+        <div class="mb-6">
+          <span
+            class="material-symbols-outlined text-primary-container text-[72px] drop-shadow-[0_0_20px_rgba(0,212,255,0.5)]"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >shield</span
+          >
         </div>
+        <h2
+          class="font-headline font-black text-3xl md:text-4xl tracking-tight text-on-surface mb-4"
+        >
+          HOW TO PLAY
+        </h2>
+        <div
+          class="space-y-4 text-left bg-surface-container/80 rounded-xl p-6 border border-white/10 mb-8"
+        >
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-error text-xl mt-0.5"
+              >cancel</span
+            >
+            <p class="text-on-surface text-sm">
+              <span class="font-bold text-error">TAP toxic/bully words</span> to
+              zap them before they reach the shield barrier.
+            </p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span
+              class="material-symbols-outlined text-secondary-container text-xl mt-0.5"
+              >check_circle</span
+            >
+            <p class="text-on-surface text-sm">
+              <span class="font-bold text-secondary-container"
+                >DON'T tap safe/kind words</span
+              >
+              — let them pass through safely.
+            </p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span
+              class="material-symbols-outlined text-primary text-xl mt-0.5"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >shield</span
+            >
+            <p class="text-on-surface text-sm">
+              You have
+              <span class="font-bold text-primary">5 shield lives</span>. You
+              lose one if you tap a safe word or a toxic word reaches the
+              barrier.
+            </p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span
+              class="material-symbols-outlined text-[#ffdb58] text-xl mt-0.5"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >target</span
+            >
+            <p class="text-on-surface text-sm">
+              Zap
+              <span id="intro-target" class="font-bold text-[#ffdb58]">8</span>
+              toxic words before time runs out to win!
+            </p>
+          </div>
+        </div>
+        <button
+          id="start-game-btn"
+          class="w-full py-4 px-8 bg-gradient-to-r from-primary to-primary-container rounded-xl font-headline font-bold text-on-primary-container text-xl shadow-[0_0_25px_rgba(0,212,255,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
+        >
+          <span class="material-symbols-outlined text-2xl">play_arrow</span>
+          START GAME
+        </button>
+      </div>
     </div>
 
     <!-- Main Gameplay Area -->
     <main class="relative z-10 w-full h-full flex flex-col pt-24 pb-4">
-        <!-- Word Playground (where capsules fall) -->
-        <div id="playground" class="flex-1 w-full relative">
-            <!-- JS spawns word capsules here -->
-        </div>
+      <!-- Word Playground (where capsules fall) -->
+      <div id="playground" class="flex-1 w-full relative">
+        <!-- JS spawns word capsules here -->
+      </div>
 
-        <!-- Shield Barrier -->
-        <div id="shield-barrier" class="w-full relative flex flex-col items-center justify-end px-4 pb-2">
-            <!-- Cyberbullying Awareness Bar -->
-            <div id="cyber-alert-bar" class="w-full max-w-xl pointer-events-none z-30 transition-all duration-500" style="filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.3));">
-                <div class="px-4 py-2 rounded-2xl flex items-center justify-center"
-                     style="background: linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(120,0,255,0.06) 50%, rgba(0,212,255,0.1) 100%); border: 1.5px solid rgba(0,212,255,0.4); box-shadow: 0 0 20px rgba(0,212,255,0.15), inset 0 0 20px rgba(0,212,255,0.05);">
-                    <span id="cyber-alert-text" class="text-sm md:text-base font-headline font-black uppercase tracking-[0.2em]" style="color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.6), 0 0 30px rgba(0,212,255,0.2);">⚡ SAY NO TO CYBERBULLYING ⚡</span>
-                </div>
-            </div>
+      <!-- Shield Barrier -->
+      <div
+        id="shield-barrier"
+        class="w-full relative flex flex-col items-center justify-end px-4 pb-2"
+      >
+        <!-- Cyberbullying Awareness Bar -->
+        <div
+          id="cyber-alert-bar"
+          class="w-full max-w-xl pointer-events-none z-30 transition-all duration-500"
+          style="filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.3))"
+        >
+          <div
+            class="px-4 py-2 rounded-2xl flex items-center justify-center"
+            style="
+              background: linear-gradient(
+                135deg,
+                rgba(0, 212, 255, 0.1) 0%,
+                rgba(120, 0, 255, 0.06) 50%,
+                rgba(0, 212, 255, 0.1) 100%
+              );
+              border: 1.5px solid rgba(0, 212, 255, 0.4);
+              box-shadow:
+                0 0 20px rgba(0, 212, 255, 0.15),
+                inset 0 0 20px rgba(0, 212, 255, 0.05);
+            "
+          >
+            <span
+              id="cyber-alert-text"
+              class="text-sm md:text-base font-headline font-black uppercase tracking-[0.2em]"
+              style="
+                color: #00d4ff;
+                text-shadow:
+                  0 0 10px rgba(0, 212, 255, 0.6),
+                  0 0 30px rgba(0, 212, 255, 0.2);
+              "
+              >⚡ SAY NO TO CYBERBULLYING ⚡</span
+            >
+          </div>
         </div>
+      </div>
     </main>
 
     <!-- Removed Bottom Nav during active gameplay to maximize space -->
 
     <!-- Vignette -->
-    <div class="fixed inset-0 pointer-events-none z-[60] bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.5)_100%)]"></div>
+    <div
+      class="fixed inset-0 pointer-events-none z-[60] bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.5)_100%)]"
+    ></div>
 
     <!-- ==================== GAME ENGINE ==================== -->
     <script src="js/game-engine.js"></script>
-</body>
+  </body>
 </html>
