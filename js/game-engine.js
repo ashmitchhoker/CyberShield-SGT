@@ -129,7 +129,7 @@
         totalWordsSpawned++;
 
         const id = wordIdCounter++;
-        const xPos = 5 + Math.random() * 80; // 5% to 85% from left
+        const xPos = 15 + Math.random() * 70; // 15% to 85% from left (centered via CSS)
 
         const capsule = document.createElement('div');
         capsule.className = 'word-capsule';

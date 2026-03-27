@@ -5,7 +5,6 @@
 const GameData = (() => {
   // --- Word Banks ---
   const TOXIC_WORDS = [
-    // --- Block 1 ---
     'STUPID🧠🚫', 'TRASH🗑️', 'LOSER👎', 'IDIOT🤪', 'FREAK👽', 'CREEP🕵️‍♂️', 'GROSS🤢', 'TOXIC☢️', 'BULLY🐂',
     'MORON🤡', 'SHAME🫣', 'TROLL🧌', 'ABUSE👊', 'COWARD🐥', 'CRAZY🌀', 'NASTY👹', 'SICK🤢', 'SLIME🧪',
     'JERK✊', 'PIG🐷', 'AWFUL🤮', 'DIRTY💩', 'GARBAGE🚮', 'PITIFUL😢', 'MORBID💀', 'WEIRDO🛸', 'SNAKE🐍',
@@ -14,7 +13,6 @@ const GameData = (() => {
     'YOU SUCK🤮', 'STAY AWAY🚫', 'GET LOST🗺️', 'DIE NOW⚰️', 'SO DUMB😵', 'U FAILED📉', 'U TRASH🚮',
     'SCUMBAG🪳', 'PSYCHO🔪', 'SICKO🤮', 'DEVIANT🧬', 'HATER🤬', 'LEECH🦟', 'VERMIN🐀', 'PLAGUE🦠',
     'GREEDY💰', 'PETTY🤏', 'BITTER🍋', 'SHADY🕶️', 'PHONY📵', 'SLEAZY🐍', 'SMUG🤨', 'SAVAGE🦁',
-    // --- Block 2 ---
     'MENACE🌩️', 'ROTTEN🍎', 'CURSED🔮', 'WICKED🧹', 'SKANK🤮', 'GHOUL👻', 'DEMON👿', 'STINK🦨',
     'NOBODY ASKED🤫', 'SO FAKE🎭', 'UR DONE🏁', 'BACK OFF✋', 'STAY MAD😤', 'ATTENTION-SEEKER🤳',
     'BACKSTABBER🗡️', 'IRRITATING🦟', 'NONSENSE🧶', 'DESPERATE🥺', 'HOPELESS🥀', 'SHAMELESS🦁',
@@ -26,7 +24,6 @@ const GameData = (() => {
     'HOSTILE⚔️', 'TOXIC VIBES☢️', 'CRINGE😬', 'FRAUD🎭', 'VULGAR🤮', 'OBSCENE🤢',
     'PREDATORY🦈', 'VENGEFUL🔥', 'SPITEFUL💢', 'HATEFUL🖤', 'DECEITFUL🐍',
     'CONNIVING🦊', 'SCHEMING🕸️', 'VINDICTIVE🗡️', 'RUTHLESS⚔️', 'SADISTIC😈',
-    // --- Block 3 ---
     'WORTHLESS💎🚫', 'PATHETIC🥺', 'DISGUST🤢', 'REJECT❌', 'FAILURE🚫', 'HARASS📞',
     'THREAT🚨', 'INSULT🤐', 'ISOLATE⛓️', 'TORMENT🧨', 'INTIMIDATE👺', 'BLACKMAIL📧', 'MOCKERY🎭',
     'DESPAIR🌑', 'RUIN🏚️', 'HUMILIATE🫵', 'DEGRADE📉', 'EXPOSE📸', 'CANCEL🚫', 'SABOTAGE🧨',
@@ -38,7 +35,6 @@ const GameData = (() => {
     'ANNIHILATE☄️', 'DEMOLISH🔨', 'OBLITERATE🧨', 'CORRUPT💵', 'DISGRACE🤦', 'BRUTALIZE👊',
     'SCAPEGOAT🐐', 'VILIFY📰', 'DEMONIZE👿', 'MARGINALIZE🚧', 'SUPPRESS🤐', 'SILENCE🤫',
     'CONDEMN⚖️', 'EXCLUDE❌', 'DISCRIMINATE🚷', 'DEMEAN📉', 'DIMINISH📉', 'UNDERMINE💣',
-    // --- Block 4 ---
     'GO DIE⚰️', 'END IT🏁', 'UR NOTHING💨', 'U DESERVE IT🫵', 'DROP DEAD⚰️', 'HATE U🖤',
     'DISGUSTING🤮', 'ILLITERATE📚🚫', 'UNEDUCATED🎓🚫', 'INCOMPETENT📉', 'INEPT🐢',
     'GOOD-FOR-NOTHING🚮', 'MEANINGLESS❔', 'EMPTY-HEADED🎈', 'OVERSENSITIVE😭',
@@ -54,7 +50,6 @@ const GameData = (() => {
     'TOXIC PERSON☢️', 'STAY AWAY🚫', 'U FAILED📉', 'UR WORST😤', 'NO CHANCE❌',
     'GIVE UP🏳️', 'GO HOME🏠', 'CRY MORE😭', 'SO PATHETIC🥺', 'TOTAL JOKE🤡',
     'PURE TRASH🗑️', 'BRAIN DEAD💀', 'SO CRINGE😬', 'ZERO VALUE🚫', 'COMPLETE FAILURE❌',
-    // --- Block 5 (NEW) ---
     'LOWLIFE🪱', 'DIMWIT💡🚫', 'DIRTBAG🗑️', 'NUMBSKULL💀', 'IMBECILE🤪', 'BUFFOON🤡',
     'SLEAZEBALL🐀', 'SCOUNDREL🦹', 'MISCREANT👿', 'DEGENERATE📉', 'BOTTOM FEEDER🐟',
     'SLACKER😴', 'QUITTER🏳️', 'DROPOUT🎓🚫', 'SNITCH🐀', 'SELLOUT💵', 'LAPDOG🐕',
@@ -64,7 +59,6 @@ const GameData = (() => {
     'NOBODY LIKES U👥🚫', 'GET REKT💀', 'STAY DOWN⬇️', 'U STINK🦨', 'SO BASIC📎',
     'BLAND🥱', 'DULL💤', 'BORING😴', 'TEDIOUS⏰', 'MEDIOCRE📊', 'AVERAGE📉',
     'SUBPAR👎', 'INFERIOR⬇️', 'SECOND-RATE🥈🚫', 'THIRD-RATE🥉🚫',
-    // --- Block 6 (NEW) ---
     'TOXIC TRAIT☢️', 'RED FLAG🚩', 'WALKING L📉', 'TOTAL CLOWN🤡', 'MAIN VILLAIN😈',
     'VILLAIN ARC🦹', 'ZERO FRIENDS👥🚫', 'SO ANNOYING😤', 'UR CANCELLED🚫', 'BLOCKED🔒',
     'NO RIZZ💀', 'ABSOLUTE ZERO❄️', 'FULL OF IT💩', 'DEAD TO ME⚰️', 'NOT WANTED🗑️',
@@ -74,7 +68,6 @@ const GameData = (() => {
     'RANCID🤮', 'PUTRID🧟', 'FERAL🐺', 'BARBARIC⚔️', 'HEINOUS😡', 'ATROCIOUS💀',
     'NEFARIOUS👿', 'SINISTER🌑', 'DIABOLICAL😈', 'TREACHEROUS🗡️', 'VENGEANCE🔥',
     'MALEVOLENT👺', 'PERNICIOUS☠️', 'INSIDIOUS🕷️', 'DEVIOUS🦊', 'CROOKED🔀',
-    // --- Block 7 (NEW) ---
     'TWISTED🌀', 'WARPED🔮', 'DERANGED🧠', 'UNHINGED⚡', 'MANIAC🤪', 'LUNATIC🌙',
     'PSYCHOPATH🔪', 'SOCIOPATH🧊', 'NIGHTMARE🌑', 'MONSTER👹', 'BEAST🐲',
     'GREMLIN👾', 'GOBLIN👺', 'OGRE👹', 'IMP😈', 'WITCH🧙', 'ZOMBIE🧟',
@@ -83,7 +76,6 @@ const GameData = (() => {
     'SHUT IT🤐', 'BEAT IT🏃', 'STEP OFF🚶', 'WALK AWAY↩️', 'SCRAM🏃',
     'BYE LOSER👋', 'LATER HATER🤬', 'KICK ROCKS🪨', 'TAKE A HIKE🥾', 'POUND SAND🏖️',
     'EAT DUST💨', 'SEE YA NEVER👋', 'GOOD RIDDANCE🗑️', 'NOT MISSED💨', 'FORGOTTEN🌫️',
-    // --- Block 8 (NEW) ---
     'TOXIC AF☢️', 'MEGA CRINGE😬', 'BIG YIKES😱', 'HARD PASS🚫', 'MAJOR L📉',
     'CAUGHT IN 4K📸', 'RATIO📉', 'CLOUT CHASER🏃', 'CLOWN MOVE🤡', 'FAKE NEWS📰',
     'CAP🧢', 'SUS🔍', 'SKETCHY🖊️', 'SHOOK😰', 'SALTY🧂', 'PRESSED😤',
@@ -95,7 +87,6 @@ const GameData = (() => {
   ];
 
   const SAFE_WORDS = [
-    // --- Block 1 ---
     'SMILE😊', 'PEACE☮️', 'TRUST🤝', 'SHARE🤲', 'ALLY✊', 'UNITY🔗', 'BRAVE🦁', 'FRIEND👫', 'STRONG💪',
     'LISTEN👂', 'SHINE✨', 'HEART❤️', 'LAUGH😂', 'PRAISE🙌', 'EQUAL⚖️', 'TRUTH📜', 'VALUE💎', 'PROUD🦚',
     'HONEST😇', 'GENTLE🦋', 'SECURE🔐', 'CANDID📸', 'LOVING🥰', 'TENDER🧸', 'GRACE🦢', 'DECENT👍',
@@ -107,7 +98,6 @@ const GameData = (() => {
     'IM HERE🫂', 'GOT YOU✊', 'NO FEAR🛡️', 'HOLD ON🤝', 'ALL GOOD👌',
     'CONNECT🔗', 'CHERISH💎', 'PROSPER📈', 'ADMIRE🌟', 'COMFORT🛋️',
     'TREASURE🏆', 'EMBOLDEN💪', 'ELEVATE🚀', 'SUSTAIN🌱', 'REFRESH🌊',
-    // --- Block 2 ---
     'RESPECT🫡', 'SUPPORT🏗️', 'EMPATHY💖', 'INCLUDE🫂', 'COURAGE🦸', 'PROTECT🛡️',
     'KINDNESS🍬', 'INSPIRE💡', 'WELCOME🤝', 'ENCOURAGE📣', 'COMPASSION🫂', 'GENEROUS🎁', 'HARMONY🎶',
     'POSITIVE➕', 'VALIDATE✅', 'ACCEPT🫶', 'SYMPATHY🕊️', 'REASSURE😌', 'TOLERANCE🤝', 'AFFECTION🥰',
@@ -120,7 +110,6 @@ const GameData = (() => {
     'RECONCILE🤝', 'CELEBRATE🎉', 'ENLIGHTEN💡', 'SAFEGUARD🛡️', 'PERSEVERE🧗', 'OVERCOME🏔️',
     'UR VALID✅', 'NOT ALONE🫂', 'I BELIEVE U🤝', 'SPEAK UP📢', 'UR ENOUGH💖', 'BE PROUD🌈',
     'DIGNIFY🎖️', 'LIBERATE🔓', 'TRANSFORM🦋', 'FLOURISH🌸', 'RADIATE☀️', 'PREVAIL🏆',
-    // --- Block 3 ---
     'BELONG🏠', 'UPLIFT🎈', 'UNITED✊', 'THANKFUL🙏', 'GRATEFUL💐', 'FAITHFUL💍',
     'RELIABLE⚓', 'TRUTHFUL📜', 'HOPEFUL🌅', 'PEACEFUL☮️', 'CHEERFUL🎉', 'MINDFUL🧘',
     'GRACEFUL🦢', 'WONDERFUL🌟', 'BEAUTIFUL🌺', 'POWERFUL💪', 'MEANINGFUL💎', 'PURPOSEFUL🎯',
@@ -129,7 +118,6 @@ const GameData = (() => {
     'YOU GOT THIS💪', 'KEEP SMILING😊', 'STAND TALL🧍', 'BE KIND🌸', 'LOVE WINS❤️',
     'STAY TRUE💯', 'RISE ABOVE🌅', 'DREAM BIG🚀', 'NEVER QUIT🏁', 'STAY GOLD⭐',
     'UR AMAZING🌟', 'SO BRAVE🦁', 'TRUE HERO🦸', 'REAL ONE💯', 'GOOD HEART❤️',
-    // --- Block 4 (NEW) ---
     'GENEROUS SOUL🎁', 'WARM HEART🫀', 'OPEN MIND🧠', 'FREE SPIRIT🦅', 'OLD SOUL✨',
     'BRIGHT FUTURE🌅', 'FRESH START🌱', 'NEW DAY☀️', 'CLEAN SLATE📋', 'SECOND CHANCE🔄',
     'SAFE SPACE🏠', 'SOFT LANDING🛬', 'GENTLE TOUCH🤲', 'WARM SMILE😊', 'BIG HUG🤗',
@@ -139,7 +127,6 @@ const GameData = (() => {
     'FOSTER🫂', 'NOURISH🍎', 'CULTIVATE🌻', 'HARVEST🌾', 'PLANT SEEDS🌱',
     'WATER ROOTS💧', 'GROW STRONG🌳', 'STAND FIRM🧱', 'HOLD STEADY⚓', 'STAY ROOTED🌿',
     'CHARITY🎗️', 'DONATE🤲', 'GIVE BACK🔄', 'PAY FORWARD⏩', 'SERVE OTHERS🤝',
-    // --- Block 5 (NEW) ---
     'STRIVE💫', 'ASPIRE🚀', 'ACHIEVE🏆', 'CONQUER🏔️', 'ENDURE💎',
     'WITHSTAND🛡️', 'ADAPT🧬', 'ADJUST🔧', 'EMBRACE🤗', 'ACCEPT SELF🫶',
     'LOVE SELF❤️', 'HEAL SELF🩹', 'KNOW SELF🧠', 'GROW SELF🌱', 'FREE SELF🔓',
@@ -149,7 +136,6 @@ const GameData = (() => {
     'SIDE BY SIDE👫', 'HAND IN HAND🤝', 'BACK TO BACK🔙', 'ARM IN ARM💪', 'HEART TO HEART❤️',
     'PATIENT🧘', 'DILIGENT📚', 'HUMBLE🙏', 'MODEST🌿', 'VIRTUOUS🌟',
     'RIGHTEOUS⚖️', 'JUST⚔️', 'FAIR PLAY🤝', 'GOOD SPORT🏅', 'TEAM PLAYER👥',
-    // --- Block 6 (NEW) ---
     'DIGITAL HERO🦸', 'CYBER GUARD🛡️', 'NET SAFE🔐', 'ONLINE ALLY✊', 'WEB FRIEND🌐',
     'SAFE ONLINE🔒', 'REPORT HATE📢', 'BLOCK HATE🚫', 'STOP HATE✋', 'END HATE❌',
     'CHOOSE PEACE☮️', 'SPREAD JOY🎉', 'SHARE HOPE🌅', 'GIVE LOVE❤️', 'SHOW CARE🫂',
@@ -173,7 +159,7 @@ const GameData = (() => {
 
   // --- Level Configurations (4 levels) ---
   const LEVELS = [
-    { level: 1, name: 'Level 01', duration: 55,  spawnInterval: 1800, fallSpeed: 1.4, toxicRatio: 0.6,  wordsToComplete: 14 },
+    { level: 1, name: 'Level 01', duration: 30,  spawnInterval: 1800, fallSpeed: 1.4, toxicRatio: 0.6,  wordsToComplete: 14 },
     { level: 2, name: 'Level 02', duration: 60,  spawnInterval: 1400, fallSpeed: 1.8, toxicRatio: 0.55, wordsToComplete: 18 },
     { level: 3, name: 'Level 03', duration: 65,  spawnInterval: 1100, fallSpeed: 2.4, toxicRatio: 0.5,  wordsToComplete: 24 },
     { level: 4, name: 'Level 04', duration: 70,  spawnInterval: 850,  fallSpeed: 3.0, toxicRatio: 0.45, wordsToComplete: 30 },
@@ -236,19 +222,9 @@ const GameData = (() => {
   }
 
   // --- Utility ---
-  function getRandomWord(isToxic, levelNum = 1) {
+  function getRandomWord(isToxic) {
     const list = isToxic ? TOXIC_WORDS : SAFE_WORDS;
-    const totalLevels = LEVELS.length;
-    const step = Math.floor(list.length / totalLevels);
-    let windowSize = step + 5; // slight overlap for variety
-    let startIndex = (levelNum - 1) * step;
-    if (startIndex + windowSize > list.length) {
-        windowSize = list.length - startIndex;
-    }
-    if (startIndex < 0) startIndex = 0;
-    if (windowSize < 1) windowSize = 1;
-    const pool = list.slice(startIndex, startIndex + windowSize);
-    return pool[Math.floor(Math.random() * pool.length)];
+    return list[Math.floor(Math.random() * list.length)];
   }
 
   function getLevelConfig(levelNum) {

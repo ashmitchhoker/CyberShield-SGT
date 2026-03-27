@@ -14,16 +14,6 @@
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-[100dvh] overflow-x-hidden flex flex-col">
     <script src="game-data.js"></script>
 
-    <!-- TopAppBar -->
-    <header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-[#0d112a]/80 backdrop-blur-md border-b border-[#00d4ff]/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-        <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-[#00d4ff] drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]">shield</span>
-            <h1 class="font-headline font-black italic tracking-tighter uppercase text-2xl text-[#00d4ff] drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]">CYBER SHIELD</h1>
-        </div>
-        <div class="flex items-center">
-            <span class="font-headline font-bold tracking-tighter uppercase text-xl text-[#00d4ff]">SCORE: <span id="header-score">0</span></span>
-        </div>
-    </header>
 
     <!-- Main Content -->
     <main class="flex-grow flex items-center justify-center pt-24 pb-32 md:pb-12 px-4 relative">
@@ -111,7 +101,6 @@
         const stars = state ? (state.stars || 1) : 1;
 
         if (state) {
-            document.getElementById('header-score').textContent = (state.score || 0).toLocaleString();
             document.getElementById('stat-score').textContent = (state.score || 0).toLocaleString();
             document.getElementById('stat-zapped').textContent = `${state.wordsZapped || 0}/${state.totalToxicSpawned || 0}`;
             document.getElementById('stat-accuracy').textContent = (state.accuracy || 0) + '%';

@@ -94,11 +94,12 @@
     position: absolute;
     cursor: pointer;
     transition: transform 0.1s;
+    transform: translateX(-50%);
     user-select: none;
     -webkit-user-select: none;
     z-index: 20;
 }
-.word-capsule:active { transform: scale(0.9); }
+.word-capsule:active { transform: translateX(-50%) scale(0.9); }
 
 /* Globals */
 body { min-height: 100dvh; }

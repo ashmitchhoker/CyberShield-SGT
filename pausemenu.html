@@ -19,16 +19,6 @@
         <div class="absolute inset-0 bg-surface/60 backdrop-blur-sm"></div>
     </div>
 
-    <!-- Top Bar -->
-    <header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-[#0d112a]/80 backdrop-blur-md border-b border-[#00d4ff]/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-        <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-[#00d4ff] drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]">shield</span>
-            <h1 class="font-headline font-bold tracking-tighter uppercase text-2xl text-[#00d4ff]">CYBER SHIELD</h1>
-        </div>
-        <div class="text-[#00d4ff] font-headline font-bold tracking-tighter uppercase text-lg px-4 py-1 bg-[#00d4ff]/10 rounded-lg">
-            SCORE: <span id="header-score">0</span>
-        </div>
-    </header>
 
     <!-- Main Pause Overlay -->
     <main class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
@@ -102,7 +92,6 @@
         const level = state ? state.level : 1;
 
         if (state) {
-            document.getElementById('header-score').textContent = (state.score || 0).toLocaleString();
             document.getElementById('stat-score').textContent = (state.score || 0).toLocaleString();
 
             const tl = state.timeLeft || 0;
