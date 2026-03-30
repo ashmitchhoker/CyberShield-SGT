@@ -141,11 +141,32 @@
 .particle {
   position: absolute;
   z-index: 1;
-  font-variation-settings: "FILL" 1;
 }
-.bg-flame {
-  color: #ff8c00;
-  filter: drop-shadow(0 0 12px rgba(255, 140, 0, 0.9));
+.bg-ember {
+  background-color: #ff8c00;
+  border-radius: 50%;
+  box-shadow:
+    0 0 15px rgba(255, 140, 0, 1),
+    0 0 30px rgba(255, 140, 0, 0.8);
+  animation: float-upward linear infinite;
+  bottom: -50px;
+}
+.bg-streak {
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0, 212, 255, 0.8),
+    transparent
+  );
+  animation: fall-downward linear infinite;
+  top: -100px;
+  filter: blur(1px);
+}
+.bg-glow-particle {
+  border-radius: 50%;
+  background-color: rgba(160, 100, 255, 0.8);
+  box-shadow: 0 0 20px rgba(160, 100, 255, 0.6);
   animation: float-upward linear infinite;
   bottom: -50px;
 }
