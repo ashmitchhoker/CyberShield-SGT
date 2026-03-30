@@ -38,6 +38,30 @@
   let countdownTimer = null;
   let wordIdCounter = 0;
 
+  // --- Game Audio ---
+  let bgMusic = null;
+  const settings = GameData.getSettings();
+
+  function initMusic() {
+    if (settings.music) {
+      bgMusic = new Audio("music.mp3");
+      bgMusic.loop = true;
+      bgMusic.volume =
+        settings.musicVolume !== undefined ? settings.musicVolume : 0.5;
+      const savedTime = sessionStorage.getItem("cyberShield_musicTime");
+      if (savedTime) {
+        bgMusic.currentTime = parseFloat(savedTime);
+      }
+      bgMusic.play().catch((e) => console.log("Audio play blocked", e));
+    }
+  }
+
+  function saveMusicState() {
+    if (bgMusic) {
+      sessionStorage.setItem("cyberShield_musicTime", bgMusic.currentTime);
+    }
+  }
+
   // --- Init ---
   levelLabel.textContent = `${config.name} / 0${GameData.LEVELS.length}`;
   updateLivesDisplay();
@@ -331,6 +355,7 @@
   // --- Pause ---
   pauseBtn.addEventListener("click", () => {
     isPaused = true;
+    saveMusicState();
     // Save state and go to pause menu
     GameData.setGameState({
       level: levelNum,
@@ -399,6 +424,7 @@
     });
 
     setTimeout(() => {
+      saveMusicState();
       window.location.href = "levelcomplete.html";
     }, 500);
   }
@@ -434,6 +460,7 @@
     });
 
     setTimeout(() => {
+      saveMusicState();
       window.location.href = "gameover.html";
     }, 800);
   }
@@ -466,11 +493,13 @@
       // Skip intro on resume
       introOverlay.style.display = "none";
       hud.style.display = "";
+      initMusic();
       startGame();
     } else {
       startGameBtn.addEventListener("click", () => {
         introOverlay.style.display = "none";
         hud.style.display = "";
+        initMusic();
         startGame();
       });
     }
