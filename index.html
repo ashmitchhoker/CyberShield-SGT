@@ -1,77 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html class="dark" lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>CYBER SHIELD — Toxic Rain</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
     <script src="js/tailwind-config.js"></script>
-    <link rel="stylesheet" href="css/global.css"/>
+    <link rel="stylesheet" href="css/global.css" />
     <script src="js/components.js"></script>
-</head>
-<body class="bg-surface font-body text-on-surface overflow-hidden h-screen w-screen flex flex-col items-center justify-center relative">
-
+  </head>
+  <body
+    class="bg-surface font-body text-on-surface overflow-hidden h-screen w-screen flex flex-col items-center justify-center relative"
+  >
     <!-- Background Rain -->
     <div class="fixed inset-0 z-0 overflow-hidden opacity-15">
-        <div class="rain-column left-[5%] animate-rain" style="animation-duration:4s; animation-delay:0.5s;"></div>
-        <div class="rain-column left-[15%] animate-rain" style="animation-duration:6s; animation-delay:1.2s;"></div>
-        <div class="rain-column left-[28%] animate-rain" style="animation-duration:3.5s; animation-delay:2.1s;"></div>
-        <div class="rain-column left-[42%] animate-rain" style="animation-duration:5s; animation-delay:0.8s;"></div>
-        <div class="rain-column left-[55%] animate-rain" style="animation-duration:4.5s; animation-delay:1.5s;"></div>
-        <div class="rain-column left-[70%] animate-rain" style="animation-duration:7s; animation-delay:0.2s;"></div>
-        <div class="rain-column left-[85%] animate-rain" style="animation-duration:3s; animation-delay:2.5s;"></div>
-        <div class="rain-column left-[95%] animate-rain" style="animation-duration:5.5s; animation-delay:1.8s;"></div>
+      <div
+        class="rain-column left-[5%] animate-rain"
+        style="animation-duration: 4s; animation-delay: 0.5s"
+      ></div>
+      <div
+        class="rain-column left-[15%] animate-rain"
+        style="animation-duration: 6s; animation-delay: 1.2s"
+      ></div>
+      <div
+        class="rain-column left-[28%] animate-rain"
+        style="animation-duration: 3.5s; animation-delay: 2.1s"
+      ></div>
+      <div
+        class="rain-column left-[42%] animate-rain"
+        style="animation-duration: 5s; animation-delay: 0.8s"
+      ></div>
+      <div
+        class="rain-column left-[55%] animate-rain"
+        style="animation-duration: 4.5s; animation-delay: 1.5s"
+      ></div>
+      <div
+        class="rain-column left-[70%] animate-rain"
+        style="animation-duration: 7s; animation-delay: 0.2s"
+      ></div>
+      <div
+        class="rain-column left-[85%] animate-rain"
+        style="animation-duration: 3s; animation-delay: 2.5s"
+      ></div>
+      <div
+        class="rain-column left-[95%] animate-rain"
+        style="animation-duration: 5.5s; animation-delay: 1.8s"
+      ></div>
     </div>
 
     <!-- Gradient overlay -->
-    <div class="fixed inset-0 z-0 bg-gradient-to-b from-[#0a0e27] via-[#0d112a] to-[#120a2e]"></div>
+    <div
+      class="fixed inset-0 z-0 bg-gradient-to-b from-[#0a0e27] via-[#0d112a] to-[#120a2e]"
+    ></div>
 
     <!-- Vignette -->
-    <div class="fixed inset-0 pointer-events-none z-[5] bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]"></div>
+    <div
+      class="fixed inset-0 pointer-events-none z-[5] bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]"
+    ></div>
 
     <!-- Main Content -->
-    <div class="relative z-10 flex flex-col items-center text-center px-6 max-w-lg w-full">
+    <div
+      class="relative z-10 flex flex-col items-center text-center px-6 max-w-lg w-full"
+    >
+      <!-- Shield Icon -->
+      <div class="relative mb-6 animate-float">
+        <div
+          class="absolute -inset-8 bg-primary-container/20 blur-[50px] rounded-full"
+        ></div>
+        <span
+          class="material-symbols-outlined text-primary-container text-[100px] drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] relative"
+          style="font-variation-settings: &quot;FILL&quot; 1"
+          >shield</span
+        >
+      </div>
 
-        <!-- Shield Icon -->
-        <div class="relative mb-6 animate-float">
-            <div class="absolute -inset-8 bg-primary-container/20 blur-[50px] rounded-full"></div>
-            <span class="material-symbols-outlined text-primary-container text-[100px] drop-shadow-[0_0_30px_rgba(0,212,255,0.6)] relative" style="font-variation-settings: 'FILL' 1;">shield</span>
-        </div>
+      <!-- Title -->
+      <h1
+        class="font-headline font-black text-5xl md:text-6xl tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-b from-white to-primary drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] leading-tight mb-2"
+      >
+        CYBER SHIELD
+      </h1>
+      <p
+        class="font-headline text-primary/60 text-sm tracking-[0.3em] uppercase font-bold mb-2"
+      >
+        Toxic Rain
+      </p>
+      <p class="text-on-surface-variant text-sm max-w-xs mb-12 leading-relaxed">
+        Zap the toxic words. Protect the kind ones. Defend the digital frontier.
+      </p>
 
-        <!-- Title -->
-        <h1 class="font-headline font-black text-5xl md:text-6xl tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-b from-white to-primary drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] leading-tight mb-2">
-            CYBER SHIELD
-        </h1>
-        <p class="font-headline text-primary/60 text-sm tracking-[0.3em] uppercase font-bold mb-2">Toxic Rain</p>
-        <p class="text-on-surface-variant text-sm max-w-xs mb-12 leading-relaxed">
-            Zap the toxic words. Protect the kind ones. Defend the digital frontier.
-        </p>
+      <!-- Buttons -->
+      <div class="flex flex-col gap-4 w-full max-w-xs">
+        <a
+          href="gameplay.html?level=1"
+          class="py-4 px-8 bg-gradient-to-r from-primary to-primary-container rounded-xl font-headline font-bold text-on-primary-container text-xl shadow-[0_0_25px_rgba(0,212,255,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 no-underline"
+        >
+          <span class="material-symbols-outlined text-2xl">play_arrow</span>
+          PLAY
+        </a>
+        <a
+          href="highscores.html"
+          class="py-3.5 px-8 border border-outline-variant/30 hover:border-primary/50 rounded-xl font-headline font-bold text-primary text-lg transition-all hover:bg-primary/5 flex items-center justify-center gap-3 no-underline"
+        >
+          <span class="material-symbols-outlined">leaderboard</span>
+          HIGH SCORES
+        </a>
+        <a
+          href="settings.html"
+          class="py-3.5 px-8 border border-outline-variant/30 hover:border-primary/50 rounded-xl font-headline font-bold text-primary text-lg transition-all hover:bg-primary/5 flex items-center justify-center gap-3 no-underline"
+        >
+          <span class="material-symbols-outlined">settings</span>
+          SETTINGS
+        </a>
+      </div>
 
-        <!-- Buttons -->
-        <div class="flex flex-col gap-4 w-full max-w-xs">
-            <a href="gameplay.html?level=1"
-               class="py-4 px-8 bg-gradient-to-r from-primary to-primary-container rounded-xl font-headline font-bold text-on-primary-container text-xl shadow-[0_0_25px_rgba(0,212,255,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 no-underline">
-                <span class="material-symbols-outlined text-2xl">play_arrow</span>
-                PLAY
-            </a>
-            <a href="highscores.html"
-               class="py-3.5 px-8 border border-outline-variant/30 hover:border-primary/50 rounded-xl font-headline font-bold text-primary text-lg transition-all hover:bg-primary/5 flex items-center justify-center gap-3 no-underline">
-                <span class="material-symbols-outlined">leaderboard</span>
-                HIGH SCORES
-            </a>
-            <a href="settings.html"
-               class="py-3.5 px-8 border border-outline-variant/30 hover:border-primary/50 rounded-xl font-headline font-bold text-primary text-lg transition-all hover:bg-primary/5 flex items-center justify-center gap-3 no-underline">
-                <span class="material-symbols-outlined">settings</span>
-                SETTINGS
-            </a>
-        </div>
-
-        <!-- Footer -->
-        <p class="mt-16 text-[10px] font-headline tracking-[0.3em] text-outline/40 uppercase">
-                v2.4.5-stable // Neural Interface: SECURE
-            </p>
-        </div>
-</body>
+      <!-- Footer -->
+      <p
+        class="mt-16 text-[10px] font-headline tracking-[0.3em] text-outline/40 uppercase"
+      >
+        v2.4.5-stable // Neural Interface: SECURE
+      </p>
+    </div>
+  </body>
 </html>
