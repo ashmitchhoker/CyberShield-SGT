@@ -869,7 +869,7 @@ const GameData = (() => {
   const DEFAULT_SETTINGS = {
     soundEffects: true,
     music: true,
-    musicVolume: 0.5,
+    musicVolume: 0.2,
     vibration: false,
     darkMode: true,
   };

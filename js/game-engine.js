@@ -47,7 +47,7 @@
       bgMusic = new Audio("music.mp3");
       bgMusic.loop = true;
       bgMusic.volume =
-        settings.musicVolume !== undefined ? settings.musicVolume : 0.5;
+        settings.musicVolume !== undefined ? settings.musicVolume : 0.2;
       const savedTime = sessionStorage.getItem("cyberShield_musicTime");
       if (savedTime) {
         bgMusic.currentTime = parseFloat(savedTime);
@@ -190,9 +190,10 @@
     capsule.style.top = "-60px";
 
     const borderClass = "neon-border-cyan";
+
     capsule.innerHTML = `
-            <div class="capsule-glass ${borderClass} px-4 py-3 min-w-[5rem] rounded-full flex items-center justify-center shadow-2xl backdrop-blur-md transition-all">
-                <span class="font-headline font-bold text-on-surface uppercase tracking-wide text-xs md:text-sm drop-shadow-lg text-center whitespace-nowrap hover:scale-105 transition-transform cursor-pointer">${word}</span>
+            <div class="capsule-glass ${borderClass} w-[5.5rem] h-[5.5rem] sm:w-28 sm:h-28 rounded-full flex flex-col items-center justify-center shadow-2xl backdrop-blur-md transition-all p-2">
+                <span class="font-headline font-bold text-on-surface uppercase tracking-wide text-[11px] sm:text-xs drop-shadow-lg text-center leading-tight hover:scale-105 transition-transform cursor-pointer break-words w-full px-1">${word}</span>
             </div>
         `;
 

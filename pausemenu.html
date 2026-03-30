@@ -230,7 +230,7 @@
           bgMusic = new Audio("music.mp3");
           bgMusic.loop = true;
           bgMusic.volume =
-            settings.musicVolume !== undefined ? settings.musicVolume : 0.5;
+            settings.musicVolume !== undefined ? settings.musicVolume : 0.2;
           const savedTime = sessionStorage.getItem("cyberShield_musicTime");
           if (savedTime) {
             bgMusic.currentTime = parseFloat(savedTime);
@@ -268,7 +268,7 @@
         const musicVolLabel = document.getElementById("music-vol-label");
 
         let currentVol =
-          settings.musicVolume !== undefined ? settings.musicVolume : 0.5;
+          settings.musicVolume !== undefined ? settings.musicVolume : 0.2;
         musicSlider.value = currentVol * 100;
         musicVolLabel.textContent = `${Math.round(currentVol * 100)}%`;
 
