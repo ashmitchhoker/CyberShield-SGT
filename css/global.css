@@ -321,32 +321,56 @@
   transform: scale(0.9);
 }
 
+/* Paint isolation for gameplay area */
+#playground {
+  contain: layout style paint;
+}
+
 /* Globals */
 body {
   min-height: 100dvh;
 }
 
-/* Mobile GPU Performance Overrides */
-@media (max-width: 640px) {
-  .orb-base {
-    background-blend-mode: normal;
-    border-width: 3px;
-    box-shadow: none; /* override the 4 layer default */
-  }
+/* === Mobile Performance Optimizations === */
+@media (max-width: 768px) {
+  /* Simplify heavy orb box-shadows (4 layers → 1 layer) */
   .orb-orange {
-    background: radial-gradient(circle at center, rgba(140, 50, 0, 0.9) 0%, rgba(60, 20, 0, 1) 100%);
-    box-shadow: 0 0 25px rgba(255, 120, 0, 0.9), inset 0 0 15px rgba(255, 150, 0, 0.9);
+    box-shadow: 0 0 15px 3px rgba(255, 120, 0, 0.7);
   }
   .orb-purple {
-    background: radial-gradient(circle at center, rgba(100, 0, 160, 0.9) 0%, rgba(40, 0, 80, 1) 100%);
-    box-shadow: 0 0 25px rgba(200, 0, 255, 0.9), inset 0 0 15px rgba(180, 0, 255, 0.9);
+    box-shadow: 0 0 15px 3px rgba(200, 0, 255, 0.7);
   }
   .orb-cyan {
-    background: radial-gradient(circle at center, rgba(0, 110, 140, 0.9) 0%, rgba(0, 30, 60, 1) 100%);
-    box-shadow: 0 0 25px rgba(0, 200, 255, 0.9), inset 0 0 15px rgba(0, 180, 255, 0.9);
+    box-shadow: 0 0 15px 3px rgba(0, 200, 255, 0.7);
   }
   .orb-red {
-    background: radial-gradient(circle at center, rgba(160, 0, 50, 0.9) 0%, rgba(60, 10, 30, 1) 100%);
-    box-shadow: 0 0 25px rgba(255, 30, 100, 0.9), inset 0 0 15px rgba(255, 50, 100, 0.9);
+    box-shadow: 0 0 15px 3px rgba(255, 30, 100, 0.7);
+  }
+
+  /* Remove transitions from orbs and alert bar during gameplay */
+  .orb-base {
+    transition: none !important;
+  }
+
+  /* Simplify star particles */
+  .star-particle {
+    box-shadow: none;
+  }
+
+  /* Disable expensive filter/transition on cyber alert bar */
+  #cyber-alert-bar {
+    transition: none !important;
+    filter: none !important;
+  }
+
+  /* Simplify shield hit animation */
+  .shield-hit {
+    box-shadow: 0 0 30px rgba(255, 100, 100, 0.5) !important;
+    animation: none !important;
+  }
+
+  /* Reduce score popup complexity */
+  .score-popup {
+    text-shadow: none !important;
   }
 }

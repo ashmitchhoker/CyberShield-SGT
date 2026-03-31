@@ -36,9 +36,9 @@
       <div class="absolute inset-0 pointer-events-none z-[5] bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.85)_100%)]"></div>
 
       <!-- Smooth atmospheric glowing orbs -->
-      <div class="absolute top-[15%] left-[20%] w-[35rem] h-[35rem] bg-primary/10 rounded-full blur-[120px] mix-blend-screen opacity-60"></div>
-      <div class="absolute bottom-[10%] right-[15%] w-[40rem] h-[40rem] bg-error/10 rounded-full blur-[140px] mix-blend-screen opacity-50"></div>
-      <div class="absolute top-[45%] left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] bg-secondary-container/5 rounded-full blur-[100px] mix-blend-screen"></div>
+      <div class="absolute top-[15%] left-[20%] w-[35rem] h-[35rem] bg-primary/10 rounded-full blur-[120px] mix-blend-screen opacity-60 bg-blur-mobile-opt"></div>
+      <div class="absolute bottom-[10%] right-[15%] w-[40rem] h-[40rem] bg-error/10 rounded-full blur-[140px] mix-blend-screen opacity-50 bg-blur-mobile-opt"></div>
+      <div class="absolute top-[45%] left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] bg-secondary-container/5 rounded-full blur-[100px] mix-blend-screen bg-blur-mobile-opt"></div>
 
       <!-- Cyber Grid Background -->
       <div class="cyber-grid"></div>
@@ -184,7 +184,7 @@
         <!-- Cyberbullying Awareness Bar -->
         <div
           id="cyber-alert-bar"
-          class="w-full max-w-xl pointer-events-none z-30 transition-all duration-500"
+          class="w-full max-w-xl mx-auto pointer-events-none z-30 transition-all duration-500"
           style="filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.3))"
         >
           <div
@@ -240,7 +240,11 @@
           document.body.appendChild(bgContainer);
         }
 
-        for (let i = 0; i < 60; i++) {
+        // Fewer stars on mobile for performance
+        const isMobile = window.innerWidth <= 768;
+        const starCount = isMobile ? 15 : 60;
+
+        for (let i = 0; i < starCount; i++) {
           const star = document.createElement("div");
           star.className = "star-particle";
 
@@ -263,6 +267,13 @@
         }
       });
     </script>
+
+    <!-- Mobile: reduce heavy blur on background orbs -->
+    <style>
+      @media (max-width: 768px) {
+        .bg-blur-mobile-opt { filter: blur(40px) !important; }
+      }
+    </style>
 
     <!-- ==================== GAME ENGINE ==================== -->
     <script src="js/game-engine.js"></script>

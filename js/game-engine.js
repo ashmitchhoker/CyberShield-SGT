@@ -37,10 +37,39 @@
   let gameLoop = null;
   let countdownTimer = null;
   let wordIdCounter = 0;
+  let lastRenderedLives = -1;
+  let lastFrameTime = 0;
 
   // --- Object Pool (Caching for Performance) ---
   const POOL_SIZE = 15;
   const capsulePool = [];
+
+  // --- Cached layout values (avoid per-frame reflow) ---
+  let cachedPlaygroundHeight = 0;
+  function updatePlaygroundHeight() {
+    cachedPlaygroundHeight = playground.offsetHeight;
+  }
+  window.addEventListener("resize", updatePlaygroundHeight);
+
+  // --- Score Popup Pool ---
+  const POPUP_POOL_SIZE = 6;
+  const popupPool = [];
+  function initPopupPool() {
+    for (let i = 0; i < POPUP_POOL_SIZE; i++) {
+      const popup = document.createElement("div");
+      popup.className = "score-popup pointer-events-none text-center w-[150px]";
+      popup.style.position = "absolute";
+      popup.style.fontFamily = "'Space Grotesk'";
+      popup.style.fontWeight = "900";
+      popup.style.fontSize = "1.2rem";
+      popup.style.lineHeight = "1.1";
+      popup.style.zIndex = "100";
+      popup.style.display = "none";
+      popup.style.willChange = "transform, opacity";
+      playground.appendChild(popup);
+      popupPool.push({ element: popup, timer: null });
+    }
+  }
 
   function initObjectPool() {
     for (let i = 0; i < POOL_SIZE; i++) {
@@ -50,6 +79,14 @@
         capsule.style.transform = "translate3d(-50%, -200px, 0)";
         capsule.dataset.poolIndex = i;
         
+        // Pre-build inner DOM structure (avoid innerHTML on every spawn)
+        const orbBase = document.createElement("div");
+        orbBase.className = "orb-base w-[6.5rem] h-[6.5rem] sm:w-[8rem] sm:h-[8rem] flex flex-col items-center justify-center shadow-2xl p-2";
+        const textContainer = document.createElement("div");
+        textContainer.className = "font-headline font-bold text-white uppercase tracking-wide drop-shadow-lg text-center break-words w-full px-1";
+        orbBase.appendChild(textContainer);
+        capsule.appendChild(orbBase);
+
         capsule.addEventListener("click", () => {
             const id = parseInt(capsule.dataset.id);
             if (!isNaN(id)) handleTap(id);
@@ -67,6 +104,8 @@
             isActive: false
         });
     }
+    updatePlaygroundHeight();
+    initPopupPool();
   }
   
   function releaseCapsule(poolItem) {
@@ -111,8 +150,11 @@
   const introTarget = document.getElementById("intro-target");
   if (introTarget) introTarget.textContent = config.wordsToComplete;
 
-  // --- Lives Display ---
+  // --- Lives Display (cached — only rebuild when lives actually change) ---
   function updateLivesDisplay() {
+    if (lives === lastRenderedLives) return;
+    lastRenderedLives = lives;
+
     livesDisplay.innerHTML = "";
     for (let i = 0; i < maxLives; i++) {
       const span = document.createElement("span");
@@ -274,13 +316,12 @@
     capsule.style.display = "block";
     capsule.style.pointerEvents = "auto";
     
-    capsule.innerHTML = `
-            <div class="orb-base ${orbClass} w-[6.5rem] h-[6.5rem] sm:w-[8rem] sm:h-[8rem] flex flex-col items-center justify-center shadow-2xl transition-all p-2">
-                <div class="font-headline font-bold text-white uppercase tracking-wide drop-shadow-lg text-center break-words w-full px-1">
-                    ${displayHtml}
-                </div>
-            </div>
-        `;
+    // Reuse pre-built DOM — just update class and text (no innerHTML rewrite)
+    const orbEl = capsule.querySelector(".orb-base");
+    orbEl.className = "orb-base " + orbClass + " w-[6.5rem] h-[6.5rem] sm:w-[8rem] sm:h-[8rem] flex flex-col items-center justify-center shadow-2xl p-2";
+    orbEl.classList.remove("zap-effect");
+    orbEl.style.border = "";
+    orbEl.querySelector("div").innerHTML = displayHtml;
 
     poolItem.isActive = true;
     activeWords.push({
@@ -361,36 +402,49 @@
     }
   }
 
-  // --- Score Popup ---
+  // --- Score Popup (pooled — no DOM creation/removal during gameplay) ---
   function showScorePopup(wordObj, text, color) {
-    const popup = document.createElement("div");
-    popup.className = "score-popup pointer-events-none text-center w-[150px]";
-    popup.style.cssText = `
-            position: absolute; left: ${wordObj.xPos}%; top: ${wordObj.y - 30}px; transform: translateX(-50%);
-            font-family: 'Space Grotesk'; font-weight: 900; font-size: 1.2rem; line-height: 1.1;
-            color: ${color}; z-index: 100; text-shadow: 0 0 10px ${color};
-        `;
+    const poolItem = popupPool.find(p => p.element.style.display === "none");
+    if (!poolItem) return;
+    
+    const popup = poolItem.element;
+    popup.style.left = wordObj.xPos + "%";
+    popup.style.top = (wordObj.y - 30) + "px";
+    popup.style.transform = "translateX(-50%)";
+    popup.style.color = color;
+    popup.style.textShadow = "0 0 10px " + color;
     popup.innerHTML = text;
-    playground.appendChild(popup);
-    setTimeout(() => popup.remove(), 600);
+    
+    // Re-trigger animation without reflow (use display toggle)
+    popup.style.display = "none";
+    // Force style recalc via rAF instead of offsetWidth reflow
+    requestAnimationFrame(() => {
+      popup.style.display = "";
+      popup.classList.remove("score-popup");
+      popup.classList.add("score-popup");
+    });
+    
+    if (poolItem.timer) clearTimeout(poolItem.timer);
+    poolItem.timer = setTimeout(() => {
+      popup.style.display = "none";
+    }, 650);
   }
 
-  // --- Game Loop (move words down) ---
-  function tick() {
+  // --- Game Loop (move words down — delta-time normalized) ---
+  function tick(deltaTime) {
     if (isPaused || isGameOver) return;
 
-    const playgroundHeight = playground.offsetHeight;
-    const shieldY = playgroundHeight - 10; // shield barrier visual hit mark
+    const shieldY = cachedPlaygroundHeight - 10;
 
     for (let i = activeWords.length - 1; i >= 0; i--) {
       const w = activeWords[i];
-      w.y += w.speed;
+      // deltaTime-normalized: speed is consistent regardless of frame rate
+      w.y += w.speed * deltaTime * 60;
       w.poolItem.element.style.transform = `translate3d(-50%, ${w.y}px, 0)`;
 
       // Word reached shield barrier
       if (w.y >= shieldY) {
         if (w.isToxic) {
-          // Toxic word got through — lose a life
           lives--;
           updateLivesDisplay();
           combo = 0;
@@ -405,7 +459,6 @@
             return;
           }
         }
-        // Remove the word (safe words pass through harmlessly)
         releaseCapsule(w.poolItem);
         activeWords.splice(i, 1);
       }
@@ -542,10 +595,13 @@
     }, 800);
   }
 
-  // --- Animation Frame Loop ---
-  function animationLoop() {
+  // --- Animation Frame Loop (delta-time based) ---
+  function animationLoop(timestamp) {
     if (!isGameOver) {
-      tick();
+      if (!lastFrameTime) lastFrameTime = timestamp;
+      const deltaTime = Math.min((timestamp - lastFrameTime) / 1000, 0.1); // cap at 100ms to avoid huge jumps
+      lastFrameTime = timestamp;
+      tick(deltaTime);
       gameLoop = requestAnimationFrame(animationLoop);
     }
   }
