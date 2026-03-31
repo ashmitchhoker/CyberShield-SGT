@@ -1,0 +1,505 @@
+| S.No | English Word | Hindi Meaning     | Category  |
+| ---- | ------------ | ----------------- | --------- |
+| 1    | Kind         | दयालु             | Non-bully |
+| 2    | Helpful      | सहायक             | Non-bully |
+| 3    | Honest       | ईमानदार           | Non-bully |
+| 4    | Brave        | बहादुर            | Non-bully |
+| 5    | Polite       | विनम्र            | Non-bully |
+| 6    | Respectful   | सम्मानजनक         | Non-bully |
+| 7    | Friendly     | मित्रवत           | Non-bully |
+| 8    | Smart        | बुद्धिमान         | Non-bully |
+| 9    | Caring       | देखभाल करने वाला  | Non-bully |
+| 10   | Gentle       | कोमल              | Non-bully |
+| 11   | Happy        | खुश               | Non-bully |
+| 12   | Strong       | मजबूत             | Non-bully |
+| 13   | Loyal        | वफादार            | Non-bully |
+| 14   | Creative     | रचनात्मक          | Non-bully |
+| 15   | Calm         | शांत              | Non-bully |
+| 16   | Wise         | बुद्धिमान         | Non-bully |
+| 17   | Patient      | धैर्यवान          | Non-bully |
+| 18   | Loving       | प्रेमपूर्ण        | Non-bully |
+| 19   | Supportive   | सहयोगी            | Non-bully |
+| 20   | Confident    | आत्मविश्वासी      | Non-bully |
+| 21   | Stupid       | बेवकूफ            | Bully     |
+| 22   | Idiot        | मूर्ख             | Bully     |
+| 23   | Fool         | बेवकूफ            | Bully     |
+| 24   | Loser        | हारने वाला        | Bully     |
+| 25   | Dumb         | मंदबुद्धि         | Bully     |
+| 26   | Weak         | कमजोर             | Bully     |
+| 27   | Useless      | बेकार             | Bully     |
+| 28   | Lazy         | आलसी              | Bully     |
+| 29   | Ugly         | बदसूरत            | Bully     |
+| 30   | Fat          | मोटा              | Bully     |
+| 31   | Thin         | दुबला             | Bully     |
+| 32   | Crybaby      | रोने वाला         | Bully     |
+| 33   | Nerd         | पढ़ाकू (अपमानजनक) | Bully     |
+| 34   | Freak        | अजीब व्यक्ति      | Bully     |
+| 35   | Psycho       | पागल              | Bully     |
+| 36   | Weird        | अजीब              | Bully     |
+| 37   | Clumsy       | भद्दा             | Bully     |
+| 38   | Coward       | कायर              | Bully     |
+| 39   | Cheat        | धोखेबाज़          | Bully     |
+| 40   | Liar         | झूठा              | Bully     |
+| 41   | Honest       | ईमानदार           | Non-bully |
+| 42   | Joyful       | आनंदित            | Non-bully |
+| 43   | Responsible  | जिम्मेदार         | Non-bully |
+| 44   | Sincere      | सच्चा             | Non-bully |
+| 45   | Helpful      | मददगार            | Non-bully |
+| 46   | Intelligent  | बुद्धिमान         | Non-bully |
+| 47   | Positive     | सकारात्मक         | Non-bully |
+| 48   | Respectful   | सम्मानपूर्ण       | Non-bully |
+| 49   | Motivated    | प्रेरित           | Non-bully |
+| 50   | Dedicated    | समर्पित           | Non-bully |
+| 51   | Worthless    | निकम्मा           | Bully     |
+| 52   | Nonsense     | बकवास             | Bully     |
+| 53   | Failure      | असफल व्यक्ति      | Bully     |
+| 54   | Dummy        | मूर्ख             | Bully     |
+| 55   | Annoying     | परेशान करने वाला  | Bully     |
+| 56   | Irritating   | चिढ़ाने वाला      | Bully     |
+| 57   | Brat         | बिगड़ैल बच्चा     | Bully     |
+| 58   | Rotten       | घटिया             | Bully     |
+| 59   | Trash        | कचरा              | Bully     |
+| 60   | Garbage      | कूड़ा             | Bully     |
+| 61   | Leader       | नेता              | Non-bully |
+| 62   | Scholar      | विद्वान           | Non-bully |
+| 63   | Mentor       | मार्गदर्शक        | Non-bully |
+| 64   | Hero         | नायक              | Non-bully |
+| 65   | Champion     | विजेता            | Non-bully |
+| 66   | Honest       | सच्चा             | Non-bully |
+| 67   | Noble        | महान              | Non-bully |
+| 68   | Humble       | विनम्र            | Non-bully |
+| 69   | Reliable     | भरोसेमंद          | Non-bully |
+| 70   | Trustworthy  | विश्वसनीय         | Non-bully |
+| 71   | Joker        | मसखरा             | Bully     |
+| 72   | Clown        | जोकर              | Bully     |
+| 73   | Pig          | सूअर              | Bully     |
+| 74   | Donkey       | गधा               | Bully     |
+| 75   | Monkey       | बंदर              | Bully     |
+| 76   | Snake        | साँप              | Bully     |
+| 77   | Rat          | चूहा              | Bully     |
+| 78   | Worm         | कीड़ा             | Bully     |
+| 79   | Dog          | कुत्ता            | Bully     |
+| 80   | Buffalo      | भैंस              | Bully     |
+| 81   | Pleasant     | सुखद              | Non-bully |
+| 82   | Cheerful     | प्रसन्न           | Non-bully |
+| 83   | Lovely       | प्यारा            | Non-bully |
+| 84   | Beautiful    | सुंदर             | Non-bully |
+| 85   | Handsome     | सुंदर             | Non-bully |
+| 86   | Talented     | प्रतिभाशाली       | Non-bully |
+| 87   | Skilled      | कुशल              | Non-bully |
+| 88   | Hardworking  | मेहनती            | Non-bully |
+| 89   | Focused      | केंद्रित          | Non-bully |
+| 90   | Determined   | दृढ़ निश्चयी      | Non-bully |
+| 91   | Hopeless     | निराशाजनक         | Bully     |
+| 92   | Pathetic     | दयनीय             | Bully     |
+| 93   | Shameful     | शर्मनाक           | Bully     |
+| 94   | Dirty        | गंदा              | Bully     |
+| 95   | Smelly       | बदबूदार           | Bully     |
+| 96   | Broken       | टूटा हुआ          | Bully     |
+| 97   | Freakish     | विचित्र           | Bully     |
+| 98   | Hopeless     | बेकार             | Bully     |
+| 99   | Mean         | कठोर / बुरा       | Bully     |
+| 100  | Rude         | अशिष्ट            | Bully     |
+| 101  | Honest        | ईमानदार                   | Non-bully |
+| 102  | Helpful       | सहायक                     | Non-bully |
+| 103  | Respectful    | सम्मानपूर्ण               | Non-bully |
+| 104  | Compassionate | दयालु / करुणामय           | Non-bully |
+| 105  | Generous      | उदार                      | Non-bully |
+| 106  | Sincere       | सच्चा                     | Non-bully |
+| 107  | Cheerful      | प्रसन्न                   | Non-bully |
+| 108  | Pleasant      | सुखद                      | Non-bully |
+| 109  | Optimistic    | आशावादी                   | Non-bully |
+| 110  | Supportive    | सहयोगी                    | Non-bully |
+| 111  | Brave         | बहादुर                    | Non-bully |
+| 112  | Fearless      | निडर                      | Non-bully |
+| 113  | Strong        | मजबूत                     | Non-bully |
+| 114  | Energetic     | ऊर्जावान                  | Non-bully |
+| 115  | Active        | सक्रिय                    | Non-bully |
+| 116  | Talented      | प्रतिभाशाली               | Non-bully |
+| 117  | Skilled       | कुशल                      | Non-bully |
+| 118  | Creative      | रचनात्मक                  | Non-bully |
+| 119  | Innovative    | नवाचारी                   | Non-bully |
+| 120  | Dedicated     | समर्पित                   | Non-bully |
+| 121  | Foolish       | मूर्खतापूर्ण              | Bully     |
+| 122  | Idiotic       | बेवकूफी भरा               | Bully     |
+| 123  | Silly         | मूर्ख                     | Bully     |
+| 124  | Crazy         | पागल                      | Bully     |
+| 125  | Mad           | पागल                      | Bully     |
+| 126  | Weakling      | कमजोर व्यक्ति             | Bully     |
+| 127  | Coward        | कायर                      | Bully     |
+| 128  | Crybaby       | रोने वाला                 | Bully     |
+| 129  | Dummy         | बुद्धू                    | Bully     |
+| 130  | Blockhead     | मंदबुद्धि                 | Bully     |
+| 131  | Worthy        | योग्य                     | Non-bully |
+| 132  | Reliable      | भरोसेमंद                  | Non-bully |
+| 133  | Trustworthy   | विश्वसनीय                 | Non-bully |
+| 134  | Loyal         | वफादार                    | Non-bully |
+| 135  | Faithful      | निष्ठावान                 | Non-bully |
+| 136  | Honest        | सच्चा                     | Non-bully |
+| 137  | Noble         | महान                      | Non-bully |
+| 138  | Gentle        | कोमल                      | Non-bully |
+| 139  | Humble        | विनम्र                    | Non-bully |
+| 140  | Wise          | बुद्धिमान                 | Non-bully |
+| 141  | Useless       | बेकार                     | Bully     |
+| 142  | Worthless     | निकम्मा                   | Bully     |
+| 143  | Garbage       | कचरा                      | Bully     |
+| 144  | Trashy        | घटिया                     | Bully     |
+| 145  | Nasty         | घटिया / बुरा              | Bully     |
+| 146  | Dirty         | गंदा                      | Bully     |
+| 147  | Smelly        | बदबूदार                   | Bully     |
+| 148  | Ugly          | बदसूरत                    | Bully     |
+| 149  | Gross         | घिनौना                    | Bully     |
+| 150  | Disgusting    | घृणित                     | Bully     |
+| 151  | Smart         | होशियार                   | Non-bully |
+| 152  | Intelligent   | बुद्धिमान                 | Non-bully |
+| 153  | Brilliant     | प्रतिभाशाली               | Non-bully |
+| 154  | Genius        | प्रतिभावान                | Non-bully |
+| 155  | Sharp         | तेज दिमाग                 | Non-bully |
+| 156  | Alert         | सतर्क                     | Non-bully |
+| 157  | Attentive     | ध्यान देने वाला           | Non-bully |
+| 158  | Thoughtful    | विचारशील                  | Non-bully |
+| 159  | Caring        | देखभाल करने वाला          | Non-bully |
+| 160  | Loving        | प्रेमपूर्ण                | Non-bully |
+| 161  | Brat          | बिगड़ैल                   | Bully     |
+| 162  | Spoiled       | बिगड़ा हुआ                | Bully     |
+| 163  | Loser         | हारने वाला                | Bully     |
+| 164  | Failure       | असफल व्यक्ति              | Bully     |
+| 165  | Hopeless      | निराशाजनक                 | Bully     |
+| 166  | Pathetic      | दयनीय                     | Bully     |
+| 167  | Miserable     | दुखी / दयनीय              | Bully     |
+| 168  | Clumsy        | भद्दा                     | Bully     |
+| 169  | Awkward       | अजीब                      | Bully     |
+| 170  | Freak         | सनकी / अजीब व्यक्ति       | Bully     |
+| 171  | Positive      | सकारात्मक                 | Non-bully |
+| 172  | Encouraging   | प्रोत्साहित करने वाला     | Non-bully |
+| 173  | Inspiring     | प्रेरणादायक               | Non-bully |
+| 174  | Motivating    | प्रेरक                    | Non-bully |
+| 175  | Helpful       | मददगार                    | Non-bully |
+| 176  | Cooperative   | सहयोगी                    | Non-bully |
+| 177  | Friendly      | मित्रवत                   | Non-bully |
+| 178  | Warm          | स्नेही                    | Non-bully |
+| 179  | Kindhearted   | दयालु हृदय वाला           | Non-bully |
+| 180  | Sympathetic   | सहानुभूतिपूर्ण            | Non-bully |
+| 181  | Mean          | बुरा / कठोर               | Bully     |
+| 182  | Rude          | अशिष्ट                    | Bully     |
+| 183  | Harsh         | कठोर                      | Bully     |
+| 184  | Cruel         | निर्दयी                   | Bully     |
+| 185  | Heartless     | निर्दयी                   | Bully     |
+| 186  | Bitter        | कटु                       | Bully     |
+| 187  | Jealous       | जलन रखने वाला             | Bully     |
+| 188  | Arrogant      | घमंडी                     | Bully     |
+| 189  | Bossy         | हुक्म चलाने वाला          | Bully     |
+| 190  | Dominating    | दबाव डालने वाला           | Bully     |
+| 191  | Successful    | सफल                       | Non-bully |
+| 192  | Victorious    | विजयी                     | Non-bully |
+| 193  | Achiever      | उपलब्धि प्राप्त करने वाला | Non-bully |
+| 194  | Leader        | नेता                      | Non-bully |
+| 195  | Winner        | विजेता                    | Non-bully |
+| 196  | Champion      | चैंपियन                   | Non-bully |
+| 197  | Hero          | नायक                      | Non-bully |
+| 198  | Role model    | आदर्श व्यक्ति             | Non-bully |
+| 199  | Mentor        | मार्गदर्शक                | Non-bully |
+| 200  | Scholar       | विद्वान                   | Non-bully |
+| S.No | English Word  | Hindi Meaning        | Category  |
+| ---- | ------------- | -------------------- | --------- |
+| 201  | Polite        | विनम्र               | Non-bully |
+| 202  | Courteous     | शिष्ट                | Non-bully |
+| 203  | Respectful    | सम्मानजनक            | Non-bully |
+| 204  | Honest        | ईमानदार              | Non-bully |
+| 205  | Truthful      | सत्यवादी             | Non-bully |
+| 206  | Loyal         | वफादार               | Non-bully |
+| 207  | Reliable      | भरोसेमंद             | Non-bully |
+| 208  | Dependable    | विश्वसनीय            | Non-bully |
+| 209  | Responsible   | जिम्मेदार            | Non-bully |
+| 210  | Mature        | परिपक्व              | Non-bully |
+| 211  | Idiot         | मूर्ख                | Bully     |
+| 212  | Moron         | मंदबुद्धि            | Bully     |
+| 213  | Fool          | बेवकूफ               | Bully     |
+| 214  | Numbskull     | मूर्ख व्यक्ति        | Bully     |
+| 215  | Dimwit        | बुद्धू               | Bully     |
+| 216  | Airhead       | हल्के दिमाग वाला     | Bully     |
+| 217  | Slow          | धीमा / मंदबुद्धि     | Bully     |
+| 218  | Dumb          | बेवकूफ               | Bully     |
+| 219  | Brainless     | दिमागहीन             | Bully     |
+| 220  | Witless       | बुद्धिहीन            | Bully     |
+| 221  | Helpful       | सहायक                | Non-bully |
+| 222  | Caring        | देखभाल करने वाला     | Non-bully |
+| 223  | Loving        | प्रेमपूर्ण           | Non-bully |
+| 224  | Affectionate  | स्नेही               | Non-bully |
+| 225  | Gentle        | कोमल                 | Non-bully |
+| 226  | Soft-spoken   | मधुरभाषी             | Non-bully |
+| 227  | Friendly      | मित्रवत              | Non-bully |
+| 228  | Cheerful      | प्रसन्न              | Non-bully |
+| 229  | Joyful        | आनंदित               | Non-bully |
+| 230  | Happy         | खुश                  | Non-bully |
+| 231  | Rotten        | घटिया                | Bully     |
+| 232  | Nasty         | गंदा / बुरा          | Bully     |
+| 233  | Filthy        | बहुत गंदा            | Bully     |
+| 234  | Dirty         | गंदा                 | Bully     |
+| 235  | Smelly        | बदबूदार              | Bully     |
+| 236  | Gross         | घिनौना               | Bully     |
+| 237  | Awful         | भयानक                | Bully     |
+| 238  | Terrible      | बहुत खराब            | Bully     |
+| 239  | Horrible      | भयानक                | Bully     |
+| 240  | Ugly          | बदसूरत               | Bully     |
+| 241  | Brilliant     | प्रतिभाशाली          | Non-bully |
+| 242  | Intelligent   | बुद्धिमान            | Non-bully |
+| 243  | Sharp         | तेज दिमाग            | Non-bully |
+| 244  | Wise          | बुद्धिमान            | Non-bully |
+| 245  | Clever        | चतुर                 | Non-bully |
+| 246  | Skilled       | कुशल                 | Non-bully |
+| 247  | Talented      | प्रतिभाशाली          | Non-bully |
+| 248  | Gifted        | प्रतिभावान           | Non-bully |
+| 249  | Competent     | सक्षम                | Non-bully |
+| 250  | Efficient     | दक्ष                 | Non-bully |
+| 251  | Weak          | कमजोर                | Bully     |
+| 252  | Weakling      | कमजोर व्यक्ति        | Bully     |
+| 253  | Coward        | कायर                 | Bully     |
+| 254  | Spineless     | रीढ़हीन / डरपोक      | Bully     |
+| 255  | Helpless      | असहाय                | Bully     |
+| 256  | Useless       | बेकार                | Bully     |
+| 257  | Worthless     | निकम्मा              | Bully     |
+| 258  | Hopeless      | निराशाजनक            | Bully     |
+| 259  | Failure       | असफल                 | Bully     |
+| 260  | Loser         | हारने वाला           | Bully     |
+| 261  | Hardworking   | मेहनती               | Non-bully |
+| 262  | Diligent      | परिश्रमी             | Non-bully |
+| 263  | Sincere       | ईमानदार / सच्चा      | Non-bully |
+| 264  | Dedicated     | समर्पित              | Non-bully |
+| 265  | Committed     | प्रतिबद्ध            | Non-bully |
+| 266  | Focused       | केंद्रित             | Non-bully |
+| 267  | Determined    | दृढ़ निश्चयी         | Non-bully |
+| 268  | Motivated     | प्रेरित              | Non-bully |
+| 269  | Persistent    | दृढ़                 | Non-bully |
+| 270  | Ambitious     | महत्वाकांक्षी        | Non-bully |
+| 271  | Fat           | मोटा                 | Bully     |
+| 272  | Skinny        | बहुत दुबला           | Bully     |
+| 273  | Tiny          | बहुत छोटा            | Bully     |
+| 275  | Chunky        | मोटा-ताज़ा           | Bully     |
+| 276  | Chubby        | गोल-मटोल             | Bully     |
+| 277  | Bony          | हड्डी जैसा दुबला     | Bully     |
+| 278  | Shorty        | नाटा                 | Bully     |
+| 279  | Tiny one      | छोटा व्यक्ति         | Bully     |
+| 280  | Big mouth     | बकवादी               | Bully     |
+| 281  | Noble         | महान                 | Non-bully |
+| 282  | Generous      | उदार                 | Non-bully |
+| 283  | Humble        | विनम्र               | Non-bully |
+| 284  | Kind          | दयालु                | Non-bully |
+| 285  | Compassionate | करुणामय              | Non-bully |
+| 286  | Supportive    | सहयोगी               | Non-bully |
+| 287  | Cooperative   | सहकारी               | Non-bully |
+| 288  | Understanding | समझदार               | Non-bully |
+| 289  | Patient       | धैर्यवान             | Non-bully |
+| 290  | Forgiving     | क्षमाशील             | Non-bully |
+| 291  | Clown         | जोकर                 | Bully     |
+| 292  | Joker         | मसखरा                | Bully     |
+| 293  | Brat          | बिगड़ैल              | Bully     |
+| 294  | Pest          | परेशान करने वाला     | Bully     |
+| 295  | Annoyance     | झुंझलाहट             | Bully     |
+| 296  | Irritating    | चिढ़ाने वाला         | Bully     |
+| 297  | Troublemaker  | उपद्रवी              | Bully     |
+| 298  | Menace        | खतरा / उपद्रवी       | Bully     |
+| 299  | Bully         | दबंग / तंग करने वाला | Bully     |
+| 300  | Tyrant        | अत्याचारी            | Bully     |
+| S.No | English Word | Hindi Meaning             | Category  |
+| ---- | ------------ | ------------------------- | --------- |
+| 301  | Honest       | ईमानदार                   | Non-bully |
+| 302  | Truthful     | सत्यवादी                  | Non-bully |
+| 303  | Sincere      | सच्चा                     | Non-bully |
+| 304  | Faithful     | निष्ठावान                 | Non-bully |
+| 305  | Loyal        | वफादार                    | Non-bully |
+| 306  | Respectful   | सम्मानपूर्ण               | Non-bully |
+| 307  | Polite       | विनम्र                    | Non-bully |
+| 308  | Courteous    | शिष्ट                     | Non-bully |
+| 309  | Humble       | विनम्र                    | Non-bully |
+| 310  | Noble        | महान                      | Non-bully |
+| 311  | Idiotic      | बेवकूफी भरा               | Bully     |
+| 312  | Brain-dead   | दिमागहीन                  | Bully     |
+| 313  | Halfwit      | आधा बुद्धू                | Bully     |
+| 314  | Bonehead     | मूर्ख                     | Bully     |
+| 315  | Thickheaded  | जड़बुद्धि                 | Bully     |
+| 316  | Nitwit       | बुद्धू                    | Bully     |
+| 317  | Simpleton    | मूर्ख व्यक्ति             | Bully     |
+| 318  | Dork         | बेवकूफ / अजीब व्यक्ति     | Bully     |
+| 319  | Geek         | पढ़ाकू (कभी अपमानजनक)     | Bully     |
+| 320  | Nerd         | पढ़ाकू (अपमानजनक)         | Bully     |
+| 321  | Helpful      | मददगार                    | Non-bully |
+| 322  | Supportive   | सहयोगी                    | Non-bully |
+| 323  | Caring       | देखभाल करने वाला          | Non-bully |
+| 324  | Loving       | प्रेमपूर्ण                | Non-bully |
+| 325  | Kind         | दयालु                     | Non-bully |
+| 326  | Gentle       | कोमल                      | Non-bully |
+| 327  | Friendly     | मित्रवत                   | Non-bully |
+| 328  | Warm         | स्नेही                    | Non-bully |
+| 329  | Pleasant     | सुखद                      | Non-bully |
+| 330  | Cheerful     | प्रसन्न                   | Non-bully |
+| 331  | Ugly         | बदसूरत                    | Bully     |
+| 332  | Hideous      | भद्दा / कुरूप             | Bully     |
+| 333  | Freakish     | विचित्र                   | Bully     |
+| 334  | Weird        | अजीब                      | Bully     |
+| 335  | Oddball      | सनकी                      | Bully     |
+| 336  | Misfit       | अनुपयुक्त व्यक्ति         | Bully     |
+| 337  | Outcast      | बहिष्कृत                  | Bully     |
+| 338  | Reject       | अस्वीकृत व्यक्ति          | Bully     |
+| 339  | Nobody       | कोई नहीं / महत्वहीन       | Bully     |
+| 340  | Invisible    | अदृश्य / महत्वहीन         | Bully     |
+| 341  | Brave        | बहादुर                    | Non-bully |
+| 342  | Fearless     | निडर                      | Non-bully |
+| 343  | Courageous   | साहसी                     | Non-bully |
+| 344  | Bold         | निडर                      | Non-bully |
+| 345  | Strong       | मजबूत                     | Non-bully |
+| 346  | Powerful     | शक्तिशाली                 | Non-bully |
+| 347  | Resilient    | दृढ़                      | Non-bully |
+| 348  | Determined   | दृढ़ निश्चयी              | Non-bully |
+| 349  | Persistent   | लगातार प्रयास करने वाला   | Non-bully |
+| 350  | Focused      | केंद्रित                  | Non-bully |
+| 351  | Weak         | कमजोर                     | Bully     |
+| 352  | Spineless    | रीढ़हीन                   | Bully     |
+| 353  | Timid        | डरपोक                     | Bully     |
+| 354  | Chicken      | डरपोक                     | Bully     |
+| 355  | Scaredy-cat  | बहुत डरपोक                | Bully     |
+| 356  | Frail        | कमजोर                     | Bully     |
+| 357  | Fragile      | नाजुक                     | Bully     |
+| 358  | Powerless    | शक्तिहीन                  | Bully     |
+| 359  | Hopeless     | निराशाजनक                 | Bully     |
+| 360  | Defeated     | पराजित                    | Bully     |
+| 361  | Smart        | होशियार                   | Non-bully |
+| 362  | Intelligent  | बुद्धिमान                 | Non-bully |
+| 363  | Brilliant    | प्रतिभाशाली               | Non-bully |
+| 364  | Genius       | प्रतिभावान                | Non-bully |
+| 365  | Clever       | चतुर                      | Non-bully |
+| 366  | Sharp        | तेज दिमाग                 | Non-bully |
+| 367  | Insightful   | सूझबूझ वाला               | Non-bully |
+| 368  | Wise         | समझदार                    | Non-bully |
+| 369  | Learned      | विद्वान                   | Non-bully |
+| 370  | Scholarly    | शैक्षणिक / विद्वत्तापूर्ण | Non-bully |
+| 371  | Stupid       | बेवकूफ                    | Bully     |
+| 372  | Foolish      | मूर्खतापूर्ण              | Bully     |
+| 373  | Mindless     | दिमागहीन                  | Bully     |
+| 374  | Clueless     | अनजान / समझहीन            | Bully     |
+| 375  | Ignorant     | अज्ञानी                   | Bully     |
+| 376  | Dense        | मंदबुद्धि                 | Bully     |
+| 377  | Slow-witted  | धीमी बुद्धि वाला          | Bully     |
+| 378  | Thick        | मंदबुद्धि                 | Bully     |
+| 379  | Blank        | खाली दिमाग                | Bully     |
+| 380  | Dopey        | सुस्त / मूर्ख             | Bully     |
+| 381  | Successful   | सफल                       | Non-bully |
+| 382  | Achiever     | उपलब्धि प्राप्त करने वाला | Non-bully |
+| 383  | Winner       | विजेता                    | Non-bully |
+| 384  | Champion     | चैंपियन                   | Non-bully |
+| 385  | Hero         | नायक                      | Non-bully |
+| 386  | Leader       | नेता                      | Non-bully |
+| 387  | Mentor       | मार्गदर्शक                | Non-bully |
+| 388  | Role model   | आदर्श व्यक्ति             | Non-bully |
+| 389  | Inspiration  | प्रेरणा                   | Non-bully |
+| 390  | Motivator    | प्रेरक                    | Non-bully |
+| 391  | Loser        | हारने वाला                | Bully     |
+| 392  | Failure      | असफल व्यक्ति              | Bully     |
+| 393  | Quitter      | हार मानने वाला            | Bully     |
+| 394  | Dropout      | पढ़ाई छोड़ने वाला         | Bully     |
+| 395  | Deadbeat     | निकम्मा                   | Bully     |
+| 396  | Slacker      | कामचोर                    | Bully     |
+| 397  | Lazy         | आलसी                      | Bully     |
+| 398  | Worthless    | निकम्मा                   | Bully     |
+| 399  | Useless      | बेकार                     | Bully     |
+| 400  | Burden       | बोझ                       | Bully     |
+| 401  | Kind          | दयालु                     | Non-bully |
+| 402  | Compassionate | करुणामय                   | Non-bully |
+| 403  | Generous      | उदार                      | Non-bully |
+| 404  | Helpful       | सहायक                     | Non-bully |
+| 405  | Supportive    | सहयोगी                    | Non-bully |
+| 406  | Caring        | देखभाल करने वाला          | Non-bully |
+| 407  | Understanding | समझदार                    | Non-bully |
+| 408  | Patient       | धैर्यवान                  | Non-bully |
+| 409  | Forgiving     | क्षमाशील                  | Non-bully |
+| 410  | Respectful    | सम्मानपूर्ण               | Non-bully |
+| 411  | Brainless     | दिमागहीन                  | Bully     |
+| 412  | Moronic       | मूर्खतापूर्ण              | Bully     |
+| 413  | Idiotic       | बेवकूफी भरा               | Bully     |
+| 414  | Foolish       | मूर्ख                     | Bully     |
+| 415  | Silly         | बेवकूफ                    | Bully     |
+| 416  | Ridiculous    | हास्यास्पद                | Bully     |
+| 417  | Absurd        | बेतुका                    | Bully     |
+| 418  | Laughable     | हँसी का पात्र             | Bully     |
+| 419  | Clownish      | जोकर जैसा                 | Bully     |
+| 420  | Jokey         | मसखरा                     | Bully     |
+| 421  | Honest        | ईमानदार                   | Non-bully |
+| 422  | Truthful      | सत्यवादी                  | Non-bully |
+| 423  | Loyal         | वफादार                    | Non-bully |
+| 424  | Dependable    | भरोसेमंद                  | Non-bully |
+| 425  | Reliable      | विश्वसनीय                 | Non-bully |
+| 426  | Sincere       | सच्चा                     | Non-bully |
+| 427  | Humble        | विनम्र                    | Non-bully |
+| 428  | Noble         | महान                      | Non-bully |
+| 429  | Polite        | शिष्ट                     | Non-bully |
+| 430  | Courteous     | विनम्र                    | Non-bully |
+| 431  | Ugly          | बदसूरत                    | Bully     |
+| 432  | Hideous       | कुरूप                     | Bully     |
+| 433  | Grotesque     | विकृत / कुरूप             | Bully     |
+| 434  | Odd           | अजीब                      | Bully     |
+| 435  | Strange       | विचित्र                   | Bully     |
+| 436  | Freaky        | अजीब                      | Bully     |
+| 437  | Creepy        | डरावना / अजीब             | Bully     |
+| 438  | Freak         | सनकी                      | Bully     |
+| 439  | Monster       | राक्षस                    | Bully     |
+| 440  | Beast         | जानवर / दानव              | Bully     |
+| 441  | Brilliant     | प्रतिभाशाली               | Non-bully |
+| 442  | Intelligent   | बुद्धिमान                 | Non-bully |
+| 443  | Clever        | चतुर                      | Non-bully |
+| 444  | Sharp         | तेज दिमाग                 | Non-bully |
+| 445  | Wise          | समझदार                    | Non-bully |
+| 446  | Talented      | प्रतिभाशाली               | Non-bully |
+| 447  | Gifted        | प्रतिभावान                | Non-bully |
+| 448  | Skilled       | कुशल                      | Non-bully |
+| 449  | Efficient     | दक्ष                      | Non-bully |
+| 450  | Competent     | सक्षम                     | Non-bully |
+| 451  | Dummy         | बुद्धू                    | Bully     |
+| 452  | Bonehead      | मूर्ख                     | Bully     |
+| 453  | Nitwit        | बुद्धू                    | Bully     |
+| 454  | Airhead       | हल्के दिमाग वाला          | Bully     |
+| 455  | Blockhead     | जड़बुद्धि                 | Bully     |
+| 456  | Halfwit       | आधा बुद्धू                | Bully     |
+| 457  | Numbskull     | मूर्ख व्यक्ति             | Bully     |
+| 458  | Dull          | सुस्त / मंदबुद्धि         | Bully     |
+| 459  | Dense         | मंदबुद्धि                 | Bully     |
+| 460  | Witless       | बुद्धिहीन                 | Bully     |
+| 461  | Friendly      | मित्रवत                   | Non-bully |
+| 462  | Warm          | स्नेही                    | Non-bully |
+| 463  | Loving        | प्रेमपूर्ण                | Non-bully |
+| 464  | Affectionate  | स्नेहमय                   | Non-bully |
+| 465  | Cheerful      | प्रसन्न                   | Non-bully |
+| 466  | Joyful        | आनंदित                    | Non-bully |
+| 467  | Happy         | खुश                       | Non-bully |
+| 468  | Positive      | सकारात्मक                 | Non-bully |
+| 469  | Encouraging   | प्रोत्साहित करने वाला     | Non-bully |
+| 470  | Inspiring     | प्रेरणादायक               | Non-bully |
+| 471  | Weakling      | कमजोर व्यक्ति             | Bully     |
+| 472  | Coward        | कायर                      | Bully     |
+| 473  | Chicken       | डरपोक                     | Bully     |
+| 474  | Timid         | संकोची / डरपोक            | Bully     |
+| 475  | Scared        | डरा हुआ                   | Bully     |
+| 476  | Spineless     | रीढ़हीन                   | Bully     |
+| 477  | Powerless     | शक्तिहीन                  | Bully     |
+| 478  | Helpless      | असहाय                     | Bully     |
+| 479  | Pathetic      | दयनीय                     | Bully     |
+| 480  | Miserable     | दयनीय                     | Bully     |
+| 481  | Hardworking   | मेहनती                    | Non-bully |
+| 482  | Diligent      | परिश्रमी                  | Non-bully |
+| 483  | Focused       | केंद्रित                  | Non-bully |
+| 484  | Dedicated     | समर्पित                   | Non-bully |
+| 485  | Determined    | दृढ़ निश्चयी              | Non-bully |
+| 486  | Persistent    | लगातार प्रयास करने वाला   | Non-bully |
+| 487  | Motivated     | प्रेरित                   | Non-bully |
+| 488  | Ambitious     | महत्वाकांक्षी             | Non-bully |
+| 489  | Successful    | सफल                       | Non-bully |
+| 490  | Achiever      | उपलब्धि प्राप्त करने वाला | Non-bully |
+| 491  | Lazy          | आलसी                      | Bully     |
+| 492  | Slacker       | कामचोर                    | Bully     |
+| 493  | Quitter       | हार मानने वाला            | Bully     |
+| 494  | Deadbeat      | निकम्मा                   | Bully     |
+| 495  | Failure       | असफल व्यक्ति              | Bully     |
+| 496  | Loser         | हारने वाला                | Bully     |
+| 497  | Worthless     | निकम्मा                   | Bully     |
+| 498  | Useless       | बेकार                     | Bully     |
+| 499  | Burden        | बोझ                       | Bully     |
+| 500  | Trash         | कचरा                      | Bully     |

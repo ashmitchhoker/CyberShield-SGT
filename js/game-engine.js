@@ -191,15 +191,28 @@
 
     const borderClass = "neon-border-cyan";
 
-    // Detect Hindi characters to bump up their font size specially
-    const isHindi = /[\u0900-\u097F]/.test(word);
-    const fontSizeClass = isHindi
-      ? "text-lg sm:text-xl"
-      : "text-sm sm:text-base";
+    // Detect Hindi First format "Hindi | English"
+    const parts = word.split(" | ");
+    let displayHtml = "";
+    
+    if (parts.length === 2) {
+        const hindi = parts[0];
+        const english = parts[1];
+        displayHtml = `
+            <span class="block text-[15px] sm:text-[18px] leading-tight mb-1">${hindi}</span>
+            <span class="block text-[10px] sm:text-[12px] opacity-80 font-normal">${english}</span>
+        `;
+    } else {
+        const isHindi = /[\u0900-\u097F]/.test(word);
+        const fontSizeClass = isHindi ? "text-lg sm:text-xl" : "text-sm sm:text-base";
+        displayHtml = `<span class="${fontSizeClass}">${word}</span>`;
+    }
 
     capsule.innerHTML = `
-            <div class="capsule-glass ${borderClass} w-[6.5rem] h-[6.5rem] sm:w-32 sm:h-32 rounded-full flex flex-col items-center justify-center shadow-2xl backdrop-blur-md transition-all p-3">
-                <span class="font-headline font-bold text-on-surface uppercase tracking-wide ${fontSizeClass} drop-shadow-lg text-center leading-snug hover:scale-105 transition-transform cursor-pointer break-words hyphens-auto w-full px-1" style="word-break: break-word;">${word}</span>
+            <div class="capsule-glass ${borderClass} w-[6.5rem] h-[6.5rem] sm:w-32 sm:h-32 rounded-full flex flex-col items-center justify-center shadow-2xl backdrop-blur-md transition-all p-2">
+                <div class="font-headline font-bold text-on-surface uppercase tracking-wide drop-shadow-lg text-center hover:scale-105 transition-transform cursor-pointer break-words w-full px-1">
+                    ${displayHtml}
+                </div>
             </div>
         `;
 
