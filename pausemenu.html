@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Cyber Shield - Paused</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -17,17 +17,18 @@
     <link rel="stylesheet" href="css/global.css" />
     <script src="js/components.js"></script>
   </head>
-  <body
-    class="bg-surface text-on-surface font-body min-h-[100dvh] overflow-x-hidden flex flex-col items-center"
+  <body class="bg-[#03010b] text-on-surface font-body min-h-[100dvh] overflow-x-hidden flex flex-col items-center"
   >
     <script src="game-data.js"></script>
 
+    
     <!-- Frozen Background -->
-    <div
-      class="fixed inset-0 z-0 bg-gradient-to-b from-[#0a0e27] via-[#0d112a] to-[#120a2e]"
-    >
-      <div class="absolute inset-0 bg-surface/60 backdrop-blur-sm"></div>
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="cyber-grid w-full h-full opacity-60"></div>
+        <div id="starfield" class="absolute inset-0"></div>
     </div>
+    <div class="fixed inset-0 z-0 bg-surface/60 backdrop-blur-md pointer-events-none"></div>
+
 
     <!-- Main Pause Overlay -->
     <main

@@ -5,19 +5,25 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>CYBER SHIELD - SYSTEM FAILURE</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="js/tailwind-config.js"></script>
     <link rel="stylesheet" href="css/global.css"/>
     <script src="js/components.js"></script>
 </head>
-<body class="bg-surface text-on-surface font-body overflow-x-hidden min-h-[100dvh] selection:bg-error selection:text-on-error">
+<body class="bg-[#03010b] text-on-surface font-body overflow-x-hidden min-h-[100dvh] selection:bg-error selection:text-on-error">
     <script src="game-data.js"></script>
 
 
     <!-- Main Failure Canvas -->
     <main class="relative min-h-[100dvh] flex flex-col items-center justify-center pt-24 pb-32 md:pb-12 px-6 text-center">
-        <div class="absolute inset-0 z-0 red-vignette"></div>
+        
+        <div class="fixed inset-0 pointer-events-none z-0">
+            <div class="cyber-grid w-full h-full opacity-60"></div>
+            <div id="starfield" class="absolute inset-0"></div>
+        </div>
+        <div class="absolute inset-0 z-0 red-vignette opacity-70"></div>
+
 
         <div class="relative z-10 max-w-4xl w-full flex flex-col items-center">
             <!-- Broken Heart Icon (Smaller) -->

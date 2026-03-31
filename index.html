@@ -6,7 +6,7 @@
     <title>CYBER SHIELD — Toxic Rain</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -17,54 +17,15 @@
     <link rel="stylesheet" href="css/global.css" />
     <script src="js/components.js"></script>
   </head>
-  <body
-    class="bg-surface font-body text-on-surface overflow-hidden h-screen w-screen flex flex-col items-center justify-center relative"
+  <body class="bg-[#03010b] font-body text-on-surface overflow-x-hidden h-[100dvh] w-screen flex flex-col items-center justify-center relative"
   >
-    <!-- Background Rain -->
-    <div class="fixed inset-0 z-0 overflow-hidden opacity-15">
-      <div
-        class="rain-column left-[5%] animate-rain"
-        style="animation-duration: 4s; animation-delay: 0.5s"
-      ></div>
-      <div
-        class="rain-column left-[15%] animate-rain"
-        style="animation-duration: 6s; animation-delay: 1.2s"
-      ></div>
-      <div
-        class="rain-column left-[28%] animate-rain"
-        style="animation-duration: 3.5s; animation-delay: 2.1s"
-      ></div>
-      <div
-        class="rain-column left-[42%] animate-rain"
-        style="animation-duration: 5s; animation-delay: 0.8s"
-      ></div>
-      <div
-        class="rain-column left-[55%] animate-rain"
-        style="animation-duration: 4.5s; animation-delay: 1.5s"
-      ></div>
-      <div
-        class="rain-column left-[70%] animate-rain"
-        style="animation-duration: 7s; animation-delay: 0.2s"
-      ></div>
-      <div
-        class="rain-column left-[85%] animate-rain"
-        style="animation-duration: 3s; animation-delay: 2.5s"
-      ></div>
-      <div
-        class="rain-column left-[95%] animate-rain"
-        style="animation-duration: 5.5s; animation-delay: 1.8s"
-      ></div>
+    
+    <!-- Unified Deep Space Background -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="cyber-grid w-full h-full opacity-60"></div>
+        <div id="starfield" class="absolute inset-0"></div>
     </div>
 
-    <!-- Gradient overlay -->
-    <div
-      class="fixed inset-0 z-0 bg-gradient-to-b from-[#0a0e27] via-[#0d112a] to-[#120a2e]"
-    ></div>
-
-    <!-- Vignette -->
-    <div
-      class="fixed inset-0 pointer-events-none z-[5] bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]"
-    ></div>
 
     <!-- Main Content -->
     <div
@@ -82,17 +43,18 @@
         >
       </div>
 
+      
       <!-- Title -->
-      <h1
-        class="font-headline font-black text-5xl md:text-6xl tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-b from-white to-primary drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] leading-tight mb-2"
-      >
-        CYBER SHIELD
-      </h1>
-      <p
-        class="font-headline text-primary/60 text-sm tracking-[0.3em] uppercase font-bold mb-2"
-      >
-        Toxic Rain
-      </p>
+      <div class="flex flex-col items-center leading-none mt-[-4px] mb-8">
+        <h2 class="font-headline font-black text-[18px] sm:text-[26px] tracking-[0.4em] text-[#00d4ff] mb-[-2px]" style="text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);">
+          CYBER
+        </h2>
+        <h1 class="font-headline font-black text-[50px] sm:text-[72px] tracking-widest text-[#00d4ff]"
+            style="color: #020b14; -webkit-text-stroke: 1.5px #00d4ff; text-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 5px rgba(0, 212, 255, 0.4);">
+          SHIELD
+        </h1>
+      </div>
+
       <p class="text-on-surface-variant text-sm max-w-xs mb-12 leading-relaxed">
         Zap the toxic words. Protect the kind ones. Defend the digital frontier.
       </p>
@@ -130,46 +92,6 @@
       </p>
     </div>
 
-    <!-- Bubble Generator Script -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const bgContainer = document.createElement("div");
-        bgContainer.className =
-          "fixed inset-0 z-[2] overflow-hidden pointer-events-none";
-
-        // Find the gradient overlay to insert bubbles after it
-        const gradientOverlay = document.querySelector(".bg-gradient-to-b");
-        if (gradientOverlay) {
-          gradientOverlay.after(bgContainer);
-        } else {
-          document.body.appendChild(bgContainer);
-        }
-
-        for (let i = 0; i < 40; i++) {
-          const bubble = document.createElement("div");
-          bubble.className = "absolute rounded-full animate-bubble";
-
-          // Smaller, clearer watery drop style for the menu screen too
-          const size = Math.random() * 8 + 4 + "px"; // 4px to 12px
-          const left = Math.random() * 100 + "vw";
-          const duration = Math.random() * 5 + 3 + "s";
-          const delay = Math.random() * -10 + "s"; // negative delay so they spawn continuously
-
-          bubble.style.width = size;
-          bubble.style.height = size;
-          bubble.style.left = left;
-          bubble.style.top = "-10vh"; // Start at top
-
-          // Using explicit styles ensures the elements are visibly lit without relying on Tailwind CDN scanning
-          bubble.style.backgroundColor = "rgba(200, 240, 255, 0.3)";
-          bubble.style.border = "1px solid rgba(255, 255, 255, 0.4)";
-
-          bubble.style.animationDuration = duration;
-          bubble.style.animationDelay = delay;
-
-          bgContainer.appendChild(bubble);
-        }
-      });
-    </script>
+    
   </body>
 </html>

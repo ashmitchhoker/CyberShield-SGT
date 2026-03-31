@@ -31,3 +31,27 @@ class CyberNav extends HTMLElement {
     }
 }
 customElements.define('cyber-nav', CyberNav);
+
+
+// --- Global Starfield Generator ---
+document.addEventListener("DOMContentLoaded", () => {
+    const sf = document.getElementById("starfield");
+    if (!sf) return;
+    
+    // Check if stars already exist
+    if (sf.children.length > 0) return;
+    
+    for (let i = 0; i < 60; i++) {
+        const s = document.createElement("div");
+        s.className = "star-particle absolute rounded-full bg-[#00d4ff]";
+        const size = Math.random() * 2.5 + 0.5;
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.top = Math.random() * 100 + "dvh";
+        s.style.opacity = Math.random() * 0.8 + 0.2;
+        s.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        s.style.animationDelay = Math.random() * 5 + "s";
+        sf.appendChild(s);
+    }
+});
