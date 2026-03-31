@@ -192,8 +192,8 @@
     const borderClass = "neon-border-cyan";
 
     capsule.innerHTML = `
-            <div class="capsule-glass ${borderClass} w-[5.5rem] h-[5.5rem] sm:w-28 sm:h-28 rounded-full flex flex-col items-center justify-center shadow-2xl backdrop-blur-md transition-all p-2">
-                <span class="font-headline font-bold text-on-surface uppercase tracking-wide text-[11px] sm:text-xs drop-shadow-lg text-center leading-tight hover:scale-105 transition-transform cursor-pointer break-words w-full px-1">${word}</span>
+            <div class="capsule-glass ${borderClass} w-[6.5rem] h-[6.5rem] sm:w-32 sm:h-32 rounded-full flex flex-col items-center justify-center shadow-2xl backdrop-blur-md transition-all p-3">
+                <span class="font-headline font-bold text-on-surface uppercase tracking-wide text-sm sm:text-base drop-shadow-lg text-center leading-snug hover:scale-105 transition-transform cursor-pointer break-words hyphens-auto w-full px-1" style="word-break: break-word;">${word}</span>
             </div>
         `;
 
