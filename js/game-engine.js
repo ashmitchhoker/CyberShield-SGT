@@ -191,9 +191,15 @@
 
     const borderClass = "neon-border-cyan";
 
+    // Detect Hindi characters to bump up their font size specially
+    const isHindi = /[\u0900-\u097F]/.test(word);
+    const fontSizeClass = isHindi
+      ? "text-lg sm:text-xl"
+      : "text-sm sm:text-base";
+
     capsule.innerHTML = `
             <div class="capsule-glass ${borderClass} w-[6.5rem] h-[6.5rem] sm:w-32 sm:h-32 rounded-full flex flex-col items-center justify-center shadow-2xl backdrop-blur-md transition-all p-3">
-                <span class="font-headline font-bold text-on-surface uppercase tracking-wide text-sm sm:text-base drop-shadow-lg text-center leading-snug hover:scale-105 transition-transform cursor-pointer break-words hyphens-auto w-full px-1" style="word-break: break-word;">${word}</span>
+                <span class="font-headline font-bold text-on-surface uppercase tracking-wide ${fontSizeClass} drop-shadow-lg text-center leading-snug hover:scale-105 transition-transform cursor-pointer break-words hyphens-auto w-full px-1" style="word-break: break-word;">${word}</span>
             </div>
         `;
 
