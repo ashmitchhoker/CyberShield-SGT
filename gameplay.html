@@ -6,12 +6,12 @@
     <title>CYBER SHIELD - Toxic Rain</title>
     <link
       rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
       as="style"
     />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -40,300 +40,104 @@
       <div class="absolute bottom-[10%] right-[15%] w-[40rem] h-[40rem] bg-error/10 rounded-full blur-[140px] mix-blend-screen opacity-50"></div>
       <div class="absolute top-[45%] left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] bg-secondary-container/5 rounded-full blur-[100px] mix-blend-screen"></div>
 
-      <!-- Background Particles -->
-      <div class="absolute inset-0 pointer-events-none opacity-80 z-0">
-        <!-- Floating Ember Sparks -->
-        <div class="particle bg-ember" style="left: 10%; width: 4px; height: 4px; animation-duration: 6s; animation-delay: 1.2s;"></div>
-        <div class="particle bg-ember" style="left: 35%; width: 6px; height: 6px; animation-duration: 9s; animation-delay: 4.5s;"></div>
-        <div class="particle bg-ember" style="left: 70%; width: 3px; height: 3px; animation-duration: 7s; animation-delay: 0.8s;"></div>
-        <div class="particle bg-ember" style="left: 85%; width: 5px; height: 5px; animation-duration: 10s; animation-delay: 5.1s;"></div>
-        <div class="particle bg-ember" style="left: 50%; width: 7px; height: 7px; animation-duration: 8s; animation-delay: 2.7s;"></div>
-        <div class="particle bg-ember" style="left: 20%; width: 4px; height: 4px; animation-duration: 11s; animation-delay: 6.3s;"></div>
-        <div class="particle bg-ember" style="left: 95%; width: 6px; height: 6px; animation-duration: 6.5s; animation-delay: 3.2s;"></div>
-        <div class="particle bg-ember" style="left: 5%; width: 5px; height: 5px; animation-duration: 8.5s; animation-delay: 2s;"></div>
-        <div class="particle bg-ember" style="left: 25%; width: 3px; height: 3px; animation-duration: 5s; animation-delay: 0.5s;"></div>
-        <div class="particle bg-ember" style="left: 40%; width: 8px; height: 8px; animation-duration: 9.5s; animation-delay: 3.8s;"></div>
-        <div class="particle bg-ember" style="left: 60%; width: 4px; height: 4px; animation-duration: 7.2s; animation-delay: 1.5s;"></div>
-        <div class="particle bg-ember" style="left: 75%; width: 5px; height: 5px; animation-duration: 10.5s; animation-delay: 6s;"></div>
-        <div class="particle bg-ember" style="left: 90%; width: 6px; height: 6px; animation-duration: 8.2s; animation-delay: 4.1s;"></div>
-        <div class="particle bg-ember" style="left: 15%; width: 3px; height: 3px; animation-duration: 11.5s; animation-delay: 7.2s;"></div>
-        <div class="particle bg-ember" style="left: 65%; width: 7px; height: 7px; animation-duration: 6.8s; animation-delay: 2.8s;"></div>
-        <div class="particle bg-ember" style="left: 45%; width: 4px; height: 4px; animation-duration: 8.8s; animation-delay: 5.5s;"></div>
-        <div class="particle bg-ember" style="left: 12%; width: 5px; height: 5px; animation-duration: 7.1s; animation-delay: 1.8s;"></div>
-        <div class="particle bg-ember" style="left: 28%; width: 6px; height: 6px; animation-duration: 9.3s; animation-delay: 0.2s;"></div>
-        <div class="particle bg-ember" style="left: 33%; width: 3px; height: 3px; animation-duration: 6.9s; animation-delay: 4.8s;"></div>
-        <div class="particle bg-ember" style="left: 48%; width: 7px; height: 7px; animation-duration: 8.1s; animation-delay: 2.1s;"></div>
-        <div class="particle bg-ember" style="left: 55%; width: 4px; height: 4px; animation-duration: 6.6s; animation-delay: 6.5s;"></div>
-        <div class="particle bg-ember" style="left: 68%; width: 8px; height: 8px; animation-duration: 10.2s; animation-delay: 3.4s;"></div>
-        <div class="particle bg-ember" style="left: 82%; width: 5px; height: 5px; animation-duration: 7.7s; animation-delay: 1.1s;"></div>
-        <div class="particle bg-ember" style="left: 88%; width: 6px; height: 6px; animation-duration: 9.8s; animation-delay: 5.7s;"></div>
-        <div class="particle bg-ember" style="left: 92%; width: 4px; height: 4px; animation-duration: 6.4s; animation-delay: 0.9s;"></div>
+      <!-- Cyber Grid Background -->
+      <div class="cyber-grid"></div>
 
-        <!-- Subtle Falling Light Streaks -->
-        <div class="particle bg-streak" style="left: 20%; height: 60px; animation-duration: 4s; animation-delay: 0.5s;"></div>
-        <div class="particle bg-streak" style="left: 80%; height: 80px; animation-duration: 5.5s; animation-delay: 2.3s;"></div>
-        <div class="particle bg-streak" style="left: 40%; height: 50px; animation-duration: 3.5s; animation-delay: 1.1s;"></div>
-        <div class="particle bg-streak" style="left: 60%; height: 90px; animation-duration: 6s; animation-delay: 3.8s;"></div>
-        <div class="particle bg-streak" style="left: 10%; height: 40px; animation-duration: 4.8s; animation-delay: 4.2s;"></div>
-        <div class="particle bg-streak" style="left: 90%; height: 70px; animation-duration: 5.2s; animation-delay: 1.7s;"></div>
-
-        <!-- Glowing Particles (Purple/Pink) -->
-        <div class="particle bg-glow-particle" style="left: 15%; width: 12px; height: 12px; animation-duration: 14s; animation-delay: 0s;"></div>
-        <div class="particle bg-glow-particle" style="left: 35%; width: 8px; height: 8px; animation-duration: 18s; animation-delay: 3s;"></div>
-        <div class="particle bg-glow-particle" style="left: 75%; width: 15px; height: 15px; animation-duration: 15s; animation-delay: 1.5s;"></div>
-        <div class="particle bg-glow-particle" style="left: 85%; width: 10px; height: 10px; animation-duration: 20s; animation-delay: 5s;"></div>
-        <div class="particle bg-glow-particle" style="left: 55%; width: 14px; height: 14px; animation-duration: 16s; animation-delay: 4s;"></div>
-      </div>
-    </div>
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 92%;
-            animation-duration: 7.4s;
-            animation-delay: 0.9s;
-            font-size: 25px;
-          "
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 8%;
-            animation-duration: 10.9s;
-            animation-delay: 4.3s;
-            font-size: 20px;
-          "
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 18%;
-            animation-duration: 8.3s;
-            animation-delay: 2.6s;
-            font-size: 22px;
-          "
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 38%;
-            animation-duration: 11.1s;
-            animation-delay: 7s;
-            font-size: 28px;
-          "
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 58%;
-            animation-duration: 9.4s;
-            animation-delay: 1.7s;
-            font-size: 24px;
-          "
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 72%;
-            animation-duration: 10.6s;
-            animation-delay: 5.2s;
-            font-size: 26px;
-          "
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 98%;
-            animation-duration: 8.8s;
-            animation-delay: 3.9s;
-            font-size: 18px;
-          "
-          >local_fire_department</span
-        >
-
-        <!-- Extra Flames -->
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 15%;
-            animation-duration: 9.5s;
-            animation-delay: 0.3s;
-            font-size: 14px;
-          "
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 45%;
-            animation-duration: 8s;
-            animation-delay: 3.4s;
-            font-size: 22px;
-          "
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 80%;
-            animation-duration: 11s;
-            animation-delay: 1.9s;
-            font-size: 18px;
-          "
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 60%;
-            animation-duration: 10s;
-            animation-delay: 5.5s;
-            font-size: 16px;
-          "
-          >local_fire_department</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-flame"
-          style="
-            left: 5%;
-            animation-duration: 12s;
-            animation-delay: 2.2s;
-            font-size: 20px;
-          "
-          >local_fire_department</span
-        >
-
-        <!-- Blue teardrops / wisps -->
-        <span
-          class="material-symbols-outlined particle bg-drop"
-          style="
-            left: 25%;
-            animation-duration: 7s;
-            animation-delay: 1.5s;
-            font-size: 28px;
-          "
-          >water_drop</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-drop"
-          style="
-            left: 55%;
-            animation-duration: 9s;
-            animation-delay: 4.2s;
-            font-size: 20px;
-          "
-          >water_drop</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-drop"
-          style="
-            left: 90%;
-            animation-duration: 10s;
-            animation-delay: 0.5s;
-            font-size: 32px;
-          "
-          >water_drop</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-drop"
-          style="
-            left: 40%;
-            animation-duration: 8.5s;
-            animation-delay: 2.8s;
-            font-size: 24px;
-          "
-          >water_drop</span
-        >
-        <span
-          class="material-symbols-outlined particle bg-drop"
-          style="
-            left: 75%;
-            animation-duration: 11.5s;
-            animation-delay: 6.1s;
-            font-size: 18px;
-          "
-          >water_drop</span
-        >
+      <!-- Background Stars -->
+      <div class="absolute inset-0 pointer-events-none opacity-[0.85] z-0">
+        <!-- Star particles -->
+        <div class="star-particle" style="left: 10%; top: 15%; width: 3px; height: 3px; animation-duration: 2s; animation-delay: 0s;"></div>
+        <div class="star-particle" style="left: 25%; top: 35%; width: 4px; height: 4px; animation-duration: 3s; animation-delay: 1s;"></div>
+        <div class="star-particle" style="left: 45%; top: 10%; width: 2px; height: 2px; animation-duration: 2.5s; animation-delay: 0.5s;"></div>
+        <div class="star-particle" style="left: 70%; top: 20%; width: 3px; height: 3px; animation-duration: 4s; animation-delay: 2s;"></div>
+        <div class="star-particle" style="left: 85%; top: 40%; width: 5px; height: 5px; animation-duration: 3.5s; animation-delay: 1.5s;"></div>
+        <div class="star-particle" style="left: 15%; top: 60%; width: 3px; height: 3px; animation-duration: 2.8s; animation-delay: 0.2s;"></div>
+        <div class="star-particle" style="left: 35%; top: 75%; width: 4px; height: 4px; animation-duration: 3.2s; animation-delay: 0.8s;"></div>
+        <div class="star-particle" style="left: 60%; top: 65%; width: 2px; height: 2px; animation-duration: 2.1s; animation-delay: 1.2s;"></div>
+        <div class="star-particle" style="left: 80%; top: 85%; width: 3px; height: 3px; animation-duration: 3.9s; animation-delay: 0.4s;"></div>
+        <div class="star-particle" style="left: 95%; top: 55%; width: 4px; height: 4px; animation-duration: 2.4s; animation-delay: 0.7s;"></div>
+        <div class="star-particle" style="left: 5%; top: 80%; width: 2px; height: 2px; animation-duration: 3.1s; animation-delay: 1.1s;"></div>
+        <div class="star-particle" style="left: 55%; top: 90%; width: 3px; height: 3px; animation-duration: 2.6s; animation-delay: 1.9s;"></div>
+        <div class="star-particle" style="left: 40%; top: 45%; width: 5px; height: 5px; animation-duration: 4.2s; animation-delay: 0.3s;"></div>
+        <div class="star-particle" style="left: 90%; top: 15%; width: 2px; height: 2px; animation-duration: 2.9s; animation-delay: 1.4s;"></div>
+        <div class="star-particle" style="left: 20%; top: 95%; width: 3px; height: 3px; animation-duration: 3.7s; animation-delay: 0.9s;"></div>
+        
+        <!-- Subtle Purple/Blue glowing large orbs in the background -->
+        <div class="absolute top-[20%] left-[10%] w-2 h-2 rounded-full bg-[#00d4ff] shadow-[0_0_15px_3px_#00d4ff] opacity-40"></div>
+        <div class="absolute bottom-[30%] right-[20%] w-3 h-3 rounded-full bg-[#b300ff] shadow-[0_0_20px_4px_#b300ff] opacity-30"></div>
+        <div class="absolute top-[60%] left-[80%] w-2 h-2 rounded-full bg-[#ff0055] shadow-[0_0_15px_3px_#ff0055] opacity-20"></div>
       </div>
     </div>
 
     <!-- HUD (Top) -->
     <header
       id="hud"
-      class="fixed top-0 w-full z-50 px-4 pt-4 pb-6 bg-gradient-to-b from-surface-dim via-surface-dim/80 to-transparent"
+      class="fixed top-0 w-full z-50 px-4 pt-4 pb-6 bg-gradient-to-b from-[#03010b] to-transparent"
       style="display: none"
     >
-      <div class="max-w-xl mx-auto flex justify-between items-start">
+      <div class="max-w-xl mx-auto flex justify-between items-start gap-1">
         <!-- Shield Hearts -->
-        <div class="flex flex-col gap-1">
-          <div id="lives-display" class="flex items-center gap-1.5">
+        <div class="flex flex-col gap-1 w-1/4">
+          <div class="text-[9px] sm:text-[12px] font-headline font-bold text-[#8fa2be] tracking-wider uppercase">
+            SHIELD STATUS:
+          </div>
+          <div id="shield-status-pill" class="border border-[#00ff66] bg-[#002211] text-[#00ff66] px-1 sm:px-2.5 py-0.5 sm:py-1 rounded-md flex items-center gap-0.5 sm:gap-1 text-[9px] sm:text-sm font-headline font-bold uppercase w-fit shadow-[0_0_10px_rgba(0,255,102,0.2)]">
+            <span id="shield-status-icon" class="material-symbols-outlined text-[12px] sm:text-[16px]">check</span>
+            <span id="shield-status">OPTIMIZED</span>
+          </div>
+          <div id="lives-display" class="flex items-center gap-0.5 sm:gap-1 mt-0.5 scale-90 sm:scale-100 origin-left">
             <!-- JS fills shield icons -->
           </div>
-          <div
-            id="shield-status"
-            class="text-xs font-headline font-bold text-primary/60 tracking-widest uppercase"
-          >
-            Shield Status: Optimized
+        </div>
+
+        <!-- Level Info - Center Title -->
+        <div class="flex flex-col items-center justify-start flex-1 text-center shrink-0">
+          <div class="flex flex-col items-center leading-none mt-[-4px]">
+            <h2 class="font-headline font-black text-[14px] sm:text-[22px] tracking-[0.4em] text-[#00d4ff] mb-[-2px] sm:mb-[-2px]" style="text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);">
+              CYBER
+            </h2>
+            <h1 class="font-headline font-black text-[28px] sm:text-[54px] tracking-widest text-[#00d4ff]"
+                style="color: #020b14; -webkit-text-stroke: 1.5px #00d4ff; text-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 5px rgba(0, 212, 255, 0.4);">
+              SHIELD
+            </h1>
+          </div>
+          <div class="mt-2 sm:mt-3 flex flex-col items-center gap-0.5 sm:gap-1">
+            <div class="flex items-center gap-1 sm:gap-2 text-[#00ff66] text-[9px] sm:text-xs font-headline font-bold uppercase tracking-[0.1em]">
+              <span class="opacity-70 tracking-tighter">---</span>
+              <span id="level-label" class="tracking-widest">SECTOR 01</span>
+              <span class="opacity-70 tracking-tighter">---</span>
+            </div>
+            <div class="flex items-center gap-1 sm:gap-1.5 text-[#00ff66] text-[9px] sm:text-xs font-headline font-bold uppercase tracking-widest">
+              <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00ff66] animate-pulse shadow-[0_0_5px_#00ff66]"></span>
+              // ACTIVE
+            </div>
+            <!-- Progress counter now moved or simplified -->
+            <div id="progress-counter" class="text-white/50 text-[9px] sm:text-[10px] font-headline uppercase tracking-widest mt-1"></div>
           </div>
         </div>
-        <!-- Level Info -->
-        <div class="flex flex-col items-center">
-          <h1
-            class="font-headline font-black text-2xl tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-b from-white to-primary drop-shadow-[0_0_12px_rgba(0,212,255,0.4)] leading-none"
-          >
-            CYBER SHIELD
-          </h1>
-          <div class="mt-1 flex items-center gap-2">
-            <span
-              class="w-1.5 h-1.5 rounded-full bg-secondary-fixed animate-pulse"
-            ></span>
-            <span
-              id="level-label"
-              class="text-secondary-fixed text-xs font-headline font-bold uppercase tracking-[0.3em]"
-              >Level 01 / 04</span
-            >
-          </div>
-          <!-- Progress Counter -->
-          <div class="mt-1 flex items-center gap-1.5">
-            <span
-              class="material-symbols-outlined text-secondary-container text-xs"
-              style="font-variation-settings: &quot;FILL&quot; 1"
-              >target</span
-            >
-            <span
-              id="progress-counter"
-              class="text-secondary-container text-[10px] font-headline font-bold uppercase tracking-widest"
-              >0 / 8 ZAPPED</span
-            >
-          </div>
-        </div>
+
         <!-- Timer & Pause -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-start justify-end gap-1.5 sm:gap-2 w-1/4">
           <div
-            class="capsule-glass px-3 py-1 rounded-lg border border-primary/30 flex items-center gap-1.5"
+            class="px-2 py-1 sm:px-4 sm:py-2 rounded-full border border-[#00d4ff] flex items-center gap-1 sm:gap-2 shadow-[0_0_15px_rgba(0,212,255,0.2)]"
+            style="background: linear-gradient(180deg, rgba(0,40,80,0.6) 0%, rgba(2,11,20,0.9) 100%);"
           >
             <span
-              class="material-symbols-outlined text-primary text-base animate-pulse"
-              >timer</span
+              class="material-symbols-outlined text-[#00d4ff] text-[16px] sm:text-[24px]"
+              >schedule</span
             >
             <span
               id="timer-display"
-              class="font-headline font-bold text-on-surface text-base tabular-nums"
+              class="font-headline font-bold text-[#e0f7fa] text-xs sm:text-xl tabular-nums tracking-widest pt-px"
               >0:45</span
             >
           </div>
           <button
             id="pause-btn"
-            class="w-9 h-9 rounded-lg capsule-glass border border-primary/20 flex items-center justify-center active:scale-90 transition-transform"
+            class="w-7 h-7 sm:w-11 sm:h-11 rounded-md border border-[#00d4ff] flex items-center justify-center active:scale-90 transition-transform shadow-[0_0_15px_rgba(0,212,255,0.2)] shrink-0"
+            style="background: linear-gradient(180deg, rgba(0,40,80,0.6) 0%, rgba(2,11,20,0.9) 100%);"
           >
-            <span class="material-symbols-outlined text-primary text-lg"
+            <span class="material-symbols-outlined text-[#00d4ff] text-[16px] sm:text-[26px]"
               >pause</span
             >
           </button>
@@ -421,14 +225,14 @@
       class="fixed inset-0 pointer-events-none z-[60] bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.5)_100%)]"
     ></div>
 
-    <!-- Bubble Generator Script (Water-like) -->
+    <!-- Starfield Generator Script -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const bgContainer = document.createElement("div");
         bgContainer.className =
-          "fixed inset-0 z-[2] overflow-hidden pointer-events-none";
+          "fixed inset-0 z-[1] overflow-hidden pointer-events-none";
 
-        // Find the background layer to insert bubbles properly
+        // Find the background layer to insert stars properly
         const bgLayer = document.querySelector(".fixed.inset-0.z-0");
         if (bgLayer) {
           bgLayer.after(bgContainer);
@@ -436,29 +240,26 @@
           document.body.appendChild(bgContainer);
         }
 
-        for (let i = 0; i < 40; i++) {
-          const bubble = document.createElement("div");
-          bubble.className = "absolute rounded-full animate-bubble";
+        for (let i = 0; i < 60; i++) {
+          const star = document.createElement("div");
+          star.className = "star-particle";
 
-          // Make them smaller and water-like
-          const size = Math.random() * 8 + 4 + "px"; // 4px to 12px
+          // Generate varying star speeds and sizes
+          const size = Math.random() * 3 + 1 + "px"; // 1px to 4px
           const left = Math.random() * 100 + "vw";
-          const duration = Math.random() * 5 + 3 + "s";
-          const delay = Math.random() * -10 + "s";
+          const top = Math.random() * 100 + "vh";
+          const duration = Math.random() * 3 + 2 + "s";
+          const delay = Math.random() * -5 + "s";
 
-          bubble.style.width = size;
-          bubble.style.height = size;
-          bubble.style.left = left;
-          bubble.style.top = "-10vh";
+          star.style.width = size;
+          star.style.height = size;
+          star.style.left = left;
+          star.style.top = top;
           
-          // Clear, watery drop style with better performance
-          bubble.style.backgroundColor = "rgba(200, 240, 255, 0.3)";
-          bubble.style.border = "1px solid rgba(255, 255, 255, 0.4)";
-          
-          bubble.style.animationDuration = duration;
-          bubble.style.animationDelay = delay;
+          star.style.animationDuration = duration;
+          star.style.animationDelay = delay;
 
-          bgContainer.appendChild(bubble);
+          bgContainer.appendChild(star);
         }
       });
     </script>

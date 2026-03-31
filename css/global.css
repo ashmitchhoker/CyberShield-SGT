@@ -153,50 +153,29 @@
   }
 }
 
-/* Background Particles */
+/* Background Space Grids and Particles */
+.cyber-grid {
+  position: absolute;
+  inset: 0;
+  background-size: 80px 80px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.star-particle {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  animation: pulse-glow linear infinite alternate;
+}
+
 .particle {
   position: absolute;
   z-index: 1;
-}
-.bg-ember {
-  background-color: #ff8c00;
-  border-radius: 50%;
-  box-shadow:
-    0 0 15px rgba(255, 140, 0, 1),
-    0 0 30px rgba(255, 140, 0, 0.8);
-  animation: float-upward linear infinite;
-  bottom: -50px;
-}
-.bg-streak {
-  width: 2px;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    rgba(0, 212, 255, 0.8),
-    transparent
-  );
-  animation: fall-downward linear infinite;
-  top: -100px;
-  filter: blur(1px);
-}
-.bg-glow-particle {
-  border-radius: 50%;
-  background-color: rgba(160, 100, 255, 0.8);
-  box-shadow: 0 0 20px rgba(160, 100, 255, 0.6);
-  animation: float-upward linear infinite;
-  bottom: -50px;
-}
-.bg-heart {
-  color: #ff3b7c;
-  filter: drop-shadow(0 0 12px rgba(255, 59, 124, 0.9));
-  animation: fall-downward linear infinite;
-  top: -50px;
-}
-.bg-drop {
-  color: #00d4ff;
-  filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.9));
-  animation: float-upward linear infinite;
-  bottom: -50px;
 }
 
 @keyframes cyber-alert-flash {
@@ -296,43 +275,50 @@
   box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
 }
 
-/* Components */
-.capsule-glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+/* Components - Orbs */
+.orb-base {
+  border-radius: 50%;
+  border: 4px solid;
+  transition: transform 0.1s;
+  background-blend-mode: overlay;
 }
-.neon-border-cyan {
-  border: 1.5px solid #00d4ff;
-  box-shadow:
-    0 0 15px rgba(0, 212, 255, 0.4),
-    inset 0 0 10px rgba(0, 212, 255, 0.2);
+
+.orb-orange {
+  border-color: #ffe599;
+  background: radial-gradient(circle at 40% 20%, rgba(255, 230, 200, 0.6) 0%, rgba(180, 60, 0, 0.8) 35%, rgba(60, 20, 0, 0.95) 90%);
+  box-shadow: 0 0 20px 4px rgba(255, 120, 0, 0.8), 0 0 45px 8px rgba(220, 40, 0, 0.6), inset 0 0 20px 4px rgba(255, 150, 0, 0.9), inset 0 -20px 30px rgba(0, 0, 0, 0.8);
 }
-.neon-border-error {
-  border: 1.5px solid #ffb4ab;
-  box-shadow:
-    0 0 15px rgba(255, 180, 171, 0.4),
-    inset 0 0 10px rgba(255, 180, 171, 0.2);
+
+.orb-purple {
+  border-color: #f6b3ff;
+  background: radial-gradient(circle at 40% 20%, rgba(240, 200, 255, 0.6) 0%, rgba(110, 0, 180, 0.8) 35%, rgba(40, 0, 80, 0.95) 90%);
+  box-shadow: 0 0 20px 4px rgba(200, 0, 255, 0.8), 0 0 45px 8px rgba(120, 0, 220, 0.6), inset 0 0 20px 4px rgba(180, 0, 255, 0.9), inset 0 -20px 30px rgba(0, 0, 0, 0.8);
 }
-.neon-border-safe {
-  border: 1.5px solid #34ff8d;
-  box-shadow:
-    0 0 15px rgba(52, 255, 141, 0.4),
-    inset 0 0 10px rgba(52, 255, 141, 0.2);
+
+.orb-cyan {
+  border-color: #b3f0ff;
+  background: radial-gradient(circle at 40% 20%, rgba(200, 240, 255, 0.6) 0%, rgba(0, 130, 160, 0.8) 35%, rgba(0, 30, 60, 0.95) 90%);
+  box-shadow: 0 0 20px 4px rgba(0, 200, 255, 0.8), 0 0 45px 8px rgba(0, 100, 255, 0.6), inset 0 0 20px 4px rgba(0, 180, 255, 0.9), inset 0 -20px 30px rgba(0, 0, 0, 0.8);
+}
+
+.orb-red {
+  border-color: #ffb3c6;
+  background: radial-gradient(circle at 40% 20%, rgba(255, 200, 215, 0.6) 0%, rgba(180, 0, 60, 0.8) 35%, rgba(60, 10, 30, 0.95) 90%);
+  box-shadow: 0 0 20px 4px rgba(255, 30, 100, 0.8), 0 0 45px 8px rgba(220, 0, 50, 0.6), inset 0 0 20px 4px rgba(255, 50, 100, 0.9), inset 0 -20px 30px rgba(0, 0, 0, 0.8);
 }
 
 .word-capsule {
   position: absolute;
+  top: 0;
+  left: 0;
   cursor: pointer;
-  transition: transform 0.1s;
-  transform: translateX(-50%);
   user-select: none;
   -webkit-user-select: none;
   z-index: 20;
+  will-change: transform;
 }
-.word-capsule:active {
-  transform: translateX(-50%) scale(0.9);
+.word-capsule:active .orb-base {
+  transform: scale(0.9);
 }
 
 /* Globals */

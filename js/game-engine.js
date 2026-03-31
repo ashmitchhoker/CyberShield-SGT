@@ -38,6 +38,45 @@
   let countdownTimer = null;
   let wordIdCounter = 0;
 
+  // --- Object Pool (Caching for Performance) ---
+  const POOL_SIZE = 15;
+  const capsulePool = [];
+
+  function initObjectPool() {
+    for (let i = 0; i < POOL_SIZE; i++) {
+        const capsule = document.createElement("div");
+        capsule.className = "word-capsule";
+        capsule.style.display = "none";
+        capsule.style.transform = "translate3d(-50%, -200px, 0)";
+        capsule.dataset.poolIndex = i;
+        
+        capsule.addEventListener("click", () => {
+            const id = parseInt(capsule.dataset.id);
+            if (!isNaN(id)) handleTap(id);
+        });
+        capsule.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            const id = parseInt(capsule.dataset.id);
+            if (!isNaN(id)) handleTap(id);
+        }, { passive: false });
+
+        playground.appendChild(capsule);
+        
+        capsulePool.push({
+            element: capsule,
+            isActive: false
+        });
+    }
+  }
+  
+  function releaseCapsule(poolItem) {
+    poolItem.isActive = false;
+    poolItem.element.style.display = "none";
+    poolItem.element.style.transform = "translate3d(-50%, -200px, 0)";
+    poolItem.element.style.pointerEvents = "none";
+  }
+
+
   // --- Game Audio ---
   let bgMusic = null;
   const settings = GameData.getSettings();
@@ -88,18 +127,22 @@
       span.textContent = "shield";
       livesDisplay.appendChild(span);
     }
+    const statusPill = document.getElementById("shield-status-pill");
+    const statusIcon = document.getElementById("shield-status-icon");
+    const statusText = document.getElementById("shield-status");
+
     if (lives <= 1) {
-      shieldStatus.textContent = "Shield Status: CRITICAL";
-      shieldStatus.className =
-        "text-[10px] font-headline font-bold text-error/80 tracking-widest uppercase";
+      if (statusText) statusText.textContent = "CRITICAL";
+      if (statusIcon) statusIcon.textContent = "warning";
+      if (statusPill) statusPill.className = "border border-[#ff0055] bg-[#330011] text-[#ff0055] px-2 py-0.5 rounded-md flex items-center gap-1 text-[10px] sm:text-xs font-headline font-bold uppercase w-fit shadow-[0_0_10px_rgba(255,0,85,0.2)]";
     } else if (lives <= 2) {
-      shieldStatus.textContent = "Shield Status: Damaged";
-      shieldStatus.className =
-        "text-[10px] font-headline font-bold text-amber-400/80 tracking-widest uppercase";
+      if (statusText) statusText.textContent = "DAMAGED";
+      if (statusIcon) statusIcon.textContent = "error";
+      if (statusPill) statusPill.className = "border border-[#ff9d00] bg-[#332200] text-[#ff9d00] px-2 py-0.5 rounded-md flex items-center gap-1 text-[10px] sm:text-xs font-headline font-bold uppercase w-fit shadow-[0_0_10px_rgba(255,157,0,0.2)]";
     } else {
-      shieldStatus.textContent = "Shield Status: Optimized";
-      shieldStatus.className =
-        "text-[10px] font-headline font-bold text-primary/60 tracking-widest uppercase";
+      if (statusText) statusText.textContent = "OPTIMIZED";
+      if (statusIcon) statusIcon.textContent = "check";
+      if (statusPill) statusPill.className = "border border-[#00ff66] bg-[#002211] text-[#00ff66] px-2 py-0.5 rounded-md flex items-center gap-1 text-[10px] sm:text-xs font-headline font-bold uppercase w-fit shadow-[0_0_10px_rgba(0,255,102,0.2)]";
     }
   }
 
@@ -174,64 +217,78 @@
   function spawnWord() {
     if (isPaused || isGameOver) return;
 
+    const poolItem = capsulePool.find(c => !c.isActive);
+    if (!poolItem) return;
+
     const isToxic = Math.random() < config.toxicRatio;
     const word = GameData.getRandomWord(isToxic, levelNum);
     if (isToxic) totalToxicSpawned++;
     totalWordsSpawned++;
 
     const id = wordIdCounter++;
-    const xPos = 15 + Math.random() * 70; // 15% to 85% from left (centered via CSS)
+    
+    let xPos = 15 + Math.random() * 70;
+    
+    // Anti-collision / merging logic
+    let attempts = 0;
+    while(attempts < 10) {
+        let overlap = false;
+        for (const w of activeWords) {
+            // Check recently spawned orbs at the top
+            if (w.y < 200 && Math.abs(w.xPos - xPos) < 28) { 
+                overlap = true;
+                break;
+            }
+        }
+        if (!overlap) break;
+        
+        if (xPos > 50) xPos = 15 + Math.random() * 30; // Switch sides
+        else xPos = 55 + Math.random() * 30;
+        attempts++;
+    }
 
-    const capsule = document.createElement("div");
-    capsule.className = "word-capsule";
-    capsule.dataset.id = id;
-    capsule.dataset.toxic = isToxic;
-    capsule.style.left = xPos + "%";
-    capsule.style.top = "-60px";
+    const orbColors = ['orb-orange', 'orb-purple', 'orb-cyan', 'orb-red'];
+    const orbClass = orbColors[Math.floor(Math.random() * orbColors.length)];
 
-    const borderClass = "neon-border-cyan";
-
-    // Detect Hindi First format "Hindi | English"
     const parts = word.split(" | ");
     let displayHtml = "";
-    
     if (parts.length === 2) {
         const hindi = parts[0];
         const english = parts[1];
         displayHtml = `
-            <span class="block text-[15px] sm:text-[18px] leading-tight mb-1">${hindi}</span>
-            <span class="block text-[10px] sm:text-[12px] opacity-80 font-normal">${english}</span>
+            <span class="block text-[18px] sm:text-[24px] leading-tight mb-1">${hindi}</span>
+            <span class="block text-[12px] sm:text-[14px] opacity-80 font-normal">${english}</span>
         `;
     } else {
         const isHindi = /[\u0900-\u097F]/.test(word);
-        const fontSizeClass = isHindi ? "text-lg sm:text-xl" : "text-sm sm:text-base";
+        const fontSizeClass = isHindi ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl";
         displayHtml = `<span class="${fontSizeClass}">${word}</span>`;
     }
 
+    const capsule = poolItem.element;
+    capsule.dataset.id = id;
+    capsule.dataset.toxic = isToxic;
+    
+    capsule.style.left = xPos + "%";
+    capsule.style.transform = `translate3d(-50%, -100px, 0)`;
+    capsule.style.display = "block";
+    capsule.style.pointerEvents = "auto";
+    
     capsule.innerHTML = `
-            <div class="capsule-glass ${borderClass} w-[6.5rem] h-[6.5rem] sm:w-32 sm:h-32 rounded-full flex flex-col items-center justify-center shadow-2xl backdrop-blur-md transition-all p-2">
-                <div class="font-headline font-bold text-on-surface uppercase tracking-wide drop-shadow-lg text-center hover:scale-105 transition-transform cursor-pointer break-words w-full px-1">
+            <div class="orb-base ${orbClass} w-[6.5rem] h-[6.5rem] sm:w-[8rem] sm:h-[8rem] flex flex-col items-center justify-center shadow-2xl transition-all p-2">
+                <div class="font-headline font-bold text-white uppercase tracking-wide drop-shadow-lg text-center break-words w-full px-1">
                     ${displayHtml}
                 </div>
             </div>
         `;
 
-    capsule.addEventListener("click", () => handleTap(id));
-    capsule.addEventListener(
-      "touchstart",
-      (e) => {
-        e.preventDefault();
-        handleTap(id);
-      },
-      { passive: false },
-    );
-
-    playground.appendChild(capsule);
+    poolItem.isActive = true;
     activeWords.push({
       id,
-      element: capsule,
+      poolItem,
       isToxic,
-      y: -60,
+      xPos,
+      y: -100,
       speed: config.fallSpeed,
     });
   }
@@ -243,7 +300,7 @@
     if (idx === -1) return;
 
     const wordObj = activeWords[idx];
-    const el = wordObj.element;
+    const el = wordObj.poolItem.element;
 
     if (wordObj.isToxic) {
       // Correct zap!
@@ -256,14 +313,14 @@
       updateProgress();
 
       // Show popup & flash cyberbullying bar
-      showScorePopup(el, `BULLY WORD!`, "#3cd7ff");
+      showScorePopup(wordObj, `BULLY WORD!`, "#3cd7ff");
       flashCyberAlert();
 
       // Zap animation
-      el.querySelector(".capsule-glass").classList.add("zap-effect");
+      el.querySelector(".orb-base").classList.add("zap-effect");
       el.style.pointerEvents = "none";
       setTimeout(() => {
-        el.remove();
+        releaseCapsule(wordObj.poolItem);
       }, 400);
     } else {
       // Wrong! Tapped a safe word
@@ -273,19 +330,19 @@
       updateLivesDisplay();
 
       showScorePopup(
-        el,
+        wordObj,
         `SAFE WORD!<br><span style="font-size: 0.9rem">-1 ❤️</span>`,
         "#ffb4ab",
       );
 
       // Shake effect
-      el.querySelector(".capsule-glass").style.border = "2px solid #ff4444";
+      el.querySelector(".orb-base").style.border = "2px solid #ff4444";
       playground.classList.add("shake");
       setTimeout(() => playground.classList.remove("shake"), 300);
 
       el.style.pointerEvents = "none";
       setTimeout(() => {
-        el.remove();
+        releaseCapsule(wordObj.poolItem);
       }, 300);
 
       if (lives <= 0) {
@@ -305,11 +362,11 @@
   }
 
   // --- Score Popup ---
-  function showScorePopup(el, text, color) {
+  function showScorePopup(wordObj, text, color) {
     const popup = document.createElement("div");
-    popup.className = "score-popup pointer-events-none text-center";
+    popup.className = "score-popup pointer-events-none text-center w-[150px]";
     popup.style.cssText = `
-            position: absolute; left: ${el.style.left}; top: ${parseInt(el.style.top) - 30}px;
+            position: absolute; left: ${wordObj.xPos}%; top: ${wordObj.y - 30}px; transform: translateX(-50%);
             font-family: 'Space Grotesk'; font-weight: 900; font-size: 1.2rem; line-height: 1.1;
             color: ${color}; z-index: 100; text-shadow: 0 0 10px ${color};
         `;
@@ -328,7 +385,7 @@
     for (let i = activeWords.length - 1; i >= 0; i--) {
       const w = activeWords[i];
       w.y += w.speed;
-      w.element.style.top = w.y + "px";
+      w.poolItem.element.style.transform = `translate3d(-50%, ${w.y}px, 0)`;
 
       // Word reached shield barrier
       if (w.y >= shieldY) {
@@ -342,14 +399,14 @@
           setTimeout(() => shieldBarrier.classList.remove("shield-hit"), 400);
 
           if (lives <= 0) {
-            w.element.remove();
+            releaseCapsule(w.poolItem);
             activeWords.splice(i, 1);
             gameOver();
             return;
           }
         }
         // Remove the word (safe words pass through harmlessly)
-        w.element.remove();
+        releaseCapsule(w.poolItem);
         activeWords.splice(i, 1);
       }
     }
@@ -509,6 +566,7 @@
 
   // Wait for fonts to be ready before starting or showing the UI un-styled
   document.fonts.ready.then(() => {
+    initObjectPool();
     if (isResuming) {
       // Skip intro on resume
       introOverlay.style.display = "none";

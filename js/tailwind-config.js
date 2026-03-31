@@ -19,7 +19,7 @@ tailwind.config = {
                 "background": "#0d112a", "on-background": "#dee0ff",
                 "inverse-primary": "#00677e", "inverse-surface": "#dee0ff", "inverse-on-surface": "#2b2f49",
             },
-            fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
+            fontFamily: { "headline": ["Orbitron", "Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
             borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
         },
     },
