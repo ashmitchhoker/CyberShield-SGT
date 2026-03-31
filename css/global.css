@@ -23,6 +23,22 @@
     transform: translateY(100vh);
   }
 }
+@keyframes bubble {
+  0% {
+    transform: translateY(-20vh) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(110vh) scale(1.5);
+    opacity: 0;
+  }
+}
 @keyframes scanline {
   0% {
     transform: translateY(-100%);
@@ -206,6 +222,9 @@
 
 .animate-rain {
   animation: rain linear infinite;
+}
+.animate-bubble {
+  animation: bubble linear infinite;
 }
 .animate-scanline {
   animation: scanline 10s linear infinite;

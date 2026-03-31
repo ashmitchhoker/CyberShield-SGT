@@ -416,10 +416,52 @@
 
     <!-- Removed Bottom Nav during active gameplay to maximize space -->
 
-    <!-- Vignette -->
+      <!-- Vignette -->
     <div
       class="fixed inset-0 pointer-events-none z-[60] bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.5)_100%)]"
     ></div>
+
+    <!-- Bubble Generator Script (Water-like) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const bgContainer = document.createElement("div");
+        bgContainer.className =
+          "fixed inset-0 z-[2] overflow-hidden pointer-events-none";
+
+        // Find the background layer to insert bubbles properly
+        const bgLayer = document.querySelector(".fixed.inset-0.z-0");
+        if (bgLayer) {
+          bgLayer.after(bgContainer);
+        } else {
+          document.body.appendChild(bgContainer);
+        }
+
+        for (let i = 0; i < 40; i++) {
+          const bubble = document.createElement("div");
+          bubble.className = "absolute rounded-full animate-bubble";
+
+          // Make them smaller and water-like
+          const size = Math.random() * 8 + 4 + "px"; // 4px to 12px
+          const left = Math.random() * 100 + "vw";
+          const duration = Math.random() * 5 + 3 + "s";
+          const delay = Math.random() * -10 + "s";
+
+          bubble.style.width = size;
+          bubble.style.height = size;
+          bubble.style.left = left;
+          bubble.style.top = "-10vh";
+          
+          // Clear, watery drop style with better performance
+          bubble.style.backgroundColor = "rgba(200, 240, 255, 0.3)";
+          bubble.style.border = "1px solid rgba(255, 255, 255, 0.4)";
+          
+          bubble.style.animationDuration = duration;
+          bubble.style.animationDelay = delay;
+
+          bgContainer.appendChild(bubble);
+        }
+      });
+    </script>
 
     <!-- ==================== GAME ENGINE ==================== -->
     <script src="js/game-engine.js"></script>

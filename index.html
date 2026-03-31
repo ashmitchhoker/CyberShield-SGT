@@ -129,5 +129,47 @@
         v2.4.5-stable // Neural Interface: SECURE
       </p>
     </div>
+
+    <!-- Bubble Generator Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const bgContainer = document.createElement("div");
+        bgContainer.className =
+          "fixed inset-0 z-[2] overflow-hidden pointer-events-none";
+
+        // Find the gradient overlay to insert bubbles after it
+        const gradientOverlay = document.querySelector(".bg-gradient-to-b");
+        if (gradientOverlay) {
+          gradientOverlay.after(bgContainer);
+        } else {
+          document.body.appendChild(bgContainer);
+        }
+
+        for (let i = 0; i < 40; i++) {
+          const bubble = document.createElement("div");
+          bubble.className = "absolute rounded-full animate-bubble";
+
+          // Smaller, clearer watery drop style for the menu screen too
+          const size = Math.random() * 8 + 4 + "px"; // 4px to 12px
+          const left = Math.random() * 100 + "vw";
+          const duration = Math.random() * 5 + 3 + "s";
+          const delay = Math.random() * -10 + "s"; // negative delay so they spawn continuously
+
+          bubble.style.width = size;
+          bubble.style.height = size;
+          bubble.style.left = left;
+          bubble.style.top = "-10vh"; // Start at top
+
+          // Using explicit styles ensures the elements are visibly lit without relying on Tailwind CDN scanning
+          bubble.style.backgroundColor = "rgba(200, 240, 255, 0.3)";
+          bubble.style.border = "1px solid rgba(255, 255, 255, 0.4)";
+
+          bubble.style.animationDuration = duration;
+          bubble.style.animationDelay = delay;
+
+          bgContainer.appendChild(bubble);
+        }
+      });
+    </script>
   </body>
 </html>
