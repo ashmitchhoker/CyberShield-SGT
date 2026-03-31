@@ -598,8 +598,12 @@
   // --- Animation Frame Loop (delta-time based) ---
   function animationLoop(timestamp) {
     if (!isGameOver) {
-      if (!lastFrameTime) lastFrameTime = timestamp;
-      const deltaTime = Math.min((timestamp - lastFrameTime) / 1000, 0.1); // cap at 100ms to avoid huge jumps
+      if (!timestamp || !lastFrameTime) {
+        lastFrameTime = timestamp || performance.now();
+        gameLoop = requestAnimationFrame(animationLoop);
+        return;
+      }
+      const deltaTime = Math.min((timestamp - lastFrameTime) / 1000, 0.1);
       lastFrameTime = timestamp;
       tick(deltaTime);
       gameLoop = requestAnimationFrame(animationLoop);
