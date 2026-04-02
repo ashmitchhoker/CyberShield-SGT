@@ -40,6 +40,24 @@
   let lastRenderedLives = -1;
   let lastFrameTime = 0;
 
+  // --- Ball Assets Preloading ---
+  const BALL_TYPES = [
+      { file: 'blue.png', color: '0, 100, 255' },
+      { file: 'brown.png', color: '139, 69, 19' },
+      { file: 'cyan.png', color: '0, 212, 255' },
+      { file: 'golden.png', color: '255, 215, 0' },
+      { file: 'green.png', color: '0, 255, 100' },
+      { file: 'purple.png', color: '180, 0, 255' },
+      { file: 'red.png', color: '255, 50, 50' },
+      { file: 'silver.png', color: '200, 200, 200' },
+      { file: 'yellow.png', color: '255, 255, 0' }
+  ];
+  // Preload images immediately so they are cached before gameplay starts
+  BALL_TYPES.forEach(ball => {
+      const img = new Image();
+      img.src = `balls/${ball.file}`;
+  });
+
   // --- Object Pool (Caching for Performance) ---
   const POOL_SIZE = 15;
   const capsulePool = [];
@@ -328,17 +346,6 @@
     capsule.style.pointerEvents = "auto";
     
     // Choose random ball
-    const BALL_TYPES = [
-        { file: 'blue.png', color: '0, 100, 255' },
-        { file: 'brown.png', color: '139, 69, 19' },
-        { file: 'cyan.png', color: '0, 212, 255' },
-        { file: 'golden.png', color: '255, 215, 0' },
-        { file: 'green.png', color: '0, 255, 100' },
-        { file: 'purple.png', color: '180, 0, 255' },
-        { file: 'red.png', color: '255, 50, 50' },
-        { file: 'silver.png', color: '200, 200, 200' },
-        { file: 'yellow.png', color: '255, 255, 0' }
-    ];
     const randomBall = BALL_TYPES[Math.floor(Math.random() * BALL_TYPES.length)];
     
     // Reuse pre-built DOM — just update class and text (no innerHTML rewrite)
