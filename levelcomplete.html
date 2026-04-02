@@ -220,12 +220,24 @@
           starsContainer.appendChild(span);
         }
 
-        document
-          .getElementById("next-level-btn")
-          .addEventListener("click", () => {
+        const nextLevelBtn = document.getElementById("next-level-btn");
+        if (level >= GameData.LEVELS.length) {
+          nextLevelBtn.textContent = "HOME";
+          nextLevelBtn.addEventListener("click", () => {
+            GameData.clearGameState();
+            window.location.href = "index.html";
+          });
+          
+          const titleP = document.querySelector(".space-y-2 p");
+          const titleH2 = document.querySelector(".space-y-2 h2");
+          if (titleP) titleP.textContent = "ALL LEVELS CLEARED";
+          if (titleH2) titleH2.textContent = "YOU WON!";
+        } else {
+          nextLevelBtn.addEventListener("click", () => {
             GameData.clearGameState();
             window.location.href = `gameplay.html?level=${level + 1}`;
           });
+        }
 
         document.getElementById("replay-btn").addEventListener("click", () => {
           GameData.clearGameState();

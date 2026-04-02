@@ -42,21 +42,46 @@
 
   // --- Ball Assets Preloading ---
   const BALL_TYPES = [
-      { file: 'blue.png', color: '0, 100, 255' },
-      { file: 'brown.png', color: '139, 69, 19' },
-      { file: 'cyan.png', color: '0, 212, 255' },
-      { file: 'golden.png', color: '255, 215, 0' },
-      { file: 'green.png', color: '0, 255, 100' },
-      { file: 'purple.png', color: '180, 0, 255' },
-      { file: 'red.png', color: '255, 50, 50' },
-      { file: 'silver.png', color: '200, 200, 200' },
-      { file: 'yellow.png', color: '255, 255, 0' }
+    { file: "blue.png", color: "0, 100, 255" },
+    { file: "brown.png", color: "139, 69, 19" },
+    { file: "cyan.png", color: "0, 212, 255" },
+    { file: "golden.png", color: "255, 215, 0" },
+    { file: "green.png", color: "0, 255, 100" },
+    { file: "purple.png", color: "180, 0, 255" },
+    { file: "red.png", color: "255, 50, 50" },
+    { file: "silver.png", color: "200, 200, 200" },
+    { file: "yellow.png", color: "255, 255, 0" },
   ];
   // Preload images immediately so they are cached before gameplay starts
-  BALL_TYPES.forEach(ball => {
+  const preloadPromises = BALL_TYPES.map((ball) => {
+    return new Promise((resolve) => {
       const img = new Image();
+      img.onload = resolve;
+      img.onerror = resolve; // continue even if fail
       img.src = `balls/${ball.file}`;
+    });
   });
+
+  // Preload background music
+  preloadPromises.push(
+    new Promise((resolve) => {
+      const audio = new Audio();
+      audio.oncanplaythrough = resolve;
+      audio.onerror = resolve; // Continue even if audio fails to load
+      audio.src = "music.mp3";
+      audio.load();
+    }),
+  );
+
+  // Preload how_to_play image
+  preloadPromises.push(
+    new Promise((resolve) => {
+      const img = new Image();
+      img.onload = resolve;
+      img.onerror = resolve; // continue even if fail
+      img.src = "how_to_play.png";
+    }),
+  );
 
   // --- Object Pool (Caching for Performance) ---
   const POOL_SIZE = 15;
@@ -91,48 +116,53 @@
 
   function initObjectPool() {
     for (let i = 0; i < POOL_SIZE; i++) {
-        const capsule = document.createElement("div");
-        capsule.className = "word-capsule";
-        capsule.style.display = "none";
-        capsule.style.transform = "translate3d(-50%, -200px, 0)";
-        capsule.dataset.poolIndex = i;
-        
-        // Pre-build inner DOM structure (avoid innerHTML on every spawn)
-        const orbBase = document.createElement("div");
-        orbBase.className = "orb-base w-[6.5rem] h-[6.5rem] sm:w-[8rem] sm:h-[8rem] flex flex-col items-center justify-center shadow-2xl p-2";
-        const textContainer = document.createElement("div");
-        textContainer.className = "font-headline font-bold text-white uppercase tracking-wide drop-shadow-lg text-center break-words w-full px-1";
-        orbBase.appendChild(textContainer);
-        capsule.appendChild(orbBase);
+      const capsule = document.createElement("div");
+      capsule.className = "word-capsule";
+      capsule.style.display = "none";
+      capsule.style.transform = "translate3d(-50%, -200px, 0)";
+      capsule.dataset.poolIndex = i;
 
-        capsule.addEventListener("click", () => {
-            const id = parseInt(capsule.dataset.id);
-            if (!isNaN(id)) handleTap(id);
-        });
-        capsule.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            const id = parseInt(capsule.dataset.id);
-            if (!isNaN(id)) handleTap(id);
-        }, { passive: false });
+      // Pre-build inner DOM structure (avoid innerHTML on every spawn)
+      const orbBase = document.createElement("div");
+      orbBase.className =
+        "orb-base w-[6.5rem] h-[6.5rem] sm:w-[8rem] sm:h-[8rem] flex flex-col items-center justify-center shadow-2xl p-2";
+      const textContainer = document.createElement("div");
+      textContainer.className =
+        "font-headline font-bold text-white uppercase tracking-wide drop-shadow-lg text-center break-words w-full px-1";
+      orbBase.appendChild(textContainer);
+      capsule.appendChild(orbBase);
 
-        playground.appendChild(capsule);
-        
-        capsulePool.push({
-            element: capsule,
-            isActive: false
-        });
+      capsule.addEventListener("click", () => {
+        const id = parseInt(capsule.dataset.id);
+        if (!isNaN(id)) handleTap(id);
+      });
+      capsule.addEventListener(
+        "touchstart",
+        (e) => {
+          e.preventDefault();
+          const id = parseInt(capsule.dataset.id);
+          if (!isNaN(id)) handleTap(id);
+        },
+        { passive: false },
+      );
+
+      playground.appendChild(capsule);
+
+      capsulePool.push({
+        element: capsule,
+        isActive: false,
+      });
     }
     updatePlaygroundHeight();
     initPopupPool();
   }
-  
+
   function releaseCapsule(poolItem) {
     poolItem.isActive = false;
     poolItem.element.style.display = "none";
     poolItem.element.style.transform = "translate3d(-50%, -200px, 0)";
     poolItem.element.style.pointerEvents = "none";
   }
-
 
   // --- Game Audio ---
   let bgMusic = null;
@@ -194,15 +224,21 @@
     if (lives <= 1) {
       if (statusText) statusText.textContent = "CRITICAL";
       if (statusIcon) statusIcon.textContent = "warning";
-      if (statusPill) statusPill.className = "border border-[#ff0055] bg-[#330011] text-[#ff0055] px-2 py-0.5 rounded-md flex items-center gap-1 text-[10px] sm:text-xs font-headline font-bold uppercase w-fit shadow-[0_0_10px_rgba(255,0,85,0.2)]";
+      if (statusPill)
+        statusPill.className =
+          "border border-[#ff0055] bg-[#330011] text-[#ff0055] px-2 py-0.5 rounded-md flex items-center gap-1 text-[10px] sm:text-xs font-headline font-bold uppercase w-fit shadow-[0_0_10px_rgba(255,0,85,0.2)]";
     } else if (lives <= 2) {
       if (statusText) statusText.textContent = "DAMAGED";
       if (statusIcon) statusIcon.textContent = "error";
-      if (statusPill) statusPill.className = "border border-[#ff9d00] bg-[#332200] text-[#ff9d00] px-2 py-0.5 rounded-md flex items-center gap-1 text-[10px] sm:text-xs font-headline font-bold uppercase w-fit shadow-[0_0_10px_rgba(255,157,0,0.2)]";
+      if (statusPill)
+        statusPill.className =
+          "border border-[#ff9d00] bg-[#332200] text-[#ff9d00] px-2 py-0.5 rounded-md flex items-center gap-1 text-[10px] sm:text-xs font-headline font-bold uppercase w-fit shadow-[0_0_10px_rgba(255,157,0,0.2)]";
     } else {
       if (statusText) statusText.textContent = "OPTIMIZED";
       if (statusIcon) statusIcon.textContent = "check";
-      if (statusPill) statusPill.className = "border border-[#00ff66] bg-[#002211] text-[#00ff66] px-2 py-0.5 rounded-md flex items-center gap-1 text-[10px] sm:text-xs font-headline font-bold uppercase w-fit shadow-[0_0_10px_rgba(0,255,102,0.2)]";
+      if (statusPill)
+        statusPill.className =
+          "border border-[#00ff66] bg-[#002211] text-[#00ff66] px-2 py-0.5 rounded-md flex items-center gap-1 text-[10px] sm:text-xs font-headline font-bold uppercase w-fit shadow-[0_0_10px_rgba(0,255,102,0.2)]";
     }
   }
 
@@ -277,7 +313,7 @@
   function spawnWord() {
     if (isPaused || isGameOver) return;
 
-    const poolItem = capsulePool.find(c => !c.isActive);
+    const poolItem = capsulePool.find((c) => !c.isActive);
     if (!poolItem) return;
 
     const isToxic = Math.random() < config.toxicRatio;
@@ -286,25 +322,26 @@
     totalWordsSpawned++;
 
     const id = wordIdCounter++;
-    
+
     let xPos = 15 + Math.random() * 70;
-    
+
     // Anti-collision / merging logic
     let attempts = 0;
-    while(attempts < 10) {
-        let overlap = false;
-        for (const w of activeWords) {
-            // Check recently spawned orbs at the top
-            if (w.y < 200 && Math.abs(w.xPos - xPos) < 28) { 
-                overlap = true;
-                break;
-            }
+    while (attempts < 10) {
+      let overlap = false;
+      for (const w of activeWords) {
+        // Check recently spawned orbs at the top
+        if (w.y < 200 && Math.abs(w.xPos - xPos) < 28) {
+          overlap = true;
+          break;
         }
-        if (!overlap) break;
-        
-        if (xPos > 50) xPos = 15 + Math.random() * 30; // Switch sides
-        else xPos = 55 + Math.random() * 30;
-        attempts++;
+      }
+      if (!overlap) break;
+
+      if (xPos > 50)
+        xPos = 15 + Math.random() * 30; // Switch sides
+      else xPos = 55 + Math.random() * 30;
+      attempts++;
     }
 
     const parts = word.split(" | ");
@@ -312,47 +349,55 @@
     // Measure the longest visual line for scaling
     let maxLineLen = 0;
     if (parts.length === 2) {
-        const hindi = parts[0];
-        const english = parts[1];
-        maxLineLen = Math.max(hindi.length, english.length);
-        displayHtml = `
+      const hindi = parts[0];
+      const english = parts[1];
+      maxLineLen = Math.max(hindi.length, english.length);
+      displayHtml = `
             <span class="block text-[18px] sm:text-[24px] leading-tight mb-1">${hindi}</span>
             <span class="block text-[12px] sm:text-[14px] opacity-80 font-normal">${english}</span>
         `;
     } else {
-        maxLineLen = word.length;
-        const isHindi = /[\u0900-\u097F]/.test(word);
-        const fontSizeClass = isHindi ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl";
-        displayHtml = `<span class="${fontSizeClass}">${word}</span>`;
+      maxLineLen = word.length;
+      const isHindi = /[\u0900-\u097F]/.test(word);
+      let fontSizeClass = isHindi ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl";
+      if (!isHindi) {
+        if (maxLineLen > 11) fontSizeClass = "text-base sm:text-lg";
+        else if (maxLineLen > 8) fontSizeClass = "text-lg sm:text-xl";
+      }
+      displayHtml = `<span class="${fontSizeClass}">${word}</span>`;
     }
 
     // Dynamic ball size based on text length
     let sizeClass;
-    if (maxLineLen > 14 || (parts.length === 2 && maxLineLen > 10)) {
-        sizeClass = "w-[9rem] h-[9rem] sm:w-[11rem] sm:h-[11rem]";
-    } else if (maxLineLen > 9 || parts.length === 2) {
-        sizeClass = "w-[7.5rem] h-[7.5rem] sm:w-[9.5rem] sm:h-[9.5rem]";
+    if (maxLineLen > 12 || (parts.length === 2 && maxLineLen > 9)) {
+      sizeClass = "w-[9rem] h-[9rem] sm:w-[11rem] sm:h-[11rem]";
+    } else if (maxLineLen > 7 || parts.length === 2) {
+      sizeClass = "w-[7.5rem] h-[7.5rem] sm:w-[9.5rem] sm:h-[9.5rem]";
     } else {
-        sizeClass = "w-[6.5rem] h-[6.5rem] sm:w-[8rem] sm:h-[8rem]";
+      sizeClass = "w-[6.5rem] h-[6.5rem] sm:w-[8rem] sm:h-[8rem]";
     }
 
     const capsule = poolItem.element;
     capsule.dataset.id = id;
     capsule.dataset.toxic = isToxic;
-    
+
     capsule.style.left = xPos + "%";
     capsule.style.transform = `translate3d(-50%, -100px, 0)`;
     capsule.style.display = "block";
     capsule.style.pointerEvents = "auto";
-    
+
     // Choose random ball
-    const randomBall = BALL_TYPES[Math.floor(Math.random() * BALL_TYPES.length)];
-    
+    const randomBall =
+      BALL_TYPES[Math.floor(Math.random() * BALL_TYPES.length)];
+
     // Reuse pre-built DOM — just update class and text (no innerHTML rewrite)
     const orbEl = capsule.querySelector(".orb-base");
-    orbEl.className = "orb-base " + sizeClass + " flex flex-col items-center justify-center shadow-2xl p-2";
+    orbEl.className =
+      "orb-base " +
+      sizeClass +
+      " flex flex-col items-center justify-center shadow-2xl p-2";
     orbEl.style.backgroundImage = `url('balls/${randomBall.file}')`;
-    orbEl.style.setProperty('--orb-glow', randomBall.color);
+    orbEl.style.setProperty("--orb-glow", randomBall.color);
     orbEl.classList.remove("zap-effect");
     orbEl.style.border = "";
     orbEl.querySelector("div").innerHTML = displayHtml;
@@ -438,17 +483,17 @@
 
   // --- Score Popup (pooled — no DOM creation/removal during gameplay) ---
   function showScorePopup(wordObj, text, color) {
-    const poolItem = popupPool.find(p => p.element.style.display === "none");
+    const poolItem = popupPool.find((p) => p.element.style.display === "none");
     if (!poolItem) return;
-    
+
     const popup = poolItem.element;
     popup.style.left = wordObj.xPos + "%";
-    popup.style.top = (wordObj.y - 30) + "px";
+    popup.style.top = wordObj.y - 30 + "px";
     popup.style.transform = "translateX(-50%)";
     popup.style.color = color;
     popup.style.textShadow = "0 0 10px " + color;
     popup.innerHTML = text;
-    
+
     // Re-trigger animation without reflow (use display toggle)
     popup.style.display = "none";
     // Force style recalc via rAF instead of offsetWidth reflow
@@ -457,7 +502,7 @@
       popup.classList.remove("score-popup");
       popup.classList.add("score-popup");
     });
-    
+
     if (poolItem.timer) clearTimeout(poolItem.timer);
     poolItem.timer = setTimeout(() => {
       popup.style.display = "none";
@@ -658,9 +703,22 @@
   // --- Intro Logic ---
   const isResuming = params.get("resume") === "1";
 
-  // Wait for fonts to be ready before starting or showing the UI un-styled
-  document.fonts.ready.then(() => {
+  if (startGameBtn && !isResuming) {
+    startGameBtn.disabled = true;
+    startGameBtn.innerHTML = `<span class="material-symbols-outlined text-2xl animate-spin">refresh</span>LOADING ASSETS...`;
+    startGameBtn.classList.add("opacity-70", "pointer-events-none");
+  }
+
+  // Wait for fonts and all assets to load before starting or showing the UI fully interactive
+  Promise.all([document.fonts.ready, ...preloadPromises]).then(() => {
     initObjectPool();
+
+    if (startGameBtn && !isResuming) {
+      startGameBtn.disabled = false;
+      startGameBtn.innerHTML = `<span class="material-symbols-outlined text-2xl">play_arrow</span>START GAME`;
+      startGameBtn.classList.remove("opacity-70", "pointer-events-none");
+    }
+
     if (isResuming) {
       // Skip intro on resume
       introOverlay.style.display = "none";
