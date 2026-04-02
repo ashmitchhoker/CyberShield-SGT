@@ -278,33 +278,13 @@
 /* Components - Orbs */
 .orb-base {
   border-radius: 50%;
-  border: 4px solid;
+  border: none;
   transition: transform 0.1s;
-  background-blend-mode: overlay;
-}
-
-.orb-orange {
-  border-color: #ffe599;
-  background: radial-gradient(circle at 40% 20%, rgba(255, 230, 200, 0.6) 0%, rgba(180, 60, 0, 0.8) 35%, rgba(60, 20, 0, 0.95) 90%);
-  box-shadow: 0 0 20px 4px rgba(255, 120, 0, 0.8), 0 0 45px 8px rgba(220, 40, 0, 0.6), inset 0 0 20px 4px rgba(255, 150, 0, 0.9), inset 0 -20px 30px rgba(0, 0, 0, 0.8);
-}
-
-.orb-purple {
-  border-color: #f6b3ff;
-  background: radial-gradient(circle at 40% 20%, rgba(240, 200, 255, 0.6) 0%, rgba(110, 0, 180, 0.8) 35%, rgba(40, 0, 80, 0.95) 90%);
-  box-shadow: 0 0 20px 4px rgba(200, 0, 255, 0.8), 0 0 45px 8px rgba(120, 0, 220, 0.6), inset 0 0 20px 4px rgba(180, 0, 255, 0.9), inset 0 -20px 30px rgba(0, 0, 0, 0.8);
-}
-
-.orb-cyan {
-  border-color: #b3f0ff;
-  background: radial-gradient(circle at 40% 20%, rgba(200, 240, 255, 0.6) 0%, rgba(0, 130, 160, 0.8) 35%, rgba(0, 30, 60, 0.95) 90%);
-  box-shadow: 0 0 20px 4px rgba(0, 200, 255, 0.8), 0 0 45px 8px rgba(0, 100, 255, 0.6), inset 0 0 20px 4px rgba(0, 180, 255, 0.9), inset 0 -20px 30px rgba(0, 0, 0, 0.8);
-}
-
-.orb-red {
-  border-color: #ffb3c6;
-  background: radial-gradient(circle at 40% 20%, rgba(255, 200, 215, 0.6) 0%, rgba(180, 0, 60, 0.8) 35%, rgba(60, 10, 30, 0.95) 90%);
-  box-shadow: 0 0 20px 4px rgba(255, 30, 100, 0.8), 0 0 45px 8px rgba(220, 0, 50, 0.6), inset 0 0 20px 4px rgba(255, 50, 100, 0.9), inset 0 -20px 30px rgba(0, 0, 0, 0.8);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 20px 4px rgba(var(--orb-glow, 255, 120, 0), 0.6), 0 0 45px 8px rgba(var(--orb-glow, 220, 80, 0), 0.3);
+  position: relative;
 }
 
 .word-capsule {
@@ -333,22 +313,9 @@ body {
 
 /* === Mobile Performance Optimizations === */
 @media (max-width: 768px) {
-  /* Simplify heavy orb box-shadows (4 layers → 1 layer) */
-  .orb-orange {
-    box-shadow: 0 0 15px 3px rgba(255, 120, 0, 0.7);
-  }
-  .orb-purple {
-    box-shadow: 0 0 15px 3px rgba(200, 0, 255, 0.7);
-  }
-  .orb-cyan {
-    box-shadow: 0 0 15px 3px rgba(0, 200, 255, 0.7);
-  }
-  .orb-red {
-    box-shadow: 0 0 15px 3px rgba(255, 30, 100, 0.7);
-  }
-
-  /* Remove transitions from orbs and alert bar during gameplay */
+  /* Simplify heavy orb box-shadows for mobile */
   .orb-base {
+    box-shadow: 0 0 12px 2px rgba(var(--orb-glow, 255, 120, 0), 0.5) !important;
     transition: none !important;
   }
 

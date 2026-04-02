@@ -289,22 +289,33 @@
         attempts++;
     }
 
-    const orbColors = ['orb-orange', 'orb-purple', 'orb-cyan', 'orb-red'];
-    const orbClass = orbColors[Math.floor(Math.random() * orbColors.length)];
-
     const parts = word.split(" | ");
     let displayHtml = "";
+    // Measure the longest visual line for scaling
+    let maxLineLen = 0;
     if (parts.length === 2) {
         const hindi = parts[0];
         const english = parts[1];
+        maxLineLen = Math.max(hindi.length, english.length);
         displayHtml = `
             <span class="block text-[18px] sm:text-[24px] leading-tight mb-1">${hindi}</span>
             <span class="block text-[12px] sm:text-[14px] opacity-80 font-normal">${english}</span>
         `;
     } else {
+        maxLineLen = word.length;
         const isHindi = /[\u0900-\u097F]/.test(word);
         const fontSizeClass = isHindi ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl";
         displayHtml = `<span class="${fontSizeClass}">${word}</span>`;
+    }
+
+    // Dynamic ball size based on text length
+    let sizeClass;
+    if (maxLineLen > 14 || (parts.length === 2 && maxLineLen > 10)) {
+        sizeClass = "w-[9rem] h-[9rem] sm:w-[11rem] sm:h-[11rem]";
+    } else if (maxLineLen > 9 || parts.length === 2) {
+        sizeClass = "w-[7.5rem] h-[7.5rem] sm:w-[9.5rem] sm:h-[9.5rem]";
+    } else {
+        sizeClass = "w-[6.5rem] h-[6.5rem] sm:w-[8rem] sm:h-[8rem]";
     }
 
     const capsule = poolItem.element;
@@ -316,9 +327,25 @@
     capsule.style.display = "block";
     capsule.style.pointerEvents = "auto";
     
+    // Choose random ball
+    const BALL_TYPES = [
+        { file: 'blue.png', color: '0, 100, 255' },
+        { file: 'brown.png', color: '139, 69, 19' },
+        { file: 'cyan.png', color: '0, 212, 255' },
+        { file: 'golden.png', color: '255, 215, 0' },
+        { file: 'green.png', color: '0, 255, 100' },
+        { file: 'purple.png', color: '180, 0, 255' },
+        { file: 'red.png', color: '255, 50, 50' },
+        { file: 'silver.png', color: '200, 200, 200' },
+        { file: 'yellow.png', color: '255, 255, 0' }
+    ];
+    const randomBall = BALL_TYPES[Math.floor(Math.random() * BALL_TYPES.length)];
+    
     // Reuse pre-built DOM — just update class and text (no innerHTML rewrite)
     const orbEl = capsule.querySelector(".orb-base");
-    orbEl.className = "orb-base " + orbClass + " w-[6.5rem] h-[6.5rem] sm:w-[8rem] sm:h-[8rem] flex flex-col items-center justify-center shadow-2xl p-2";
+    orbEl.className = "orb-base " + sizeClass + " flex flex-col items-center justify-center shadow-2xl p-2";
+    orbEl.style.backgroundImage = `url('balls/${randomBall.file}')`;
+    orbEl.style.setProperty('--orb-glow', randomBall.color);
     orbEl.classList.remove("zap-effect");
     orbEl.style.border = "";
     orbEl.querySelector("div").innerHTML = displayHtml;
