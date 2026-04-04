@@ -13,6 +13,7 @@
   const introOverlay = document.getElementById("intro-overlay");
   const startGameBtn = document.getElementById("start-game-btn");
   const hud = document.getElementById("hud");
+  const turretBarrel = document.getElementById("turret-barrel");
 
   // --- Parse level from URL ---
   const params = new URLSearchParams(window.location.search);
@@ -114,6 +115,85 @@
     }
   }
 
+  // --- Laser Beam Pool ---
+  const LASER_POOL_SIZE = 8;
+  const laserPool = [];
+  function initLaserPool() {
+    for (let i = 0; i < LASER_POOL_SIZE; i++) {
+      const laser = document.createElement("div");
+      laser.className =
+        "absolute z-10 pointer-events-none transform origin-bottom";
+      laser.style.width = "4px";
+      laser.style.display = "none";
+      laser.style.bottom = "0px";
+      laser.style.left = "calc(50% - 2px)";
+      laser.style.transition = "opacity 0.2s ease-out";
+      playground.appendChild(laser);
+      laserPool.push({ element: laser, timer: null });
+    }
+  }
+
+  function fireLaser(targetXPercent, targetYPixels, isToxic) {
+    const poolItem = laserPool.find((l) => l.element.style.display === "none");
+    if (!poolItem) return;
+
+    const laser = poolItem.element;
+    const color = isToxic ? "#00d4ff" : "#ff4444";
+    laser.style.background = `linear-gradient(to top, rgba(0,0,0,0) 0%, ${color} 20%, #fff 80%, rgba(0,0,0,0) 100%)`;
+    laser.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+
+    const pgRect = playground.getBoundingClientRect();
+    const targetX = (targetXPercent / 100) * pgRect.width;
+    const targetY = targetYPixels;
+
+    const originX = pgRect.width / 2;
+    const originY = pgRect.height;
+
+    const dx = targetX - originX;
+    const dy = targetY - originY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    // Angle from straight up
+    const angle = Math.atan2(dy, dx) + Math.PI / 2;
+
+    laser.style.height = `${distance}px`;
+    laser.style.transform = `rotate(${angle}rad)`;
+    laser.style.opacity = "1";
+    laser.style.display = "block";
+
+    if (turretBarrel && !window.matchMedia("(pointer: fine)").matches) {
+      turretBarrel.style.transform = `rotate(${angle}rad)`;
+    }
+
+    clearTimeout(poolItem.timer);
+    poolItem.timer = setTimeout(() => {
+      laser.style.opacity = "0";
+      setTimeout(() => {
+        laser.style.display = "none";
+        if (turretBarrel && !window.matchMedia("(pointer: fine)").matches) {
+          turretBarrel.style.transform = "rotate(0rad)";
+        }
+      }, 200);
+    }, 150);
+  }
+
+  // --- PC Mouse Tracking for Turret ---
+  document.addEventListener("mousemove", (e) => {
+    if (!turretBarrel || isPaused || isGameOver) return;
+
+    // Only track if on a mouse/trackpad pointer device
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
+    const pgRect = playground.getBoundingClientRect();
+    const originX = pgRect.left + pgRect.width / 2;
+    const originY = pgRect.top + pgRect.height;
+
+    const dx = e.clientX - originX;
+    const dy = e.clientY - originY;
+    const angle = Math.atan2(dy, dx) + Math.PI / 2;
+
+    turretBarrel.style.transform = `rotate(${angle}rad)`;
+  });
+
   function initObjectPool() {
     for (let i = 0; i < POOL_SIZE; i++) {
       const capsule = document.createElement("div");
@@ -155,9 +235,11 @@
     }
     updatePlaygroundHeight();
     initPopupPool();
+    initLaserPool();
   }
 
   function releaseCapsule(poolItem) {
+    if (!poolItem) return;
     poolItem.isActive = false;
     poolItem.element.style.display = "none";
     poolItem.element.style.transform = "translate3d(-50%, -200px, 0)";
@@ -359,7 +441,9 @@
     } else {
       maxLineLen = word.length;
       const isHindi = /[\u0900-\u097F]/.test(word);
-      let fontSizeClass = isHindi ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl";
+      let fontSizeClass = isHindi
+        ? "text-2xl sm:text-3xl"
+        : "text-xl sm:text-2xl";
       if (!isHindi) {
         if (maxLineLen > 11) fontSizeClass = "text-base sm:text-lg";
         else if (maxLineLen > 8) fontSizeClass = "text-lg sm:text-xl";
@@ -421,6 +505,9 @@
 
     const wordObj = activeWords[idx];
     const el = wordObj.poolItem.element;
+
+    // Fire laser UI effect
+    fireLaser(wordObj.xPos, wordObj.y, wordObj.isToxic);
 
     if (wordObj.isToxic) {
       // Correct zap!
@@ -710,28 +797,40 @@
   }
 
   // Wait for fonts and all assets to load before starting or showing the UI fully interactive
-  Promise.all([document.fonts.ready, ...preloadPromises]).then(() => {
-    initObjectPool();
+  // Fallback timeout in case of strict browser autoplay policies blocking media preload
+  Promise.race([
+    Promise.all([
+      document.fonts?.ready || Promise.resolve(),
+      ...preloadPromises,
+    ]),
+    new Promise((resolve) => setTimeout(resolve, 1500)),
+  ])
+    .catch((err) => {
+      console.error("Asset loading error:", err);
+      // Proceed anyway if there's an error
+    })
+    .finally(() => {
+      initObjectPool();
 
-    if (startGameBtn && !isResuming) {
-      startGameBtn.disabled = false;
-      startGameBtn.innerHTML = `<span class="material-symbols-outlined text-2xl">play_arrow</span>START GAME`;
-      startGameBtn.classList.remove("opacity-70", "pointer-events-none");
-    }
+      if (startGameBtn && !isResuming) {
+        startGameBtn.disabled = false;
+        startGameBtn.innerHTML = `<span class="material-symbols-outlined text-2xl">play_arrow</span>START GAME`;
+        startGameBtn.classList.remove("opacity-70", "pointer-events-none");
+      }
 
-    if (isResuming) {
-      // Skip intro on resume
-      introOverlay.style.display = "none";
-      hud.style.display = "";
-      initMusic();
-      startGame();
-    } else {
-      startGameBtn.addEventListener("click", () => {
+      if (isResuming) {
+        // Skip intro on resume
         introOverlay.style.display = "none";
         hud.style.display = "";
         initMusic();
         startGame();
-      });
-    }
-  });
+      } else {
+        startGameBtn.addEventListener("click", () => {
+          introOverlay.style.display = "none";
+          hud.style.display = "";
+          initMusic();
+          startGame();
+        });
+      }
+    });
 })();

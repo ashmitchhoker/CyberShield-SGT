@@ -17,18 +17,19 @@
     <link rel="stylesheet" href="css/global.css" />
     <script src="js/components.js"></script>
   </head>
-  <body class="bg-[#03010b] text-on-surface font-body min-h-[100dvh] overflow-x-hidden flex flex-col items-center"
+  <body
+    class="bg-[#03010b] text-on-surface font-body min-h-[100dvh] overflow-x-hidden flex flex-col items-center"
   >
     <script src="game-data.js"></script>
 
-    
     <!-- Frozen Background -->
     <div class="fixed inset-0 z-0 pointer-events-none">
-        <div class="cyber-grid w-full h-full opacity-60"></div>
-        <div id="starfield" class="absolute inset-0"></div>
+      <div class="cyber-grid w-full h-full opacity-60"></div>
+      <div id="starfield" class="absolute inset-0"></div>
     </div>
-    <div class="fixed inset-0 z-0 bg-surface/60 backdrop-blur-md pointer-events-none"></div>
-
+    <div
+      class="fixed inset-0 z-0 bg-surface/60 backdrop-blur-md pointer-events-none"
+    ></div>
 
     <!-- Main Pause Overlay -->
     <main
@@ -95,9 +96,9 @@
         <nav class="flex flex-col gap-4">
           <button
             id="resume-btn"
-            class="ion-gradient-primary text-on-primary font-headline font-bold tracking-widest uppercase py-4 rounded-lg flex items-center justify-center gap-3 active:scale-95 transition-all neon-glow-cyan"
+            class="bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-headline font-bold tracking-widest uppercase text-lg py-4 rounded-xl flex items-center justify-center gap-3 active:scale-95 transition-all shadow-[0_0_25px_rgba(0,212,255,0.4)] hover:scale-[1.02]"
           >
-            <span class="material-symbols-outlined">play_circle</span>
+            <span class="material-symbols-outlined text-2xl">play_circle</span>
             RESUME
           </button>
           <button
@@ -251,7 +252,7 @@
 
         // Sound toggle
         const soundIcon = document.getElementById("sound-icon");
-        let soundOn = settings.soundEffects;
+        let soundOn = settings.soundEffects || settings.music;
         soundIcon.textContent = soundOn ? "volume_up" : "volume_off";
 
         document
@@ -261,6 +262,14 @@
             soundIcon.textContent = soundOn ? "volume_up" : "volume_off";
             const s = GameData.getSettings();
             s.soundEffects = soundOn;
+            s.music = soundOn;
+            if (bgMusic) {
+              if (soundOn) {
+                bgMusic.play().catch((e) => console.log(e));
+              } else {
+                bgMusic.pause();
+              }
+            }
             GameData.saveSettings(s);
           });
 
